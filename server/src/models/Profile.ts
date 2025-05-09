@@ -1,13 +1,15 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, ObjectId, Types } from 'mongoose';
+// import { IDeck } from './Deck.js';
 import bcrypt from 'bcrypt';
 
 // Define an interface for the Profile document
-interface IProfile extends Document {
+export interface IProfile extends Document {
   _id: string;
   name: string;
   email: string;
   password:string;
-  skills: string[];
+  decks: Types.ObjectId[];
+  favorites:  Types.ObjectId[];
   isCorrectPassword(password: string): Promise<boolean>;
 }
 
@@ -31,12 +33,18 @@ const profileSchema = new Schema<IProfile>(
       required: true,
       minlength: 5,
     },
-    skills: [
-      {
-        type: String,
-        trim: true,
-      },
+    decks: [
+         {
+        type: Schema.Types.ObjectId,
+        ref: "Decks"
+      }
     ],
+    favorites: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Flashcard"
+      }
+    ]
   },
   {
     timestamps: true,

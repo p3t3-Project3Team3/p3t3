@@ -1,0 +1,1 @@
+// this is a page component for the study of the Flashcards

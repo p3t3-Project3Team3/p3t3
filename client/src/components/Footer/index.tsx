@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
             &larr; Go Back
           </button>
         )}
-        <h4>&copy; {new Date().getFullYear()} - Project Three Team</h4>
+        <h4>&copy; {new Date().getFullYear()} - Project 3 Team 3</h4>
       </div>
     </footer>
   );

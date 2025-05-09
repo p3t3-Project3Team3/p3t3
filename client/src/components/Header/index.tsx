@@ -13,7 +13,7 @@ const Header = () => {
       <div>
         <Link to="/">
           <h1>
-            Project 3
+             Code Games
           </h1>
         </Link>
         <div>

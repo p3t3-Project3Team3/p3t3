@@ -2,51 +2,36 @@
     {
         "name": "Brian Kernighan",
         "email": "bkernighan@techfriends.dev",
-        "password": "password01"
+        "password": "password01",
+        "Deck": ["JS", "TS", "CSS"],
+        "Favorites": ["FLASHCARD ID", "FLASHCARD ID"]
     },
     {
         "name": "Max Kanat-Alexander",
         "email": "mkanatalexander@techfriends.dev",
-        "password": "password02"
+        "password": "password02",
+        "Deck": ["JS", "TS", "CSS"],
+        "Favorites": []
     },
     {
         "name": "Amiko",
         "email": "amiko@techfriends.dev",
-        "password": "password03"
+        "password": "password03",
+        "Deck": ["JS", "TS", "CSS"],
+        "Favorites": []
     },
     {
         "name": "Kent Beck",
         "email": "kbeck@techfriends.dev",
-        "password": "password04"
+        "password": "password04",
+        "Deck": ["JS", "TS", "CSS"],
+        "Favorites": []
     },
     {
         "name": "Edward V. Berard",
         "email": "evberard@techfriends.dev",
-        "password": "password05"
-    },
-    {
-        "name": "Alan Kay",
-        "email": "akay@techfriends.dev",
-        "password": "password06"
-    },
-    {
-        "name": "C.A.R. Hoare",
-        "email": "choare@techfriends.dev",
-        "password": "password07"
-    },
-    {
-        "name": "David Thomas",
-        "email": "dthomas@techfriends.dev",
-        "password": "password08"
-    },
-    {
-        "name": "Donald Knuth",
-        "email": "dknuth@techfriends.dev",
-        "password": "password09"
-    },
-    {
-        "name": "Lernantino",
-        "email": "lernantino@techfriends.dev",
-        "password": "password10"
+        "password": "password05",
+        "Deck": ["JS", "TS", "CSS"],
+        "Favorites": []
     }
 ]

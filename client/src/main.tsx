@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Error from './pages/Error';
+import About from './pages/AboutUs';
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,67 @@ const router = createBrowserRouter([
       }, {
         path: '/me',
         element: <Profile />
-      }
+      },
+      //   {
+      // path:'/flashCards',
+      // element: <FlashCards/>
+      // },
+      // {
+      //   path:'/flashCards/Decks',
+      //   element: <Decks/>
+      // },
+      // {
+      //   path:'/flashCards/Decks/:deckId',
+      //   element: <Deck/>
+      // },
+      // {
+      //   path:'/flashCards/NewCard',
+      //   element: <NewCard/>
+      // },
+      // {
+      //   path:'/flashCards/NewDeck',
+      //   element: <NewDeck/>
+      // },
+      // {
+      //   path:'/flashCards/Decks/:deckId/Card/:cardId',
+      //   element: <Card/>
+      // },
+      // {
+      //   path:'/flashCards/Decks/:deckId/EditCard/:cardId',
+      //   element: <EditCard/>
+      // },
+      // {
+      //   path:'/flashCards/Decks/:deckId/EditDeck/:deckId',
+      //   element: <EditDeck/>
+      // },
+      // {
+      //   path:'/flashCards/Decks/:deckId/Study',
+      //   element: <Study/>
+      // },{
+      //   path:'/flashCards/Decks/:deckId/Study/:cardId',
+      //   element: <Study/>
+      // },
+      // {
+      //   path:'/flashCards/Decks/:deckId/Study/New',
+      //   element: <NewStudy/>
+      // },
+      // {
+      //   path:'/flashCards/Decks/:deckId/Game',
+      //   element: <Game/>
+      // },{
+      //   path:'/flashCards/Decks/:deckId/Game/:cardId',
+      //   element: <Game/>
+      // },
+      // {  
+      //   path:'/flashCards/Decks/:deckId/Game/New',
+      //   element: <NewGame/>
+      // },
+      {
+        path:'/AboutUs',
+        element: <About/>
+      },
+  
+  
     ]
   },
 ]);
