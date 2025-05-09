@@ -31,7 +31,7 @@
     "name": "Edward V. Berard",
     "email": "evberard@techfriends.dev",
     "password": "password05",
-    "Deck": ["JS", "TS", "CSS"],
+    "Deck": ["JS", "TS", "CSS"], 
     "Favorites": []
   }
 ]
