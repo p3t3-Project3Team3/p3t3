@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { type MouseEvent} from 'react';
 import Auth from '../../utils/auth';
 import "./Header.css"
+import 'semantic-ui-css/semantic.min.css';
 
 const Header = () => {
   const logout = (event: MouseEvent<HTMLButtonElement>) => {
@@ -10,17 +11,18 @@ const Header = () => {
   };
   return (
     <header>
-      <div>
+      <h1> Brain Games</h1>
+      {/* <div>
         <Link to="/">
-          <h1>
-             Code Games
-          </h1>
+          <h2>
+             link to home page goes here
+          </h2>
         </Link>
         <div>
           {Auth.loggedIn() ? (
             <>
               <Link to="/me">
-                View My Profile
+                View My Profile<i className="user icon"></i>
               </Link>
               <button onClick={logout}>
                 Logout
@@ -37,7 +39,7 @@ const Header = () => {
             </>
           )}
         </div>
-      </div>
+      </div> */}
     </header>
   );
 };

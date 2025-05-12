@@ -1,3 +1,25 @@
-header a {
-    margin: 1em;
+header {
+  h1 {
+    font-family: cursive;
+    font-weight: bolder;
+    font-size: 4em;
+    text-shadow: 4px 2px 2px #184457;
+    text-align: center;
+  }
+
+  /* img {
+    border-radius: 50px;
+    height: 100px;
+    width: 100px;
+} */
+
+  a {
+    text-decoration: none;
+    padding: 3px;
+  }
+
+  a:hover {
+    color: white;
+    text-decoration: none;
+  }
 }

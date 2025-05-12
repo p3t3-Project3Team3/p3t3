@@ -8,6 +8,7 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Error from './pages/Error';
 import About from './pages/AboutUs';
+import "./index.css";
 
 const router = createBrowserRouter([
   {

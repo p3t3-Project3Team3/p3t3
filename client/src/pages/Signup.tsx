@@ -8,7 +8,7 @@ import Auth from '../utils/auth';
 
 const Signup = () => {
   const [formState, setFormState] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
   });
@@ -41,46 +41,64 @@ const Signup = () => {
   };
 
   return (
-    <main>
-      <div>
-        <div>
+    <>
+            <div className="column">
           <h4>Sign Up</h4>
-          <div>
+          <div >
             {data ? (
               <p>
                 Success! You may now head{' '}
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  placeholder="Your username"
-                  name="name"
-                  type="text"
-                  value={formState.name}
-                  onChange={handleChange}
-                />
-                <input
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </form>
+                  <form onSubmit={handleFormSubmit} className="ui form">
+                   <div className="field">
+                     <label>Username</label>
+                    <div className="ui left icon input">
+                    <input
+                      placeholder="username"
+                      name="username"
+                      type="username"
+                      value={formState.username}
+                      onChange={handleChange}
+                      />
+                    <i className="user icon"></i>
+                    </div> 
+                    </div>
+                     <div className="field">
+              <label>Email</label>
+              <div className="ui left icon input">
+                    <input
+                      placeholder="Your email"
+                      name="email"
+                      type="email"
+                      value={formState.email}
+                      onChange={handleChange}
+                      />
+                       <i className="envelope icon"></i>
+                    </div>
+                      </div>
+                    <div className="field">
+              <label>Password</label>
+              <div className="ui left icon input">
+                    <input
+                      placeholder="******"
+                      name="password"
+                      type="password"
+                      value={formState.password}
+                      onChange={handleChange}
+                      />
+                    <i className="lock icon"></i>
+                    </div>
+                      </div>
+                    <button
+                      style={{ cursor: 'pointer' }}
+                      type="submit"
+                      className="ui purple submit button"
+                    >
+                      Submit
+                    </button>
+                  </form>
             )}
 
             {error && (
@@ -90,8 +108,7 @@ const Signup = () => {
             )}
           </div>
         </div>
-      </div>
-    </main>
+    </>
   );
 };
 

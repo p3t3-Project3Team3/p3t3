@@ -1,0 +1,13 @@
+ *{
+  margin: 0;
+}
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: rgba(71, 190, 223, 0.662);
+  color: black;
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+

@@ -1,15 +1,18 @@
+import 'semantic-ui-css/semantic.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from "react";
-import logo from "../assets/logo.jpeg";
-import auth from "../utils/auth";
+import auth from "../../utils/auth";
 import { NavLink } from 'react-router-dom';
-import "../styles/components.css";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { useNavigate } from "react-router";
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import '../Nav/Nav.css';
+import Login from '../../pages/Login';
+// import { useNavigate } from "react-router";
 
-const Navigation = () => {
-  const  navigate = useNavigate();
+const NavigationBar = () => {
+//   const  navigate = useNavigate();
   const [loginCheck, setLoginCheck] = useState(false);
 
   const checkLogin = () => {
@@ -22,20 +25,51 @@ const Navigation = () => {
     checkLogin();
   }, [loginCheck]);
 
+//   const goToLogin = () => {
+//     if (!auth.loggedIn()) {
+//       navigate('/login');
+//     }
+//   };
+
+//   const goToaddDeck = () => {
+//     if (auth.loggedIn()) {
+//       navigate('/flashcards/decks');
+//     }
+//   };
+
+//     const goToDecks = () => {  
+//         if (auth.loggedIn()) {
+//             navigate('/flashcards/decks');
+//         }
+//         }   
+
+
   return (
-    <Navbar className="nav" expand="lg">
-    <Container>
-      <Navbar.Brand>
-      <img
-        src={logo}
-        width="40"
-        height="40"
-        alt="Code Games logo"
-      />
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="navbar-links">
+    <>
+    <Navbar expand="lg" className="bg-body-tertiary">
+      <Container>
+        {/* <Navbar.Brand href="#home">My App</Navbar.Brand> */}
+        {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="#pricing"><Login /> </Nav.Link>
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#features">Create Deck</Nav.Link>
+            <Nav.Link href="#pricing">View Deck</Nav.Link>
+            <NavDropdown title="Games" id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Flashcards</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                    Matching
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Crosswords</NavDropdown.Item>
+            </NavDropdown>
+            <Nav.Link href="#pricing">About Us</Nav.Link>
+            <Nav.Link href="#pricing">Leaderboard</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+    {/* <div className="nav-container">
         <div className="nav-links-container">
           <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
           {loginCheck && (
@@ -44,8 +78,8 @@ const Navigation = () => {
           {/* {loginCheck && (
             <NavLink to="/sell" className={({ isActive }) => isActive ? "active" : ""}></NavLink>
           )} */}
-        </div>
-        <div className="user-info">
+        {/* </div> */}
+        {/* <div className="user-info">
           {loginCheck && (
            
               <svg xmlns="http://www.w3.org/2000/svg"
@@ -55,8 +89,7 @@ const Navigation = () => {
                 viewBox="0 0 20 20">
                 <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
               </svg>
-            </div>
-          )}
+          )}</div>
           {!loginCheck ? (
             <NavLink className={({ isActive }) => isActive ? "active" : ""} to='/login'>Login</NavLink>
           ) : (
@@ -72,12 +105,9 @@ const Navigation = () => {
                 </svg>
               </div>
             )}
-        </div>
-      </Nav>
-         </Navbar.Collapse>
-    </Container>
-  </Navbar>
+        </div> */} 
+        </>
   );
 };
 
-export default Navigation;
+export default NavigationBar;

@@ -1,90 +1,123 @@
-import { useState, type FormEvent, type ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
+import { useState, useEffect, type FormEvent, type ChangeEvent } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
+import "semantic-ui-css/semantic.min.css";
+import "../styles/Loginstyle.css";
+import Signup from "./Signup";
 
-import Auth from '../utils/auth';
+import Auth from "../utils/auth";
 
 const Login = () => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+  const [redirectToSignup, setRedirectToSignup] = useState(false);
 
-  // update state based on form input changes
-  const handleChange = (event: ChangeEvent) => {
-    const { name, value } = event.target as HTMLInputElement;
 
-    setFormState({
-      ...formState,
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormState((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
-  // submit form
   const handleFormSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(formState);
     try {
-      const { data } = await login({
-        variables: { ...formState },
-      });
-
+      const { data } = await login({ variables: { ...formState } });
       Auth.login(data.login.token);
+      setModalVisible(false);
     } catch (e) {
       console.error(e);
     }
 
-    // clear form values
-    setFormState({
-      email: '',
-      password: '',
-    });
+    setFormState({ email: "", password: "" });
+  };
+
+  if (redirectToSignup) {
+    return <Navigate to="/signup" />;
+  }
+
+    // click login button to show modal
+  const modalClick = () => {
+    const modal = document.querySelector(".ui.modal");
+    if (modal) {
+      modal.classList.toggle("active");
+      modal.classList.toggle("visible");
+    }
   };
 
   return (
-    <main>
-      <div>
-        <div>
-          <h4>Login</h4>
-          <div>
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
-              </p>
-            ) : (
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  placeholder="Your email"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                />
-                <input
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-                <button
-                  style={{ cursor: 'pointer' }}
-                  type="submit"
-                >
-                  Submit
+    <>
+      <button
+        className="ui blue submit button"
+        style={{ cursor: "pointer" }}
+        onClick={modalClick}
+      >
+        <h4>Login/Signup</h4>
+      </button>
+
+      <div className="ui modal">
+        <div className="ui segment">
+          <div className="ui two column very relaxed grid">
+            <div className="column">
+              <h4>Login</h4>
+              <form onSubmit={handleFormSubmit} className="ui form">
+                <div className="field">
+                  <label>Email</label>
+                  <div className="ui left icon input">
+                    <input
+                      placeholder="email"
+                      name="email"
+                      type="email"
+                      value={formState.email}
+                      onChange={handleChange}
+                    />
+                    <i className="envelope icon"></i>
+                  </div>
+                </div>
+                <div className="field">
+                  <label>Password</label>
+                  <div className="ui left icon input">
+                    <input
+                      placeholder="******"
+                      name="password"
+                      type="password"
+                      value={formState.password}
+                      onChange={handleChange}
+                    />
+                    <i className="lock icon"></i>
+                  </div>
+                </div>
+                <button type="submit" className="ui purple submit button">
+                  Login
                 </button>
               </form>
-            )}
 
-            {error && (
-              <div>
-                {error.message}
-              </div>
-            )}
+              {error && (
+                <div className="ui negative message">
+                  <div className="header">Login failed</div>
+                  <p>{error.message}</p>
+                </div>
+              )}
+
+              <button
+                className="ui big purple button"
+                onClick={() => setRedirectToSignup(true)}
+              >
+                <i className="signup icon"></i>
+                Sign Up
+              </button>
+            </div>
+      <Signup />
           </div>
+            <div className="ui vertical divider">
+    or
+  </div>
         </div>
       </div>
-    </main>
+    </>
   );
 };
 

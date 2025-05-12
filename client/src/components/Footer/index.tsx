@@ -1,4 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css';
+import './Footer.css';
 
 const Footer: React.FC = () => {
   const location = useLocation();
@@ -22,7 +24,13 @@ const Footer: React.FC = () => {
             &larr; Go Back
           </button>
         )}
-        <h4>&copy; {new Date().getFullYear()} - Project 3 Team 3</h4>
+        <div className="social-icons">
+          <p><i className="instagram icon"></i></p>
+          <p><i className="facebook icon"></i></p>
+          <p><i className="twitter icon"></i></p>
+          <p><i className="youtube icon"></i></p>
+        </div>
+        <h4>&copy; {new Date().getFullYear()} - Brain Games</h4>
       </div>
     </footer>
   );

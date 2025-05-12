@@ -9,6 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
 import Header from './components/Header';
+import NavigationBar from './components/Nav';
 import Footer from './components/Footer';
 
 const httpLink = createHttpLink({
@@ -39,7 +40,7 @@ function App() {
     <ApolloProvider client={client}>
       <div className="flex-column justify-flex-start min-100-vh">
         <Header />
-        {/* <Navbar /> */}
+        <NavigationBar />
         <div className="container">
           <Outlet />
         </div>
