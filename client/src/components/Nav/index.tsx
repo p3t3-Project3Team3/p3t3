@@ -1,18 +1,19 @@
-import 'semantic-ui-css/semantic.min.css';
+// import 'semantic-ui-css/semantic.min.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from "react";
 import auth from "../../utils/auth";
-import { NavLink } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import '../Nav/Nav.css';
-import Login from '../../pages/Login';
+import { NavLink } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import "../Nav/Nav.css";
+import Login from "../../pages/Login";
+
 // import { useNavigate } from "react-router";
 
 const NavigationBar = () => {
-//   const  navigate = useNavigate();
+  //   const  navigate = useNavigate();
   const [loginCheck, setLoginCheck] = useState(false);
 
   const checkLogin = () => {
@@ -25,51 +26,82 @@ const NavigationBar = () => {
     checkLogin();
   }, [loginCheck]);
 
-//   const goToLogin = () => {
-//     if (!auth.loggedIn()) {
-//       navigate('/login');
-//     }
-//   };
+  const [showDropdown, setShowDropdown] = useState(false);
 
-//   const goToaddDeck = () => {
-//     if (auth.loggedIn()) {
-//       navigate('/flashcards/decks');
-//     }
-//   };
+  //   const goToLogin = () => {
+  //     if (!auth.loggedIn()) {
+  //       navigate('/login');
+  //     }
+  //   };
 
-//     const goToDecks = () => {  
-//         if (auth.loggedIn()) {
-//             navigate('/flashcards/decks');
-//         }
-//         }   
+  //   const goToaddDeck = () => {
+  //     if (auth.loggedIn()) {
+  //       navigate('/flashcards/decks');
+  //     }
+  //   };
 
+  //     const goToDecks = () => {
+  //         if (auth.loggedIn()) {
+  //             navigate('/flashcards/decks');
+  //         }
+  //         }
 
   return (
     <>
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        {/* <Navbar.Brand href="#home">My App</Navbar.Brand> */}
-        {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#pricing"><Login /> </Nav.Link>
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Create Deck</Nav.Link>
-            <Nav.Link href="#pricing">View Deck</Nav.Link>
-            <NavDropdown title="Games" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Flashcards</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                    Matching
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Crosswords</NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#pricing">About Us</Nav.Link>
-            <Nav.Link href="#pricing">Leaderboard</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-    {/* <div className="nav-container">
+      <Navbar expand="lg" className="bg-body-tertiary">
+        <Container>
+          {/* <Navbar.Brand href="#home">My App</Navbar.Brand> */}
+          {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#pricing">
+                <Login />{" "}
+              </Nav.Link>
+              <Nav.Link as={NavLink} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link href="#features">Create Deck</Nav.Link>
+              <Nav.Link href="#pricing">View Deck</Nav.Link>
+              <NavDropdown
+                title={
+                  <NavLink
+                    to="/game"
+                    className="dropdown-title-link"
+                    onClick={(e) => e.stopPropagation()} // prevents dropdown from toggling on click
+                  >
+                    Games
+                  </NavLink>
+                }
+                id="games-dropdown"
+                show={showDropdown}
+                onMouseEnter={() => setShowDropdown(true)}
+                onMouseLeave={() => setShowDropdown(false)}
+              >
+                <NavDropdown.Item as={NavLink} to="/FlashCards">
+                  Flashcards
+                </NavDropdown.Item>{" "}
+                <br />
+                <NavDropdown.Item as={NavLink} to="/Matching">
+                  Matching
+                </NavDropdown.Item>{" "}
+                <br />
+                <NavDropdown.Item as={NavLink} to="/Crossword">
+                  Crosswords
+                </NavDropdown.Item>{" "}
+                <br />
+              </NavDropdown>
+              <Nav.Link as={NavLink} to="/AboutUs">
+                About Us
+              </Nav.Link>
+              {loginCheck && (
+  <Nav.Link as={NavLink} to="/leaderboard">Leaderboard</Nav.Link>
+)}
+
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      {/* <div className="nav-container">
         <div className="nav-links-container">
           <NavLink to="/" className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
           {loginCheck && (
@@ -78,8 +110,8 @@ const NavigationBar = () => {
           {/* {loginCheck && (
             <NavLink to="/sell" className={({ isActive }) => isActive ? "active" : ""}></NavLink>
           )} */}
-        {/* </div> */}
-        {/* <div className="user-info">
+      {/* </div> */}
+      {/* <div className="user-info">
           {loginCheck && (
            
               <svg xmlns="http://www.w3.org/2000/svg"
@@ -105,8 +137,8 @@ const NavigationBar = () => {
                 </svg>
               </div>
             )}
-        </div> */} 
-        </>
+        </div> */}
+    </>
   );
 };
 

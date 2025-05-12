@@ -6,14 +6,44 @@
   a {
     color: white;
   }
-  a:hover{
+  a:hover {
     color: rgb(0, 117, 171);
     background-color: white;
   }
-  .navbar-nav{
+  .navbar-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+  }
+  button {
+    background-color: #5ecfff;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-left: 8px;
+  }
+  .dropdown-menu {
+    background-color: rgb(0, 117, 171);
+    z-index: 1100;
+    position: absolute;
+    padding: 5px;
+  }
+  .dropdown-item:hover,
+  .dropdown-item:focus {
+    background-color: white;
+    color: rgb(0, 117, 171);
+
+  }
+}
+
+.dark {
+  .navbar {
+    background-color: #24b4f2;
+    a {
+      color: black;
+    }
   }
 }

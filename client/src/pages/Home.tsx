@@ -9,13 +9,15 @@ const Home = () => {
   return (
     <main>
       <div>
-        <div>
+        <h1>Welcome to the Brain games Page</h1>
+        <h4>This is the home page. It can display the games and the different decks here.</h4>
+        {/* <div>
           {loading ? (
             <div>Loading...</div>
           ) : (
             <h3>There are {profiles.length} users.</h3>
           )}
-        </div>
+        </div> */}
       </div>
     </main>
   );

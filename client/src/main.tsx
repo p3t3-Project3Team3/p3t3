@@ -1,13 +1,17 @@
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from './App.jsx';
-import Home from './pages/Home';
-import Profile from './pages/Profile';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
-import Error from './pages/Error';
-import About from './pages/AboutUs';
+import App from "./App.jsx";
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import Error from "./pages/Error";
+import About from "./pages/AboutUs";
+import FlashCards from "./pages/FlashCard";
+import Matching from "./pages/Matching";
+import Crossword from "./pages/Crossword";
+import Game from "./pages/Game";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -18,24 +22,36 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
-      }, {
-        path: '/login',
-        element: <Login />
-      }, {
-        path: '/signup',
-        element: <Signup />
-      }, {
-        path: '/profiles/:profileId',
-        element: <Profile />
-      }, {
-        path: '/me',
-        element: <Profile />
+        element: <Home />,
       },
-      //   {
-      // path:'/flashCards',
-      // element: <FlashCards/>
-      // },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+      {
+        path: "/profiles/:profileId",
+        element: <Profile />,
+      },
+      {
+        path: "/me",
+        element: <Profile />,
+      },
+      {
+        path: "/flashCards",
+        element: <FlashCards />,
+      },
+      {
+        path: "/matching",
+        element: <Matching />,
+      },
+      {
+        path: "/crossword",
+        element: <Crossword />,
+      },
       // {
       //   path:'/flashCards/Decks',
       //   element: <Decks/>
@@ -82,21 +98,23 @@ const router = createBrowserRouter([
       //   path:'/flashCards/Decks/:deckId/Game/:cardId',
       //   element: <Game/>
       // },
-      // {  
+      // {
       //   path:'/flashCards/Decks/:deckId/Game/New',
       //   element: <NewGame/>
       // },
       {
-        path:'/AboutUs',
-        element: <About/>
+        path: "/game",
+        element: <Game />,
       },
-  
-  
-    ]
+      {
+        path: "/AboutUs",
+        element: <About />,
+      },
+    ],
   },
 ]);
 
-const rootElement = document.getElementById('root');
+const rootElement = document.getElementById("root");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
 }

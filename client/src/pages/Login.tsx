@@ -27,7 +27,6 @@ const Login = () => {
     try {
       const { data } = await login({ variables: { ...formState } });
       Auth.login(data.login.token);
-      setModalVisible(false);
     } catch (e) {
       console.error(e);
     }
@@ -50,14 +49,8 @@ const Login = () => {
 
   return (
     <>
-      <button
-        className="ui blue submit button"
-        style={{ cursor: "pointer" }}
-        onClick={modalClick}
-      >
-        <h4>Login/Signup</h4>
-      </button>
 
+        <p onClick={modalClick}>Login/Signup</p>
       <div className="ui modal">
         <div className="ui segment">
           <div className="ui two column very relaxed grid">
@@ -103,7 +96,7 @@ const Login = () => {
               )}
 
               <button
-                className="ui big purple button"
+                className="ui purple button"
                 onClick={() => setRedirectToSignup(true)}
               >
                 <i className="signup icon"></i>

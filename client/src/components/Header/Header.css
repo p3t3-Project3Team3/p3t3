@@ -5,6 +5,7 @@ header {
     font-size: 4em;
     text-shadow: 4px 2px 2px #184457;
     text-align: center;
+    margin-top: 0px;
   }
 
   /* img {
@@ -22,4 +23,39 @@ header {
     color: white;
     text-decoration: none;
   }
+
+  button {
+    float:left;
+    background-color: #5ecfff;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+    margin-left: 8px;
+  }
 }
+
+.dark header {
+  h1 {
+    color:#5ecfff;
+  }
+
+  /* img {
+    border-radius: 50px;
+    height: 100px;
+    width: 100px;
+} */
+
+  a {
+    text-decoration: none;
+    padding: 3px;
+  }
+
+  a:hover {
+    color: rgb(37, 11, 11);
+    text-decoration: none;
+  }
+}
+
+
