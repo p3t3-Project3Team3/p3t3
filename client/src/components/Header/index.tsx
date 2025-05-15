@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { type MouseEvent, useState } from 'react';
 import Auth from '../../utils/auth';
 import "./Header.css"
 import 'semantic-ui-css/semantic.min.css';
 
 const Header = () => {
-  const logout = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    Auth.logout();
-  }; // Ensure this is used or remove it
+  // const logout = (event: MouseEvent<HTMLButtonElement>) => {
+  //   event.preventDefault();
+  //   Auth.logout();
+  // }; // Ensure this is used or remove it
 
   //darkmode button
   const [darkMode, setDarkMode] = useState(() => {
@@ -29,7 +29,7 @@ const Header = () => {
       <button onClick={toggleDarkMode}>
           <i className={`${darkMode ? 'moon icon' : 'sun icon'}`}></i>
         </button>
-      <h1> Brain Games</h1>
+      <h1> Study Games</h1>
       {/* <div>
         <Link to="/">
           <h2>

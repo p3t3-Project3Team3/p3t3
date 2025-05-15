@@ -12,6 +12,7 @@ import FlashCards from "./pages/FlashCard";
 import Matching from "./pages/Matching";
 import Crossword from "./pages/Crossword";
 import Game from "./pages/Game";
+import Decks from "./pages/Decks";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -41,21 +42,21 @@ const router = createBrowserRouter([
         element: <Profile />,
       },
       {
-        path: "/flashCards",
+        path: "/game/flashCards",
         element: <FlashCards />,
       },
       {
-        path: "/matching",
+        path: "/game/matching",
         element: <Matching />,
       },
       {
-        path: "/crossword",
+        path: "/game/crossword",
         element: <Crossword />,
       },
-      // {
-      //   path:'/flashCards/Decks',
-      //   element: <Decks/>
-      // },
+      {
+        path:'/game/flashCards/Decks',
+        element: <Decks/>
+      },
       // {
       //   path:'/flashCards/Decks/:deckId',
       //   element: <Deck/>

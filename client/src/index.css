@@ -4,12 +4,15 @@
 body {
   overflow: auto;
   font-family: 'Poppins', sans-serif;
-  background-color: rgba(71, 190, 223, 0.662);
+  background-color: #51b5d1b1;
   color: black;
 }
 h1 {
   font-size: 2em;
   margin: 0.67em 0;
+}
+main{
+  padding: 0 10px;
 }
 
 .dark{

@@ -21,10 +21,10 @@ const seedDatabase = async (): Promise<void> => {
     const createdDecks: IDeck[] = [];
       for (const deck of deckSeeds) {
         const user = createdProfiles.find(
-          (profile) => profile._id.toString() === deck.createdBy
+          (profile) => profile.username === deck.createdByUsername
         );
         if (!user) {
-          console.error(`User ${deck.createdBy} not found for deck ${deck.title}`)
+          console.error(`User ${deck.createdByUsername} not found for deck ${deck.title}`)
           continue;
         }
         const createdDeck = await Deck.create({
@@ -41,7 +41,7 @@ const seedDatabase = async (): Promise<void> => {
     const createdFlashcards: IFlashcard[] = [];
     for (const flashcard of flashcardSeeds) {
       const deck = createdDecks.find(
-        (deck) => deck._id.toString() === flashcard.deck
+        (deck) => deck.title === flashcard.deck
       );
       if (!deck) {
         console.error(`Flashcard ${flashcard.term} not found in deck ${flashcard.deck}`);

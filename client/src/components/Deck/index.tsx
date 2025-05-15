@@ -11,14 +11,15 @@
 // //       navigate('/');
 // //     }
 // //   }
-  
-//   return (
-//     <>
-//       <div>
-        
-//       </div>
-//     </>
-//   );
-// };
 
-export default Deck;
+const deck = () => {
+  return (
+    <>
+      <div>
+        
+      </div>
+    </>
+  );
+};
+
+export default deck;

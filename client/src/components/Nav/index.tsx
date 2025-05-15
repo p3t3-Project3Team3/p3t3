@@ -61,7 +61,7 @@ const NavigationBar = () => {
                 Home
               </Nav.Link>
               <Nav.Link href="#features">Create Deck</Nav.Link>
-              <Nav.Link href="#pricing">View Deck</Nav.Link>
+              <Nav.Link as={NavLink} to="/game/flashCards/Decks">View Decks</Nav.Link>
               <NavDropdown
                 title={
                   <NavLink
@@ -77,15 +77,15 @@ const NavigationBar = () => {
                 onMouseEnter={() => setShowDropdown(true)}
                 onMouseLeave={() => setShowDropdown(false)}
               >
-                <NavDropdown.Item as={NavLink} to="/FlashCards">
+                <NavDropdown.Item as={NavLink} to="game/FlashCards">
                   Flashcards
                 </NavDropdown.Item>{" "}
                 <br />
-                <NavDropdown.Item as={NavLink} to="/Matching">
+                <NavDropdown.Item as={NavLink} to="game/Matching">
                   Matching
                 </NavDropdown.Item>{" "}
                 <br />
-                <NavDropdown.Item as={NavLink} to="/Crossword">
+                <NavDropdown.Item as={NavLink} to="game/Crossword">
                   Crosswords
                 </NavDropdown.Item>{" "}
                 <br />

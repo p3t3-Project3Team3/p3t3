@@ -24,7 +24,7 @@
         "term": "Node.js",
         "definition": "A JavaScript runtime built on Chrome's V8 JavaScript engine.",
         "example": "const http = require('http');",
-        "deck": "NOJSDE",
+        "deck": "JS",
         "isFavorite": false
     },
     {

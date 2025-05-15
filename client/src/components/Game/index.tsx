@@ -1,5 +1,5 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import Study from '../Study';
+// import { useLocation, useNavigate } from 'react-router-dom';
+// import Study from '../Study';
 // const Footer: React.FC = () => {
 //   const location = useLocation();
 //   const navigate = useNavigate();
@@ -11,14 +11,14 @@ import Study from '../Study';
 //       navigate('/');
 //     }
 //   }
-  
-//   return (
-//     <>
-//       <div>
+const NewCard = () => {
+  return (
+    <>
+      <div>
         
-//       </div>
-//     </>
-//   );
-// };
+      </div>
+    </>
+  );
+};
 
 export default NewCard;

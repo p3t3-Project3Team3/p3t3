@@ -1,5 +1,5 @@
 // import { useLocation, useNavigate } from 'react-router-dom';
-
+const study = () => {
 // // const Footer: React.FC = () => {
 // //   const location = useLocation();
 // //   const navigate = useNavigate();
@@ -12,13 +12,13 @@
 // //     }
 // //   }
   
-//   return (
-//     <>
-//       <div>
+  return (
+    <>
+      <div>
         
-//       </div>
-//     </>
-//   );
-// };
+      </div>
+    </>
+  );
+};
 
-// export default Study;
+export default study;

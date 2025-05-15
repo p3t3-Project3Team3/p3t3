@@ -11,14 +11,14 @@
 // //       navigate('/');
 // //     }
 // //   }
-  
-//   return (
-//     <>
-//       <div>
+const NewCard = () => {  
+  return (
+    <>
+      <div>
         
-//       </div>
-//     </>
-//   );
-// };
+      </div>
+    </>
+  );
+};
 
 export default NewCard;

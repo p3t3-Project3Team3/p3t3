@@ -1,4 +1,4 @@
-import { Schema, model, Document, ObjectId, Types } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 // import { IDeck } from './Deck.js';
 import bcrypt from 'bcrypt';
 
@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 export interface IProfile extends Document {
   _id: string;
   name: string;
+  username: string;
   email: string;
   password:string;
   decks: Types.ObjectId[];
@@ -28,13 +29,19 @@ const profileSchema = new Schema<IProfile>(
       unique: true,
       match: [/.+@.+\..+/, 'Must match an email address!'],
     },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+    },
     password: {
       type: String,
       required: true,
       minlength: 5,
     },
     decks: [
-         {
+        {
         type: Schema.Types.ObjectId,
         ref: "Decks"
       }

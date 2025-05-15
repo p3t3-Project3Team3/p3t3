@@ -1,5 +1,5 @@
 import { Schema, model, Document, ObjectId, Types } from 'mongoose';
-import  { IFlashcard } from "./flashcard.js";
+// import  { IFlashcard } from "./flashcard.js";
 
 
 // Define an interface for the Profile document

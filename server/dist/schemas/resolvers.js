@@ -1,3 +1,5 @@
+import Flashcard from '../models/flashcard.js';
+import Deck from '../models/Deck.js';
 import { Profile } from '../models/index.js';
 import { signToken, AuthenticationError } from '../utils/auth.js';
 const resolvers = {
@@ -13,6 +15,12 @@ const resolvers = {
                 return await Profile.findOne({ _id: context.user._id });
             }
             throw AuthenticationError;
+        },
+        getFlashcard: async (_parent, args, _context) => {
+            return Flashcard.findById(args.id);
+        },
+        getDeck: async (_parent, args, _context) => {
+            return Deck.findById(args.id).populate('flashcards');
         },
     },
     Mutation: {
@@ -33,28 +41,61 @@ const resolvers = {
             const token = signToken(profile.name, profile.email, profile._id);
             return { token, profile };
         },
-        addSkill: async (_parent, { profileId, skill }, context) => {
-            if (context.user) {
-                return await Profile.findOneAndUpdate({ _id: profileId }, {
-                    $addToSet: { skills: skill },
-                }, {
-                    new: true,
-                    runValidators: true,
-                });
-            }
-            throw AuthenticationError;
-        },
         removeProfile: async (_parent, _args, context) => {
             if (context.user) {
                 return await Profile.findOneAndDelete({ _id: context.user._id });
             }
             throw AuthenticationError;
         },
-        removeSkill: async (_parent, { skill }, context) => {
-            if (context.user) {
-                return await Profile.findOneAndUpdate({ _id: context.user._id }, { $pull: { skills: skill } }, { new: true });
-            }
-            throw AuthenticationError;
+        createFlashcard: async (_parent, { term, definition, deck }, _context) => {
+            const exists = await Flashcard.findOne({ term, definition, deck });
+            if (exists)
+                throw new Error('Duplicate flashcard.');
+            const flashcard = await Flashcard.create({ term, definition, deck });
+            await Deck.findByIdAndUpdate(deck, { $push: { flashcards: flashcard._id } });
+            return flashcard;
+        },
+        updateFlashcard: async (_parent, { id, term, definition, isFavorite }, _context) => {
+            const updated = await Flashcard.findByIdAndUpdate(id, { $set: { term, definition, isFavorite } }, { new: true, runValidators: true });
+            if (!updated)
+                throw new Error('Flashcard not found.');
+            return updated;
+        },
+        deleteFlashcard: async (_parent, { id }, _context) => {
+            const deleted = await Flashcard.findByIdAndDelete(id);
+            if (!deleted)
+                throw new Error('Flashcard not found.');
+            await Deck.updateOne({ flashcards: id }, { $pull: { flashcards: id } });
+            return true;
+        },
+        toggleFavorite: async (_parent, { id }, _context) => {
+            const card = await Flashcard.findById(id);
+            if (!card)
+                throw new Error('Not found');
+            card.isFavorite = !card.isFavorite;
+            await card.save();
+            return card;
+        },
+        createDeck: async (_parent, { title, description, createdBy }, _context) => {
+            const exists = await Deck.findOne({ title });
+            if (exists)
+                throw new Error('Deck title must be unique.');
+            return Deck.create({ title, description, createdBy });
+        },
+        deleteDeck: async (_parent, { id }, _context) => {
+            const deck = await Deck.findByIdAndDelete(id);
+            if (!deck)
+                throw new Error('Deck not found');
+            await Flashcard.deleteMany({ deck: id });
+            return true;
+        },
+        archiveDeck: async (_parent, { id }, _context) => {
+            const deck = await Deck.findById(id);
+            if (!deck)
+                throw new Error('Deck not found');
+            deck.isPublic = false; // Treat isPublic = false as archived
+            await deck.save();
+            return deck;
         },
     },
 };

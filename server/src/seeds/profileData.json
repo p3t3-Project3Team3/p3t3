@@ -1,6 +1,7 @@
 [
   {
     "name": "Brian Kernighan",
+    "username": "Bigk",
     "email": "bkernighan@techfriends.dev",
     "password": "password01",
     "Deck": ["JS", "TS", "CSS"],
@@ -8,6 +9,7 @@
   },
   {
     "name": "Max Kanat-Alexander",
+    "username": "Max-A",
     "email": "mkanatalexander@techfriends.dev",
     "password": "password02",
     "Deck": ["JS", "TS", "CSS"],
@@ -15,6 +17,7 @@
   },
   {
     "name": "Amiko",
+    "username": "Ami",
     "email": "amiko@techfriends.dev",
     "password": "password03",
     "Deck": ["JS", "TS", "CSS"],
@@ -22,6 +25,7 @@
   },
   {
     "name": "Kent Beck",
+    "username": "K-Beck",
     "email": "kbeck@techfriends.dev",
     "password": "password04",
     "Deck": ["JS", "TS", "CSS"],
@@ -29,6 +33,7 @@
   },
   {
     "name": "Edward V. Berard",
+    "username": "EV-Berard",
     "email": "evberard@techfriends.dev",
     "password": "password05",
     "Deck": ["JS", "TS", "CSS"], 

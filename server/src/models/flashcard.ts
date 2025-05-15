@@ -1,4 +1,4 @@
-import { Schema, model, Document, ObjectId, Types } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
 // Define an interface for the flashcard document
 export interface IFlashcard extends Document {
