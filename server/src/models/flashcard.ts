@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types } from 'mongoose';
+import { Schema, model, Document, Types, ObjectId } from 'mongoose';
 
 // Define an interface for the flashcard document
 export interface IFlashcard extends Document {
@@ -6,6 +6,7 @@ export interface IFlashcard extends Document {
   term: string;
   definition: string;
   deck: Types.ObjectId;
+  createdBy: ObjectId;
   isFavorite?: boolean;
 }
 
@@ -23,14 +24,19 @@ const flashcardSchema = new Schema<IFlashcard>(
       required: true,
       unique: true,
     },
-    isFavorite: {
-      type: Boolean,
-      default: false,
-    },
     deck: {
       type: Schema.Types.ObjectId,
       ref: "Deck",
       required: true,
+    },
+    createdBy: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Profile",
+    },
+    isFavorite: {
+      type: Boolean,
+      default: false,
     }
   },
   {

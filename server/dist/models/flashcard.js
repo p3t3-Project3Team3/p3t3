@@ -12,14 +12,19 @@ const flashcardSchema = new Schema({
         required: true,
         unique: true,
     },
-    isFavorite: {
-        type: Boolean,
-        default: false,
-    },
     deck: {
         type: Schema.Types.ObjectId,
         ref: "Deck",
         required: true,
+    },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "Profile",
+    },
+    isFavorite: {
+        type: Boolean,
+        default: false,
     }
 }, {
     timestamps: true,

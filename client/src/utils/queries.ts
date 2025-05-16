@@ -37,6 +37,9 @@ export const QUERY_FLASHCARD = gql`
       isFavorite
       createdAt
       updatedAt
+      createdBy {
+        username
+      }
     }
   }
 `;
@@ -47,20 +50,24 @@ export const QUERY_ALL_DECKS = gql`
       title
       description
       isPublic
-      createdBy
+      createdBy {
+      username}
       flashcards {
         _id
         term
         definition
         isFavorite
+        createdBy {
+        username
+      }
       }
     }
   }
 `;
 
 export const QUERY_SINGLEDECK = gql`
-  query getDeck($id: ID!) {
-    getDeck(id: $id) {
+  query getSingleDeck($id: ID!) {
+    getSingleDeck(id: $id) {
       _id
       title
       description

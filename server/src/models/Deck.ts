@@ -29,7 +29,7 @@ const deckSchema = new Schema<IDeck>(
     createdBy: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: "User",
+      ref: "Profile",
     },
     isPublic: {
       type: Boolean,

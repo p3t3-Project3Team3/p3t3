@@ -14,7 +14,7 @@ const deckSchema = new Schema({
     createdBy: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: "User",
+        ref: "Profile",
     },
     isPublic: {
         type: Boolean,

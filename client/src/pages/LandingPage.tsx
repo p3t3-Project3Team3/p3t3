@@ -3,6 +3,7 @@ import  Button from "./../components/UI/Button";
 import BlockContent from "./../components/UI/Block";
 import Block from "./../components/UI/Block";
 import { useNavigate } from "react-router-dom";
+// import "./../styles/LandingPage.css"; // Import your CSS file for styling
 
 
 
@@ -12,15 +13,20 @@ export default function LandingPage() {
     let path = `SignUp`; 
     navigate(path);
   }
+  const routeLogin = () => { 
+    let path = `Login`; 
+    navigate(path);
+  }
+  
   return (
-    <div className="Hero">
+    <div className="LandingPage">
       {/* Hero Section */}
       <div>
         <h1>Master Anything, One Game at a Time</h1>
         <p>Transform studying into a game. Create flashcards, play interactive games, and boost your learning.</p>
         <div>
           <Button variant="primary" className="ui violet button"onClick={routeSignUp}>Sign Up for Free</Button>
-          <Button variant="primary" className="ui violet button">Log In</Button>
+          <Button variant="primary" className="ui violet button"onClick={routeLogin}>Log In</Button>
         </div>
       </div>
 

@@ -26,20 +26,16 @@ const typeDefs = `
     definition: String
     deck: ID
     isFavorite: Boolean
+    createdBy: Profile
     createdAt: String
     updatedAt: String
   }
 
-  type getAllDecks{
-    getDeck(id: ID!): Deck
-      getAllDecks: [Deck] 
-  }
-
-  type getSingleDeck {
+ type Deck {
     _id: ID!
     title: String!
     description: String
-    createdBy: ID!
+    createdBy: Profile!
     isPublic: Boolean
     flashcards: [Flashcard]
     createdAt: String
@@ -50,8 +46,9 @@ const typeDefs = `
     profiles: [Profile]!
     profile(profileId: ID!): Profile
     me: Profile
-     getFlashcard(id: ID!): Flashcard
-     getAllDecks(id:ID!): [Deck]
+
+    getFlashcard(id: ID!): Flashcard
+    getAllDecks(id:ID!): [Deck]
     getSingleDeck(id: ID!): Deck
   }
 
@@ -60,14 +57,13 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     removeProfile: Profile
 
-    # deck mutations
     createFlashcard(term: String!, definition: String!, deck: ID!): Flashcard
     updateFlashcard(id: ID!, term: String, definition: String, isFavorite: Boolean): Flashcard
     deleteFlashcard(id: ID!): Boolean
     toggleFavorite(id: ID!): Flashcard
+
     createDeck(title: String!, description: String, createdBy: ID!): Deck
     deleteDeck(id: ID!): Boolean
-    archiveDeck(id: ID!): Deck
   }
 `;
 export default typeDefs;

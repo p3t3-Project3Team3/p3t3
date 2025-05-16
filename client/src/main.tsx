@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AuthService from "./utils/auth"; 
+// import AuthService from "./utils/auth"; 
 
 import App from "./App.jsx";
 import Home from "./pages/Home";
@@ -18,20 +18,7 @@ import NewCard from "./components/NewCard/index";
 import LandingPage from "./pages/LandingPage";
 import "./index.css";
 
-function requireAuth() {
-  if (!AuthService.loggedIn()) {
-    return redirect("/login");
-  }
-  return null;
-}
 
-// Loader to redirect logged-in users away from auth pages & landing page
-function redirectIfAuth() {
-  if (AuthService.loggedIn()) {
-    return redirect("/home");
-  }
-  return null;
-}
 
 const router = createBrowserRouter([
   {
@@ -41,69 +28,56 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <LandingPage />,
-        loader: redirectIfAuth,
+        element: <LandingPage />
       },
       {
         index: true,
-        element: <Home />,
-        loader: requireAuth,
+        element: <Home />
       },
       {
         path: "/login",
-        element: <Login />,
-        loader: redirectIfAuth,
+        element: <Login />
       },
       {
         path: "/signup",
-        element: <Signup />,
-        loader: redirectIfAuth,
+        element: <Signup />
 
       },
       {
         path: "/profiles/:profileId",
-        element: <Profile />,
-        loader: requireAuth,
+        element: <Profile />
       },
       {
         path: "/me",
-        element: <Profile />,
-        loader: requireAuth,
+        element: <Profile />
       },
       {
         path: "/game/flashCards",
-        element: <FlashCards />,
-        loader: requireAuth,
+        element: <FlashCards />
       },
       {
         path: "/game/matching",
-        element: <Matching />,
-        loader: requireAuth,
+        element: <Matching />
       },
       {
         path: "/game/crossword",
         element: <Crossword />,
-        loader: requireAuth,
       },
       {
         path:'/game/flashCards/Decks',
-        element: <Decks/>,
-        loader: requireAuth,
+        element: <Decks/>
       },
        {
         path:'/flashCards/NewCard',
-        element: <NewCard/>,
-        loader: requireAuth,
+        element: <NewCard/>
       },
       {
         path: "/game",
-        element: <Game />,
-        loader: requireAuth,
+        element: <Game />
       },
       {
         path: "/AboutUs",
-        element: <About />,
-        loader: requireAuth,
+        element: <About />
       },
     ],
   },

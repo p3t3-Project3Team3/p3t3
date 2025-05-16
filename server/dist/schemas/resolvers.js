@@ -17,10 +17,10 @@ const resolvers = {
             throw AuthenticationError;
         },
         getFlashcard: async (_parent, args, _context) => {
-            return Flashcard.findById(args.id);
+            return Flashcard.findById(args.id).populate('createdBy').populate('deck');
         },
         getAllDecks: async () => {
-            return Deck.find().populate('flashcards');
+            return Deck.find().populate('flashcards').populate('createdBy');
         },
         getSingleDeck: async (_parent, args, _context) => {
             return Deck.findById(args.id).populate('flashcards');
@@ -34,13 +34,11 @@ const resolvers = {
         },
         login: async (_parent, { email, password }) => {
             const profile = await Profile.findOne({ email });
-            if (!profile) {
+            if (!profile)
                 throw AuthenticationError;
-            }
             const correctPw = await profile.isCorrectPassword(password);
-            if (!correctPw) {
+            if (!correctPw)
                 throw AuthenticationError;
-            }
             const token = signToken(profile.name, profile.email, profile._id);
             return { token, profile };
         },
@@ -50,11 +48,15 @@ const resolvers = {
             }
             throw AuthenticationError;
         },
-        createFlashcard: async (_parent, { term, definition, deck }, _context) => {
-            const exists = await Flashcard.findOne({ term, definition, deck });
-            if (exists)
-                throw new Error('Duplicate flashcard.');
-            const flashcard = await Flashcard.create({ term, definition, deck });
+        createFlashcard: async (_parent, { term, definition, deck }, context) => {
+            if (!context.user)
+                throw new AuthenticationError('Not logged in');
+            const flashcard = await Flashcard.create({
+                term,
+                definition,
+                deck,
+                createdBy: context.user._id,
+            });
             await Deck.findByIdAndUpdate(deck, { $push: { flashcards: flashcard._id } });
             return flashcard;
         },
@@ -91,6 +93,16 @@ const resolvers = {
                 throw new Error('Deck not found');
             await Flashcard.deleteMany({ deck: id });
             return true;
+        },
+    },
+    Flashcard: {
+        createdBy: async (flashcard) => {
+            return await Profile.findById(flashcard.createdBy);
+        },
+    },
+    Deck: {
+        createdBy: async (deck) => {
+            return await Profile.findById(deck.createdBy);
         },
     },
 };
