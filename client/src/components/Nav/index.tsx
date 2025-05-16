@@ -28,24 +28,6 @@ const NavigationBar = () => {
 
   const [showDropdown, setShowDropdown] = useState(false);
 
-  //   const goToLogin = () => {
-  //     if (!auth.loggedIn()) {
-  //       navigate('/login');
-  //     }
-  //   };
-
-  //   const goToaddDeck = () => {
-  //     if (auth.loggedIn()) {
-  //       navigate('/flashcards/decks');
-  //     }
-  //   };
-
-  //     const goToDecks = () => {
-  //         if (auth.loggedIn()) {
-  //             navigate('/flashcards/decks');
-  //         }
-  //         }
-
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary">

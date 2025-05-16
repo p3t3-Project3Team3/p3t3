@@ -1,24 +1,11 @@
 // import { useLocation, useNavigate } from 'react-router-dom';
-const cardFront = () => {
-// // const Footer: React.FC = () => {
-// //   const location = useLocation();
-// //   const navigate = useNavigate();
+import React from "react";
 
-// //   const handleGoBack = () => {
-// //     if(window.history.length > 1) { //Check if there is a previous page in the history stack
-// //       navigate(-1);
-// //     } else {
-// //       navigate('/');
-// //     }
-// //   }
-  
+export const CardFront: React.FC = () => {
   return (
-    <>
-      <div>
-        
-      </div>
-    </>
+    <div className="card-Fornt" id="card">
+      {/* Card trem content goes here */}
+      Card Front
+    </div>
   );
 };
-
-export default cardFront;

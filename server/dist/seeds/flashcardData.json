@@ -3,133 +3,133 @@
         "term": "JavaScript",
         "definition": "A programming language that adds dynamic functionality and complex features to web pages.",
         "example": "const x = 5; console.log(x);",
-        "deck": "JS",
+        "deck": "JavaScript",
         "isFavorite": false
     },
     {
         "term": "TypeScript",
         "definition": "A superset of JavaScript that adds static typing.",
         "example": "const x: number = 5; console.log(x);",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {
         "term": "React",
         "definition": "A JavaScript library for building user interfaces.",
         "example": "<div>Hello, World!</div>",
-        "deck": "JS",
+        "deck": "JavaScript",
         "isFavorite": false
     },
     {
         "term": "Node.js",
         "definition": "A JavaScript runtime built on Chrome's V8 JavaScript engine.",
         "example": "const http = require('http');",
-        "deck": "JS",
+        "deck": "JavaScript",
         "isFavorite": false
     },
     {
         "term": "Boolean",
         "definition": "A data type that can hold one of two values: true or false.",
         "example": "let isActive: boolean = true;",
-        "deck": "JS",
+        "deck": "JavaScript",
         "isFavorite": false
     },
     {
         "term": "Array",
         "definition": "A data structure that can hold multiple values.",
         "example": "let numbers: number[] = [1, 2, 3];",
-        "deck": "JS",
+        "deck": "JavaScript",
         "isFavorite": false
     },
     {
         "term": "Function",
         "definition": "A block of code designed to perform a particular task.",
         "example": "function greet(name: string): string { return `Hello, ${name}`; }",
-        "deck": "JS",
+        "deck": "JavaScript",
         "isFavorite": false
     },
     {
         "term": "If Statement",
         "definition": "A control structure that executes a block of code if a specified condition is true.",
         "example": "if (x > 10) { console.log('x is greater than 10'); }",
-        "deck": "JS",
+        "deck": "JavaScript",
         "isFavorite": false
     },
     {
         "term": "For Loop",
         "definition": "A control structure that repeats a block of code a specified number of times.",
         "example": "for (let i = 0; i < 5; i++) { console.log(i); }",
-        "deck": "JS",
+        "deck": "JavaScript",
         "isFavorite": false
     },
     {
         "term": "Union Types",
         "definition": "A variable that can be assigned more than on type",
         "example": "let age: number | string = 25; age = '25';",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {
         "term": "Objects",
         "definition": "s a composite data type that represents a collection of key-value pairs, where keys are strings (or symbols) and values can be of any data type",
         "example": " { name: string; age: number;",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {
         "term": "Class",
         "definition": "defines the state of behaviour of objects.",
         "example": "",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {
         "term": "Interfaces",
         "definition": "defines a contract for an object's or class's structure",
         "example": "Person {  name: string;   age: number;   email: string; }",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {
         "term": "any",
         "definition": "a type that disables type checking and effectively allows all types to be used",
         "example": "let v: any = true; v = 5; v = 'hello';",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {
         "term": "unknown",
         "definition": "a type that is safer than any because it requires type checking before performing operations on it",
         "example": "let v: unknown; v = 5; if (typeof v === 'number') { console.log(v + 1); }",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {
         "term": "never",
         "definition": "a type that represents values that don't occur",
         "example": "function error(message: string): never { throw new Error(message); }",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {
         "term": "Explicit Type",
         "definition": "writing out the type",
         "example": " let name: string = 'John';",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {
         "term": "Implicit Type",
         "definition": "TypeScript will guess the type, based on the assigned value",
         "example": "let firstName = Dylan;",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {
         "term": "Primitive Types",
         "definition": "The most basic data types in TypeScript.",
         "example": "string, number, boolean, null, undefined, symbol",
-        "deck": "TS",
+        "deck": "TypeScript",
         "isFavorite": false
     },
     {

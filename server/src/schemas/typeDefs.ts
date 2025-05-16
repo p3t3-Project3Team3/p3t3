@@ -22,15 +22,30 @@ const typeDefs = `
 
   type Flashcard {
     _id: ID!
-    term: String!
-    definition: String!
-    deck: ID!
+    term: String
+    definition: String
+    deck: ID
     isFavorite: Boolean
     createdAt: String
     updatedAt: String
   }
 
-  type Deck {
+  type getAllDecks{
+    getDeck(id: ID!): Deck
+      getAllDecks: [Deck] 
+  }
+
+  type getSingleDeck {
+    _id: ID!
+    title: String!
+    description: String
+    createdBy: ID!
+    isPublic: Boolean
+    flashcards: [Flashcard]
+    createdAt: String
+    updatedAt: String
+  }
+  type getSingleDeck {
     _id: ID!
     title: String!
     description: String
@@ -46,7 +61,8 @@ const typeDefs = `
     profile(profileId: ID!): Profile
     me: Profile
      getFlashcard(id: ID!): Flashcard
-    getDeck(id: ID!): Deck
+     getAllDecks(id:ID!): [Deck]
+    getSingleDeck(id: ID!): Deck
   }
 
   type Mutation {

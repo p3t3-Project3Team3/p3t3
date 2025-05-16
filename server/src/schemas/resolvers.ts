@@ -46,7 +46,10 @@ const resolvers = {
     getFlashcard: async (_parent: unknown, args: { id: string }, _context: Context): Promise<IFlashcard | null> => {
       return Flashcard.findById(args.id);
     },
-    getDeck: async (_parent: unknown, args: { id: string }, _context: Context): Promise<IDeck | null> => {
+    getAllDecks: async (): Promise<IDeck[]> => {
+  return Deck.find().populate('flashcards');
+},
+    getSingleDeck: async (_parent: unknown, args: { id: string }, _context: Context): Promise<IDeck | null> => {
       return Deck.findById(args.id).populate('flashcards');
     },
   },
@@ -131,14 +134,6 @@ const resolvers = {
       if (!deck) throw new Error('Deck not found');
       await Flashcard.deleteMany({ deck: id });
       return true;
-    },
-
-    archiveDeck: async (_parent: unknown, { id }: { id: string }, _context: Context): Promise<IDeck> => {
-      const deck = await Deck.findById(id);
-      if (!deck) throw new Error('Deck not found');
-      deck.isPublic = false; // Treat isPublic = false as archived
-      await deck.save();
-      return deck;
     },
   },
 };

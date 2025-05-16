@@ -1,25 +1,12 @@
-// import { useLocation, useNavigate } from 'react-router-dom';
-
-// // const Footer: React.FC = () => {
-// //   const location = useLocation();
-// //   const navigate = useNavigate();
-
-// //   const handleGoBack = () => {
-// //     if(window.history.length > 1) { //Check if there is a previous page in the history stack
-// //       navigate(-1);
-// //     } else {
-// //       navigate('/');
-// //     }
-// //   }
-
-const deck = () => {
+// This file contains the Deck component, which is responsible for rendering the deck of cards in the game.
+const Deck = () => {
   return (
-    <>
-      <div>
-        
-      </div>
-    </>
+    <div className="deck">
+      <h2></h2>
+      <p>This is where the deck of cards will be displayed.</p>
+    </div>
   );
-};
+}
 
-export default deck;
+ 
+export default Deck;
