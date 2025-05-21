@@ -27,6 +27,7 @@ const profileSchema = new Schema<IProfile>(
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
       match: [/.+@.+\..+/, 'Must match an email address!'],
     },
     username: {

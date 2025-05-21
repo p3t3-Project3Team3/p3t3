@@ -12,12 +12,16 @@ const flashcardSchema = new Schema({
         required: true,
         unique: true,
     },
+    example: {
+        type: String,
+        trim: true,
+    },
     deck: {
         type: Schema.Types.ObjectId,
         ref: "Deck",
         required: true,
     },
-    createdBy: {
+    createdByUsername: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: "Profile",

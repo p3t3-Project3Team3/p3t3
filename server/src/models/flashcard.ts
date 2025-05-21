@@ -5,8 +5,9 @@ export interface IFlashcard extends Document {
   _id: string;
   term: string;
   definition: string;
+  example: string;
   deck: Types.ObjectId;
-  createdBy: ObjectId;
+  createdByUsername: ObjectId;
   isFavorite?: boolean;
 }
 
@@ -24,12 +25,16 @@ const flashcardSchema = new Schema<IFlashcard>(
       required: true,
       unique: true,
     },
+    example: {
+      type: String,
+      trim: true,
+    },
     deck: {
       type: Schema.Types.ObjectId,
       ref: "Deck",
       required: true,
     },
-    createdBy: {
+    createdByUsername: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Profile",

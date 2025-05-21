@@ -7,7 +7,7 @@ export interface IDeck extends Document {
   _id: string;
   title: string;
   description?: string;
-  createdBy: ObjectId;
+  createdByUsername: ObjectId;
   isPublic: boolean;
   flashcards: Types.ObjectId[];
   updatedAt: Date;
@@ -26,7 +26,7 @@ const deckSchema = new Schema<IDeck>(
       type: String,
       trim: true,
     },
-    createdBy: {
+    createdByUsername: {
       type: Schema.Types.ObjectId,
       required: true,
       ref: "Profile",

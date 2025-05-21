@@ -17,48 +17,58 @@ const seedDatabase = async (): Promise<void> => {
     await cleanDB();
 
     const createdProfiles: IProfile[] = await Profile.insertMany(profileSeeds);
-
     const createdDecks: IDeck[] = [];
-      for (const deck of deckSeeds) {
-        const user = createdProfiles.find(
-          (profile) => profile.username === deck.createdByUsername
-        );
-        if (!user) {
-          console.error(`User ${deck.createdByUsername} not found for deck ${deck.title}`)
-          continue;
-        }
-        const createdDeck = await Deck.create({
-          ...deck,
-          createdBy: toObjectId(user._id)
-        });
+
+    for (const deck of deckSeeds) {
+      const user = createdProfiles.find(
+        (profile) => profile.username === deck.createdByUsername
+      );
+      if (!user) {
+        console.error(`User ${deck.createdByUsername} not found for deck ${deck.title}`)
+        continue;
+      }
+      const createdDeck = await Deck.create({
+        ...deck,
+        createdByUsername: toObjectId(user._id)
+      });
 
       user.decks.push(toObjectId(createdDeck._id));
       await user.save();
       createdDecks.push(createdDeck);
       console.log(`Deck created: ${createdDeck.title}`)
-      }
-    
-    const createdFlashcards: IFlashcard[] = [];
-    for (const flashcard of flashcardSeeds) {
-      const deck = createdDecks.find(
-        (deck) => deck.title === flashcard.deck
-      );
-      if (!deck) {
-        console.error(`Flashcard ${flashcard.term} not found in deck ${flashcard.deck}`);
-        continue;
-      }
-      const createdFlashcard = await Flashcard.create({
-        ...flashcard,
-        deck: toObjectId(deck._id)
-      });
-      deck.flashcards.push(toObjectId(createdFlashcard._id));
-      await deck.save();
-      createdFlashcards.push(createdFlashcard);
-      console.log(`Flashcard created: ${createdFlashcard.term}`)
     }
 
-    console.log('Seeding completed successfully!');
-    process.exit(0);
+      const createdFlashcards: IFlashcard[] = [];
+      for (const flashcard of flashcardSeeds) {
+        const deck = createdDecks.find(
+          (deck) => deck.title === flashcard.deck
+        );
+        if (!deck) {
+          console.error(`Flashcard ${flashcard.term} not found in deck ${flashcard.deck}`);
+          continue;
+        }
+        const user = createdProfiles.find(
+          (profile) => profile.username === flashcard.createdByUsername
+        );
+        if (!user) {
+          console.error(`User ${flashcard.createdByUsername} not found for flashcard ${flashcard.term}`);
+          continue;
+        }
+
+        const createdFlashcard = await Flashcard.create({
+          ...flashcard,
+          deck: toObjectId(deck._id),
+          createdByUsername: toObjectId(user._id)
+        });
+
+        deck.flashcards.push(toObjectId(createdFlashcard._id));
+        await deck.save();
+        createdFlashcards.push(createdFlashcard);
+        console.log(`Flashcard created: ${createdFlashcard.term}`)
+      }
+
+      console.log('Seeding completed successfully!');
+      process.exit(0);
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error('Error seeding database:', error.message);

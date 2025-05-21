@@ -16,6 +16,7 @@ const typeDefs = `
   
   input ProfileInput {
     name: String!
+    username:String!
     email: String!
     password: String!
   }
@@ -24,9 +25,10 @@ const typeDefs = `
     _id: ID!
     term: String
     definition: String
+    example: String
     deck: ID
     isFavorite: Boolean
-    createdBy: Profile
+    createdByUsername: Profile
     createdAt: String
     updatedAt: String
   }
@@ -35,7 +37,7 @@ const typeDefs = `
     _id: ID!
     title: String!
     description: String
-    createdBy: Profile!
+    createdByUsername: Profile!
     isPublic: Boolean
     flashcards: [Flashcard]
     createdAt: String
@@ -57,12 +59,12 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     removeProfile: Profile
 
-    createFlashcard(term: String!, definition: String!, deck: ID!): Flashcard
-    updateFlashcard(id: ID!, term: String, definition: String, isFavorite: Boolean): Flashcard
+    createFlashcard(term: String!, definition: String!, example:String!, deck: ID!): Flashcard
+    updateFlashcard(id: ID!, term: String, definition: String, example:String, isFavorite: Boolean): Flashcard
     deleteFlashcard(id: ID!): Boolean
     toggleFavorite(id: ID!): Flashcard
 
-    createDeck(title: String!, description: String, createdBy: ID!): Deck
+    createDeck(title: String!, description: String, createdByUsername: ID!): Deck
     deleteDeck(id: ID!): Boolean
   }
 `;

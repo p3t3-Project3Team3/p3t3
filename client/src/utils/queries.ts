@@ -5,6 +5,21 @@ export const QUERY_PROFILES = gql`
     profiles {
       _id
       name
+      username
+      email
+      flashcards {
+        _id
+        term
+        definition
+        example
+        deck
+        isFavorite
+        createdAt
+        updatedAt
+        createdBy {
+          username
+      }
+    }
     }
   }
 `;
@@ -14,6 +29,21 @@ export const QUERY_SINGLE_PROFILE = gql`
     profile(profileId: $profileId) {
       _id
       name
+      username
+      email
+      flashcards {
+        _id
+        term
+        definition
+        example
+        deck
+        isFavorite
+        createdAt
+        updatedAt
+        createdBy {
+          username
+      }
+}
     }
   }
 `;
@@ -33,6 +63,7 @@ export const QUERY_FLASHCARD = gql`
       _id
       term
       definition
+      example
       deck
       isFavorite
       createdAt

@@ -21,7 +21,7 @@ const seedDatabase = async () => {
             }
             const createdDeck = await Deck.create({
                 ...deck,
-                createdBy: toObjectId(user._id)
+                createdByUsername: toObjectId(user._id)
             });
             user.decks.push(toObjectId(createdDeck._id));
             await user.save();
@@ -35,9 +35,15 @@ const seedDatabase = async () => {
                 console.error(`Flashcard ${flashcard.term} not found in deck ${flashcard.deck}`);
                 continue;
             }
+            const user = createdProfiles.find((profile) => profile.username === flashcard.createdByUsername);
+            if (!user) {
+                console.error(`User ${flashcard.createdByUsername} not found for flashcard ${flashcard.term}`);
+                continue;
+            }
             const createdFlashcard = await Flashcard.create({
                 ...flashcard,
-                deck: toObjectId(deck._id)
+                deck: toObjectId(deck._id),
+                createdByUsername: toObjectId(user._id)
             });
             deck.flashcards.push(toObjectId(createdFlashcard._id));
             await deck.save();

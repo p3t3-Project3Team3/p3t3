@@ -11,7 +11,7 @@ const deckSchema = new Schema({
         type: String,
         trim: true,
     },
-    createdBy: {
+    createdByUsername: {
         type: Schema.Types.ObjectId,
         required: true,
         ref: "Profile",

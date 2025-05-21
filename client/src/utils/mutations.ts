@@ -31,6 +31,7 @@ export const CREATE_FLASHCARD = gql`
       _id
       term
       definition
+      example
       deck
       isFavorite
       createdAt
@@ -44,6 +45,7 @@ export const UPDATE_FLASHCARD = gql`
       _id
       term
       definition
+      example
       deck
       isFavorite
       createdAt
@@ -58,6 +60,7 @@ export const DELETE_FLASHCARD = gql`
       _id
       term
       definition
+      example
       deck
       isFavorite
       createdAt
@@ -78,6 +81,7 @@ export const Create_DECK = gql`
         _id
         term
         definition
+        example
         deck
         isFavorite
         createdAt

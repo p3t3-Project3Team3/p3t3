@@ -2,19 +2,17 @@ import { useQuery } from '@apollo/client';
 import { QUERY_ALL_DECKS } from '../utils/queries';
 import '../styles/deck.css';
 import { useNavigate } from 'react-router-dom';
-
 import { QUERY_PROFILES } from '../utils/queries';
-
-const { data: dataProfiles } = useQuery(QUERY_PROFILES);
-const profiles = dataProfiles?.profiles || [];
 
 const Decks = () => {
   const navigate = useNavigate();
 
+  const { data: dataProfiles } = useQuery(QUERY_PROFILES);
+  const profiles = dataProfiles?.profiles || [];
+
 const { loading, error, data } = useQuery(QUERY_ALL_DECKS);
 
 const handleDeckOpen = (deckId: string) => {
-  // Logic to open the deck goes here
   if (deckId !== undefined) {
     navigate(`/decks/${deckId}`);
   } else {

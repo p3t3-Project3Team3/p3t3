@@ -39,18 +39,18 @@ const resolvers = {
     },
     me: async (_parent: any, _args: any, context: Context): Promise<Profile | null> => {
       if (context.user) {
-        return await Profile.findOne({ _id: context.user._id });
+        return await Profile.findById(context.user._id);
       }
-      throw AuthenticationError;
+      throw new AuthenticationError('Invalid credentials');
     },
-    getFlashcard: async (_parent: unknown, args: { id: string }, _context: Context): Promise<IFlashcard | null> => {
-      return Flashcard.findById(args.id).populate('createdBy').populate('deck');
+    getFlashcard: async (_parent: unknown, { id }: { id: string }, _context: Context): Promise<IFlashcard | null> => {
+      return Flashcard.findById(id).populate('createdByUsername').populate('deck');
     },
     getAllDecks: async (): Promise<IDeck[]> => {
-      return Deck.find().populate('flashcards').populate('createdBy');
+      return Deck.find().populate('flashcards').populate('createdByUsername');
     },
-    getSingleDeck: async (_parent: unknown, args: { id: string }, _context: Context): Promise<IDeck | null> => {
-      return Deck.findById(args.id).populate('flashcards');
+    getSingleDeck: async (_parent: unknown, { id }: { id: string }, _context: Context): Promise<IDeck | null> => {
+      return Deck.findById(id).populate('flashcards').populate('createdByUsername');
     },
   },
 
@@ -60,83 +60,125 @@ const resolvers = {
       const token = signToken(profile.name, profile.email, profile._id);
       return { token, profile };
     },
+
     login: async (_parent: any, { email, password }: { email: string; password: string }): Promise<{ token: string; profile: Profile }> => {
       const profile = await Profile.findOne({ email });
-      if (!profile) throw AuthenticationError;
-      const correctPw = await profile.isCorrectPassword(password);
-      if (!correctPw) throw AuthenticationError;
-      const token = signToken(profile.name, profile.email, profile._id);
-      return { token, profile };
+  if (!profile) {
+    console.log("Login failed: user not found", email);
+    throw new AuthenticationError('Invalid credentials');
+  }
+     const correctPw = await profile.isCorrectPassword(password);
+  if (!correctPw) {
+    console.log("Login failed: incorrect password", password);
+    throw new AuthenticationError('Invalid credentials');
+  }
+    const token = signToken(profile.name, profile.email, profile._id);
+  return { token, profile };
     },
+
     removeProfile: async (_parent: any, _args: any, context: Context): Promise<Profile | null> => {
       if (context.user) {
-        return await Profile.findOneAndDelete({ _id: context.user._id });
+        return await Profile.findByIdAndDelete(context.user._id);
       }
-      throw AuthenticationError;
+      throw new AuthenticationError('Invalid credentials');
     },
+
     createFlashcard: async (_parent: any, { term, definition, deck }: any, context: Context): Promise<IFlashcard> => {
-      if (!context.user) throw new AuthenticationError('Not logged in');
+      if (!context.user) throw new AuthenticationError('You must be logged in to create a flashcard');
       const flashcard = await Flashcard.create({
         term,
         definition,
         deck,
-        createdBy: context.user._id,
+        createdByUsername: context.user._id,
       });
       await Deck.findByIdAndUpdate(deck, { $push: { flashcards: flashcard._id } });
       return flashcard;
     },
+
     updateFlashcard: async (
       _parent: unknown,
       { id, term, definition, isFavorite }: { id: string; term?: string; definition?: string; isFavorite?: boolean },
-      _context: Context
+      context: Context
     ): Promise<IFlashcard> => {
+      if (!context.user) throw new AuthenticationError('Unauthorized');
+
+      const flashcard = await Flashcard.findById(id);
+      if (!flashcard) throw new Error('Flashcard not found.');
+      if (flashcard.createdByUsername.toString() !== context.user._id)
+        throw new AuthenticationError('You can only update your own flashcards');
+
       const updated = await Flashcard.findByIdAndUpdate(
         id,
         { $set: { term, definition, isFavorite } },
         { new: true, runValidators: true }
       );
-      if (!updated) throw new Error('Flashcard not found.');
-      return updated;
+      return updated!;
     },
-    deleteFlashcard: async (_parent: unknown, { id }: { id: string }, _context: Context): Promise<boolean> => {
-      const deleted = await Flashcard.findByIdAndDelete(id);
-      if (!deleted) throw new Error('Flashcard not found.');
+
+    deleteFlashcard: async (_parent: unknown, { id }: { id: string }, context: Context): Promise<boolean> => {
+      if (!context.user) throw new AuthenticationError('Unauthorized');
+
+      const flashcard = await Flashcard.findById(id);
+      if (!flashcard) throw new Error('Flashcard not found.');
+      if (flashcard.createdByUsername.toString() !== context.user._id)
+        throw new AuthenticationError('You can only delete your own flashcards');
+
+      await flashcard.deleteOne();
       await Deck.updateOne({ flashcards: id }, { $pull: { flashcards: id } });
       return true;
     },
-    toggleFavorite: async (_parent: unknown, { id }: { id: string }, _context: Context): Promise<IFlashcard> => {
+
+    toggleFavorite: async (_parent: unknown, { id }: { id: string }, context: Context): Promise<IFlashcard> => {
+      if (!context.user) throw new AuthenticationError('Unauthorized');
+
       const card = await Flashcard.findById(id);
       if (!card) throw new Error('Not found');
+      if (card.createdByUsername.toString() !== context.user._id)
+        throw new AuthenticationError('You can only toggle your own flashcards');
+
       card.isFavorite = !card.isFavorite;
       await card.save();
       return card;
     },
+
     createDeck: async (
       _parent: unknown,
-      { title, description, createdBy }: { title: string; description?: string; createdBy: string },
-      _context: Context
+      { title, description }: { title: string; description?: string },
+      context: Context
     ): Promise<IDeck> => {
+      const userId = context.user?._id;
+      if (!userId) throw new AuthenticationError('You must be logged in to create a deck');
+
       const exists = await Deck.findOne({ title });
       if (exists) throw new Error('Deck title must be unique.');
-      return Deck.create({ title, description, createdBy });
+
+      return Deck.create({ title, description, createdByUsername: userId });
     },
-    deleteDeck: async (_parent: unknown, { id }: { id: string }, _context: Context): Promise<boolean> => {
-      const deck = await Deck.findByIdAndDelete(id);
+
+    deleteDeck: async (_parent: unknown, { id }: { id: string }, context: Context): Promise<boolean> => {
+      const userId = context.user?._id;
+      if (!userId) throw new AuthenticationError('You must be logged in to delete a deck');
+
+      const deck = await Deck.findById(id);
       if (!deck) throw new Error('Deck not found');
+      if (deck.createdByUsername.toString() !== userId)
+        throw new AuthenticationError('You can only delete your own decks');
+
+      await deck.deleteOne();
       await Flashcard.deleteMany({ deck: id });
       return true;
     },
   },
 
   Flashcard: {
-    createdBy: async (flashcard: IFlashcard) => {
-      return await Profile.findById(flashcard.createdBy);
+    createdByUsername: async (flashcard: IFlashcard) => {
+      return await Profile.findById(flashcard.createdByUsername);
     },
   },
 
   Deck: {
-    createdBy: async (deck: IDeck) => {
-      return await Profile.findById(deck.createdBy);
+    createdByUsername: async (deck: IDeck) => {
+      return await Profile.findById(deck.createdByUsername);
     },
   },
 };
