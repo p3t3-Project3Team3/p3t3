@@ -50,7 +50,7 @@ const typeDefs = `
     me: Profile
 
     getFlashcard(id: ID!): Flashcard
-    getAllDecks(id:ID!): [Deck]
+    getAllDecks: [Deck]
     getSingleDeck(id: ID!): Deck
   }
 

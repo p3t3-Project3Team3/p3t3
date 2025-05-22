@@ -46,5 +46,13 @@
     "password": "p@ssword$",
     "Deck": ["JS", "TS", "CSS"], 
     "Favorites": []
+  },
+  {
+    "name": "ADMIN3",
+    "username": "Admin3",
+    "email": "BigADMIN3@gmail.com",
+    "password": "password3",
+    "Deck": ["JS", "TS", "CSS"], 
+    "Favorites": []
   }
 ]

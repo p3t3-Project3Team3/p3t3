@@ -15,7 +15,8 @@ const seedDatabase = async (): Promise<void> => {
   try {
     await db();
     await cleanDB();
-
+    
+    console.log(profileSeeds)
     const createdProfiles: IProfile[] = await Profile.insertMany(profileSeeds);
     const createdDecks: IDeck[] = [];
 

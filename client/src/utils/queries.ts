@@ -81,14 +81,14 @@ export const QUERY_ALL_DECKS = gql`
       title
       description
       isPublic
-      createdBy {
+      createdByUsername {
       username}
       flashcards {
         _id
         term
         definition
         isFavorite
-        createdBy {
+        createdByUsername {
         username
       }
       }
