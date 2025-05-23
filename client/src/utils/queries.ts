@@ -102,7 +102,8 @@ export const QUERY_SINGLEDECK = gql`
       _id
       title
       description
-      createdBy
+      createdByUsername {
+        username}
       isPublic
       flashcards {
         _id
