@@ -2,21 +2,21 @@
     {
         "title": "JavaScript",
         "description": "Helpful terms to know about JavaScript",
-        "createdByUsername": "EV-Berard",
+        "createdByUsername": "Admin",
         "isPublic": true,
         "flashcards": []
     },
     {
         "title": "TypeScript",
         "description": "Helpful terms to know about TypeScript",
-        "createdByUsername": "K-Beck",
+        "createdByUsername": "Admin",
         "isPublic": true,
         "flashcards": []
     },
     {
         "title": "CSS",
         "description": "Helpful terms to know about CSS",
-        "createdByUsername": "Admin3",
+        "createdByUsername": "Admin",
         "isPublic": true,
         "flashcards": []
     }

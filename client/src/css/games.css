@@ -1,0 +1,49 @@
+.deck-select-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* purple to blue */
+  color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 400px;
+  z-index: 1000;
+  text-align: center;
+}
+
+.deck-select-modal h1 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.deck-select-modal div {
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.deck-select-modal div:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.deck-select-modal button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  background: white;
+  color: #2575fc;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.deck-select-modal button:hover {
+  background: #e0e0e0;
+}

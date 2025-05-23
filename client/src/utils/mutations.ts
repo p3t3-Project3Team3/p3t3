@@ -56,16 +56,7 @@ export const UPDATE_FLASHCARD = gql`
 
 export const DELETE_FLASHCARD = gql`
   mutation deleteFlashcard($id: ID!) {
-    deleteFlashcard(id: $id) {
-      _id
-      term
-      definition
-      example
-      deck
-      isFavorite
-      createdAt
-      updatedAt
-    }
+    deleteFlashcard(id: $id) 
   }
 `;
 export const Create_DECK = gql`

@@ -9,13 +9,15 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
 import About from "./pages/AboutUs";
-import FlashCards from "./pages/FlashCard";
+import FlashCards from "./pages/FlashCard.js";
 import Matching from "./pages/Matching";
 import Crossword from "./pages/Crossword";
 import Game from "./pages/Game";
 import Decks from "./pages/Decks";
 import NewCard from "./components/NewCard/index";
 import LandingPage from "./pages/LandingPage";
+// import Study from "./pages/Study";
+import DeckDetails from "./components/Decks/details.js";
 import "./index.css";
 
 
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
         element: <LandingPage />
       },
       {
-        index: true,
+        path: "/Home",
         element: <Home />
       },
       {
@@ -52,15 +54,15 @@ const router = createBrowserRouter([
         element: <Profile />
       },
       {
-        path: "/game/flashCards",
+        path: "/flashcard/:deckId",
         element: <FlashCards />
       },
       {
-        path: "/game/matching",
+        path: "/matching/:deckId",
         element: <Matching />
       },
       {
-        path: "/game/crossword",
+        path: "/crossword/:deckId",
         element: <Crossword />,
       },
       {
@@ -79,6 +81,14 @@ const router = createBrowserRouter([
         path: "/AboutUs",
         element: <About />
       },
+      // { 
+      //   path:"/deck/${deckId}/study",
+      //   element: <Study />
+      // },
+      {
+        path:"/decks/:deckId",
+        element: <DeckDetails />
+      }
     ],
   },
 ]);

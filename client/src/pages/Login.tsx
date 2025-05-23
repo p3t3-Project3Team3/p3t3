@@ -5,6 +5,7 @@ import { LOGIN_USER } from "../utils/mutations";
 import "semantic-ui-css/semantic.min.css";
 import "../styles/Loginstyle.css";
 import Signup from "./Signup";
+import { useNavigate } from "react-router-dom";
 
 import Auth from "../utils/auth";
 
@@ -12,7 +13,7 @@ const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
   const [redirectToSignup, setRedirectToSignup] = useState(false);
-
+  const navigate = useNavigate();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -27,6 +28,7 @@ const Login = () => {
     try {
       const { data } = await login({ variables: { ...formState } });
       Auth.login(data.login.token);
+      navigate("/home");
     } catch (e) {
       console.error(e);
     }

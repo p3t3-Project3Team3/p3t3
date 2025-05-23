@@ -1,6 +1,6 @@
 // import { Link } from 'react-router-dom';
 import { type MouseEvent, useState } from 'react';
-import Auth from '../../utils/auth';
+// import Auth from '../../utils/auth';
 import "./Header.css"
 import 'semantic-ui-css/semantic.min.css';
 

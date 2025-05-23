@@ -28,6 +28,14 @@ const seedDatabase = async () => {
             await user.save();
             createdDecks.push(createdDeck);
             console.log(`Deck created: ${createdDeck.title}`);
+            if (user.username === "Admin") {
+                for (const profile of createdProfiles) {
+                    if (profile.username !== "Admin" && !profile.decks.includes(toObjectId(createdDeck._id))) {
+                        profile.decks.push(toObjectId(createdDeck._id));
+                        await profile.save();
+                    }
+                }
+            }
         }
         const createdFlashcards = [];
         for (const flashcard of flashcardSeeds) {

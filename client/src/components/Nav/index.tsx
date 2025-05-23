@@ -41,7 +41,7 @@ const NavigationBar = () => {
               </Nav.Link>
               {loginCheck && (
                 <>
-              <Nav.Link as={NavLink} to="/">
+              <Nav.Link as={NavLink} to="/Home">
                 Home
               </Nav.Link>
               <Nav.Link href="#features">Create Deck</Nav.Link>
@@ -80,7 +80,22 @@ const NavigationBar = () => {
               <Nav.Link as={NavLink} to="/leaderboard">Leaderboard
               </Nav.Link>
               </>
-)}
+  )}
+  {!loginCheck ? (
+            <NavLink className={({ isActive }) => isActive ? "active" : ""} to='/login'>Login</NavLink>
+          ) :(
+              <div onClick={() => auth.logout()}>
+                <svg xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="currentColor"
+                  className="bi bi-door-closed"
+                  viewBox="0 0 20 20">
+                  <path d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1h-13a.5.5 0 0 1 0-1H3zm1 13h8V2H4z"/>
+                  <path d="M9 9a1 1 0 1 0 2 0 1 1 0 0 0-2 0"/>
+                </svg>
+              </div>
+            )}
 
             </Nav>
           </Navbar.Collapse>
