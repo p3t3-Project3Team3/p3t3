@@ -16,7 +16,7 @@ export const QUERY_PROFILES = gql`
         isFavorite
         createdAt
         updatedAt
-        createdBy {
+        createdByUsername {
           username
       }
     }
@@ -40,7 +40,7 @@ export const QUERY_SINGLE_PROFILE = gql`
         isFavorite
         createdAt
         updatedAt
-        createdBy {
+        createdByUsername {
           username
       }
 }
@@ -68,7 +68,7 @@ export const QUERY_FLASHCARD = gql`
       isFavorite
       createdAt
       updatedAt
-      createdBy {
+      createdByUsername {
         username
       }
     }

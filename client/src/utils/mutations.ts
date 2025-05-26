@@ -65,7 +65,7 @@ export const Create_DECK = gql`
       _id   
       title
       description
-      createdBy
+      createdByUsername
       isPublic
 
       flashcards {
@@ -88,7 +88,7 @@ export const DELETE_DECK = gql`
       _id
       title
       description
-      createdBy
+      createdByUsername
       isPublic
 
       flashcards {

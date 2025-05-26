@@ -17,7 +17,7 @@ import Decks from "./pages/Decks";
 import NewCard from "./components/NewCard/index";
 import LandingPage from "./pages/LandingPage";
 // import Study from "./pages/Study";
-import DeckDetails from "./components/Decks/details.js";
+import DeckDetail from "./components/Decks/details.js";
 import "./index.css";
 
 
@@ -86,8 +86,8 @@ const router = createBrowserRouter([
       //   element: <Study />
       // },
       {
-        path:"/decks/:deckId",
-        element: <DeckDetails />
+        path:"/decks/:Id",
+        element: <DeckDetail />
       }
     ],
   },

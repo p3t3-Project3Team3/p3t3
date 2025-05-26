@@ -1,18 +1,21 @@
-import { useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_SINGLEDECK } from '../../utils/queries';
-import { DELETE_FLASHCARD } from '../../utils/mutations';
-import React, { useState } from 'react';
+import { useParams } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/client";
+import { QUERY_SINGLEDECK } from "../../utils/queries";
+import { DELETE_FLASHCARD } from "../../utils/mutations";
+import { useState } from "react";
 
 const DeckDetail = () => {
-  const { id } = useParams(); 
+  const { id } = useParams<{ id: string }>();
 
   const { loading, error, data } = useQuery(QUERY_SINGLEDECK, {
     variables: { id },
+     skip: !id,
   });
 
   const [deleteFlashcard] = useMutation(DELETE_FLASHCARD);
-  const [selectedFlashcardId, setSelectedFlashcardId] = useState<string | null>(null);
+  const [selectedFlashcardId, setSelectedFlashcardId] = useState<string | null>(
+    null
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDelete = async () => {
@@ -20,19 +23,25 @@ const DeckDetail = () => {
     try {
       await deleteFlashcard({
         variables: { id: selectedFlashcardId },
-        refetchQueries: [{ query: QUERY_SINGLEDECK, variables: { id } }],
+        refetchQueries: [
+          {
+            query: QUERY_SINGLEDECK,
+            variables: { id },
+          },
+        ],
       });
       setIsModalOpen(false);
       setSelectedFlashcardId(null);
     } catch (err) {
-      console.error('Failed to delete flashcard:', err);
+      console.error("Failed to delete flashcard:", err);
     }
   };
 
+  if (!id) return <p>Invalid Deck ID</p>;
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const deck = data.getDeckById;
+  const deck = data.getSingleDeck;
 
   return (
     <main>
@@ -45,15 +54,19 @@ const DeckDetail = () => {
             <div className="content">
               <div className="header">{card.term}</div>
               <div className="description">
-                <p><strong>Definition:</strong> {card.definition}</p>
-                <p><strong>Example:</strong> {card.example}</p>
+                <p>
+                  <strong>Definition:</strong> {card.definition}
+                </p>
+                <p>
+                  <strong>Example:</strong> {card.example}
+                </p>
               </div>
               <div className="meta">Created By: {card.createdByUsername}</div>
             </div>
             <div className="extra content">
               <div className="ui two buttons">
                 <div className="ui basic green button">
-                  {card.isFavorite ? '★ Favorite' : '☆ Add to Favorites'}
+                  {card.isFavorite ? "★ Favorite" : "☆ Add to Favorites"}
                 </div>
                 <div
                   className="ui basic red button"

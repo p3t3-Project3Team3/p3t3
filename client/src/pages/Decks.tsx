@@ -34,6 +34,7 @@ const Decks = () => {
     >
       <h2>{deck.title}</h2>
       <p>{deck.description}</p>
+      <p>{deck.createdByUsername.username}</p>
       <button onClick={() => handleDeckOpen(deck._id)}>View flashcards</button>
     </div>
   ))}
