@@ -8,9 +8,6 @@ const Decks = () => {
   const { data: dataProfiles } = useQuery(QUERY_PROFILES);
   const { loading, error, data } = useQuery(QUERY_ALL_DECKS);
 
-  const handleDeckOpen = (deckId: string) => {
-    navigate(`/decks/${deckId}`);
-  };
 
   if (loading) return (
     <div className="ui segment">
@@ -35,7 +32,16 @@ const Decks = () => {
       <h2>{deck.title}</h2>
       <p>{deck.description}</p>
       <p>{deck.createdByUsername.username}</p>
-      <button onClick={() => handleDeckOpen(deck._id)}>View flashcards</button>
+      <div>
+      {deck.flashcards.map((card: any) => (
+        <div key={card._id} style={{ margin: '0.5rem 0' }}>
+          <strong>Definition:</strong> {card.definition}
+          <br />
+          <strong>Example:</strong> {card.example}
+           <div className="meta">Created By: {card.createdByUsername}</div>
+        </div>
+      ))}
+      </div>
     </div>
   ))}
 </div>
