@@ -42,11 +42,12 @@ export const QUERY_SINGLE_PROFILE = gql`
         updatedAt
         createdByUsername {
           username
+        }
       }
-}
     }
   }
 `;
+
 
 export const QUERY_ME = gql`
   query me {
@@ -96,7 +97,7 @@ export const QUERY_ALL_DECKS = gql`
   }
 `;
 
-export const QUERY_SINGLEDECK = gql`
+export const QUERY_SINGLE_DECK = gql`
   query getSingleDeck($id: ID!) {
     getSingleDeck(id: $id) {
       _id
@@ -113,6 +114,21 @@ export const QUERY_SINGLEDECK = gql`
         isFavorite
         createdAt
         updatedAt
+      }
+    }
+  }
+`;
+
+export const QUERY_FLASHCARDS_BY_DECK = gql`
+  query getFlashcardsByDeck($deckId: ID!) {
+    getFlashcardsByDeck(deckId: $deckId) {
+      _id
+      term
+      definition
+      example
+      isFavorite
+      createdByUsername {
+        username
       }
     }
   }

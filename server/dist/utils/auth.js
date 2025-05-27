@@ -2,21 +2,23 @@ import jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
 import dotenv from 'dotenv';
 dotenv.config();
-export const authenticateToken = ({ req }) => {
-    let token = req.body.token || req.query.token || req.headers.authorization;
+export const authenticateToken = async ({ req, }) => {
+    let token = req.body.token || req.query.token || req.headers.authorization || '';
     let user = null;
-    if (req.headers.authorization) {
-        token = token.split(' ').pop().trim();
-    }
     if (!token) {
         return { user: null };
     }
-    try {
-        const { data } = jwt.verify(token, process.env.JWT_SECRET_KEY || '', { maxAge: '2hr' });
-        req.user = data;
-    }
-    catch (err) {
-        console.log('Invalid token');
+    if (token) {
+        try {
+            token = token.split(' ').pop()?.trim() || '';
+            const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY || '', {
+                maxAge: '2h',
+            });
+            user = decoded.data; // this should match your payload
+        }
+        catch (err) {
+            console.log('Invalid token');
+        }
     }
     return { user };
 };

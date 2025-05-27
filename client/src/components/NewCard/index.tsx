@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { CardFront } from "../CardFront";
 import { CardBack } from "../CardBack";
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_ALL_DECKS } from '../../utils/queries';
+import { QUERY_SINGLE_DECK } from '../../utils/queries';  // <-- updated import
 import { CREATE_FLASHCARD } from '../../utils/mutations';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface Flashcard {
   _id: string;
@@ -18,51 +19,71 @@ interface Deck {
   flashcards: Flashcard[];
 }
 
-const NewCard = () => {
+interface NewCardProps {
+  onAdd: (newFlashcard: { term: string; definition: string }) => void;
+}
+
+const NewCard: React.FC<NewCardProps> = ({ onAdd }) => {
   const { id } = useParams<{ id: string }>();
   const [term, setTerm] = useState('');
   const [definition, setDefinition] = useState('');
   const [isCreating, setIsCreating] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [previewFlipped, setPreviewFlipped] = useState(false);
+  const navigate = useNavigate();
 
-  const { data, loading, error } = useQuery(QUERY_ALL_DECKS, {
+  const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {  // <-- updated query
     variables: { id: id },
   });
 
-  const [createFlashcard] = useMutation(CREATE_FLASHCARD, {
-    onCompleted: () => {
-      setTerm('');
-      setDefinition('');
-      setIsCreating(false);
-      setShowPreview(false);
-    },
-    onError: (error) => {
-      console.error('Error creating flashcard:', error);
-      setIsCreating(false);
-    }
-  });
+const [createFlashcard] = useMutation(CREATE_FLASHCARD, {
+  onCompleted: (data) => {
+    console.log('Flashcard created, server returned:', data);
+    setTerm('');
+    setDefinition('');
+    setIsCreating(false);
+    setShowPreview(false);
+  },
+  onError: (error) => {
+    console.error('Error creating flashcard:', error);
+    setIsCreating(false);
+  }
+});
 
-  const handleCreate = async () => {
-    if (!term.trim() || !definition.trim()) {
-      alert('Please fill in both term and definition');
-      return;
-    }
+const handleCreate = async () => {
+  if (!term.trim() || !definition.trim()) {
+    alert('Please fill in both term and definition');
+    return;
+  }
 
-    setIsCreating(true);
-    try {
-      await createFlashcard({
-        variables: {
-          term: term.trim(),
-          definition: definition.trim(),
-          deck: id,
-        },
-        refetchQueries: [{ query: QUERY_ALL_DECKS, variables: { id: id } }],
-      });
-    } catch (error) {
-      console.error('Failed to create flashcard:', error);
+  setIsCreating(true);
+  try {
+    await createFlashcard({
+  variables: {
+    input: {
+      term,
+      definition,
+      deckId: id, 
+    
     }
-  };
+  },
+  refetchQueries: [{ query: QUERY_SINGLE_DECK, variables: { id } }],
+});
+
+
+    // Notify parent component
+    onAdd({ term: term.trim(), definition: definition.trim() });
+
+    // Reset form
+    setTerm('');
+    setDefinition('');
+    setIsCreating(false);
+    setShowPreview(false);
+  } catch (error) {
+    console.error('Failed to create flashcard:', error);
+    setIsCreating(false);
+  }
+};
 
   const handlePreview = () => {
     if (!term.trim() || !definition.trim()) {
@@ -79,18 +100,24 @@ const NewCard = () => {
     setShowPreview(false);
   };
 
+ const handleDone = () => {
+    navigate(`/deck/${id}`);  // Navigate back to the deck details page
+  };
+
   if (loading) return <div className="flex justify-center p-8"><p>Loading deck...</p></div>;
   if (error) return <div className="flex justify-center p-8 text-red-600"><p>Error loading deck: {error.message}</p></div>;
-  if (!data?.getDeck) return <div className="flex justify-center p-8"><p>Deck not found</p></div>;
+  if (!data?.getSingleDeck) return <div className="flex justify-center p-8"><p>Deck not found</p></div>;
 
-  const deck: Deck = data.getDeck;
+ 
+
+  const deck: Deck = data.getSingleDeck;  // <-- updated data access
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Add New Card</h1>
-        <h2 className="text-xl text-gray-600">to "{deck.title}"</h2>
+        <h1 className="text-3xl font-bold text-gray-800 mb-2">Add Flashcards to "{deck.title}"</h1>
+    
         <p className="text-sm text-gray-500 mt-1">
           Current cards in deck: {deck.flashcards.length}
         </p>
@@ -156,6 +183,8 @@ const NewCard = () => {
           >
             Clear Form
           </button>
+          <button onClick={handleDone}>Done</button>
+
         </div>
       </div>
 
@@ -223,5 +252,6 @@ const NewCard = () => {
     </div>
   );
 };
+
 
 export default NewCard;

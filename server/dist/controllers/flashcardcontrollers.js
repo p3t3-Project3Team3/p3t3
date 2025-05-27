@@ -46,3 +46,29 @@ export const updateFlashcard = async (req, res) => {
         return res.status(500).json({ message: "Failed to update flashcard", error: err.message });
     }
 };
+export const createFlashcardForDeck = async (req, res) => {
+    const { deckId } = req.params;
+    const { term, definition } = req.body;
+    try {
+        const deck = await Deck.findById(deckId);
+        if (!deck)
+            return res.status(404).json({ message: "Deck not found" });
+        const flashcard = new Flashcard({ term, definition, deck: deck._id });
+        await flashcard.save();
+        return res.status(201).json(flashcard);
+    }
+    catch (error) {
+        return res.status(500).json({ message: "Error creating flashcard", error });
+    }
+};
+// GET /api/flashcards/deck/:deckId
+export const getFlashcardsByDeck = async (req, res) => {
+    const { deckId } = req.params;
+    try {
+        const flashcards = await Flashcard.find({ deck: deckId });
+        res.status(200).json(flashcards);
+    }
+    catch (error) {
+        res.status(500).json({ message: "Error fetching flashcards", error });
+    }
+};

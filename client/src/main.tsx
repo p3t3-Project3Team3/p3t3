@@ -18,9 +18,15 @@ import NewCard from "./components/NewCard/index";
 import LandingPage from "./pages/LandingPage";
 import CreateDeck from "./pages/createDeck";
 // import Study from "./pages/Study";
-import DeckDetails from "./components/Decks/details";
+// import DeckDetails from "./components/Decks/details";
 import "./index.css";
+// import DeckDetail from "./pages/DeckDetails.js";
+import ViewDeck from "./pages/ViewADeck.js";
 
+const handleAddCard = (newFlashcard: { term: string; definition: string }) => {
+  console.log('Card added:', newFlashcard);
+  // You can do something here or pass the real handler later
+};
 
 
 const router = createBrowserRouter([
@@ -70,9 +76,9 @@ const router = createBrowserRouter([
         path:'/game/flashCards/Decks',
         element: <Decks/>
       },
-       {
-        path:'/flashCards/NewCard',
-        element: <NewCard/>
+      {
+       path: '/deck/:id/new-card',
+       element: <NewCard onAdd={handleAddCard} />,  // pass the required prop here
       },
       {
         path: "/game",
@@ -82,14 +88,19 @@ const router = createBrowserRouter([
         path: "/AboutUs",
         element: <About />
       },
+      {
+        path: "/deck/:id",
+        element: <ViewDeck />  // or whatever component shows the deck detail page
+      },
+
       // { 
       //   path:"/deck/${deckId}/study",
       //   element: <Study />
       // },
-      {
-        path:"/decks/:Id",
-        element: <DeckDetails />
-      },
+      // {
+      //   path:"/decks/:Id",
+      //   element: <DeckDetails />
+      // },
       {
         path:"/decks/createNewDeck",
         element: <CreateDeck />

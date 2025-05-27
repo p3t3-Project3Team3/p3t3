@@ -47,3 +47,16 @@ export const updateDeck = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Failed to update Deck", error: err.message });
   }
 };
+
+
+export const getDeckById = async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const deck = await Deck.findById(req.params.id);
+    if (!deck) {
+      return res.status(404).json({ message: "Deck not found" });
+    }
+    return res.json(deck);
+  } catch (error) {
+   return res.status(500).json({ message: "Error fetching deck", error });
+  }
+};
