@@ -21,6 +21,14 @@ const typeDefs = `
     password: String!
   }
 
+ input FlashcardInput {
+  term: String!
+  definition: String!
+  example: String
+  deckId: ID!
+  
+}
+
   type Flashcard {
     _id: ID!
     term: String
@@ -52,6 +60,7 @@ const typeDefs = `
     getFlashcard(id: ID!): Flashcard
     getAllDecks: [Deck]
     getSingleDeck(id: ID!): Deck
+    getFlashcardsByDeck(deckId: ID!): [Flashcard!]!
   }
 
   type Mutation {
@@ -59,14 +68,14 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     removeProfile: Profile
 
-    createFlashcard(term: String!, definition: String!, example:String!, deck: ID!): Flashcard
-    updateFlashcard(id: ID!, term: String, definition: String, example:String, isFavorite: Boolean): Flashcard
-    deleteFlashcard(id: ID!): Boolean
-    toggleFavorite(id: ID!): Flashcard
+    createDeck(title: String!, description: String): Deck
+    updateDeck(id: ID!, title: String, description: String): Deck!
+    deleteDeck(id: ID!): Boolean!
 
-    createDeck(title: String!, description: String, createdByUsername: ID!): Deck
-    updateDeck(title: String!, description: String, createdByUsername: ID!): Deck
-    deleteDeck(id: ID!): Boolean
+    createFlashcard(input: FlashcardInput!): Flashcard!
+    updateFlashcard(id: ID!, term: String, definition: String, example: String, isFavorite: Boolean): Flashcard!
+    deleteFlashcard(id: ID!): Boolean!
+    toggleFavorite(id: ID!): Flashcard!
   }
 `;
 export default typeDefs;

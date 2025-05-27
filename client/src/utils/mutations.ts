@@ -58,37 +58,47 @@ export const DELETE_FLASHCARD = gql`
   mutation deleteFlashcard($id: ID!) {
     deleteFlashcard(id: $id) 
   }
-`;
-export const Create_DECK = gql`
-  mutation CreateDeck($input: DeckInput!) {
-    CreateDeck(input: $input) {
-      _id   
-      title
-      description
-      createdByUsername
-      isPublic
 
-      flashcards {
-        _id
-        term
-        definition
-        example
-        deck
-        isFavorite
-        createdAt
-        updatedAt
-      }
+`;
+
+export const CREATE_DECK = gql`
+  mutation createDeck($title: String!, $description: String) {
+  createDeck(title: $title, description: $description) {
+    _id
+    title
+    description
+    createdByUsername {
+    _id
+    username
+    email
+    # any other fields you need from Profile
+  }
+    isPublic
+    flashcards {
+      _id
+      term
+      definition
+      example
+      deck
+      isFavorite
+      createdAt
+      updatedAt
     }
-  }   
+  }
+}
 `;
-
 export const UPDATE_DECK = gql`
   mutation updateDeck($id: ID!) {
     updateDeck(id: $id) {
       _id
       title
       description
-      createdByUsername
+       createdByUsername {
+    _id
+    username
+    email
+    # any other fields you need from Profile
+  }
       isPublic
 
       flashcards {
@@ -110,7 +120,12 @@ export const DELETE_DECK = gql`
       _id
       title
       description
-      createdByUsername
+       createdByUsername {
+    _id
+    username
+    email
+    # any other fields you need from Profile
+  }
       isPublic
 
       flashcards {

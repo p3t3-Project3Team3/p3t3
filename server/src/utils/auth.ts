@@ -1,25 +1,41 @@
 import jwt from 'jsonwebtoken';
 import { GraphQLError } from 'graphql';
+import { BaseContext } from '@apollo/server';
+import { ExpressContextFunctionArgument } from '@apollo/server/express4';
 import dotenv from 'dotenv';
 dotenv.config();
 
-export const authenticateToken = ({ req }: any) => {
-  let token = req.body.token || req.query.token || req.headers.authorization;
-  let user = null;
+export interface User {
+  username: string;
+  email: string;
+  _id: string;
+}
 
-  if (req.headers.authorization) {
-    token = token.split(' ').pop().trim();
-  }
+export interface MyContext extends BaseContext {
+  user: User | null;
+}
+
+export const authenticateToken = async ({
+  req,
+}: ExpressContextFunctionArgument): Promise<MyContext> => {
+  let token = req.body.token || req.query.token || req.headers.authorization|| '';
+  let user: User | null = null;
 
   if (!token) {
-    return{ user: null };
+    return { user: null };
   }
 
-  try {
-    const { data }: any = jwt.verify(token, process.env.JWT_SECRET_KEY || '', { maxAge: '2hr' });
-    req.user = data;
-  } catch (err) {
-    console.log('Invalid token');
+ 
+  if (token) {
+    try {
+      token = token.split(' ').pop()?.trim() || '';
+      const decoded: any = jwt.verify(token, process.env.JWT_SECRET_KEY || '', {
+        maxAge: '2h',
+      });
+      user = decoded.data; // this should match your payload
+    } catch (err) {
+      console.log('Invalid token');
+    }
   }
 
   return { user };

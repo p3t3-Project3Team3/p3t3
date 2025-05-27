@@ -25,6 +25,9 @@ const resolvers = {
         getSingleDeck: async (_parent, { id }, _context) => {
             return Deck.findById(id).populate('flashcards').populate('createdByUsername');
         },
+        getFlashcardsByDeck: async (_parent, { deckId }) => {
+            return await Flashcard.find({ deck: deckId }).populate('createdByUsername');
+        },
     },
     Mutation: {
         addProfile: async (_parent, { input }) => {
@@ -52,16 +55,18 @@ const resolvers = {
             }
             throw new AuthenticationError('Invalid credentials');
         },
-        createFlashcard: async (_parent, { term, definition, deck }, context) => {
+        createFlashcard: async (_parent, { input }, context) => {
             if (!context.user)
                 throw new AuthenticationError('You must be logged in to create a flashcard');
+            const { term, definition, example, deckId } = input;
             const flashcard = await Flashcard.create({
                 term,
                 definition,
-                deck,
+                example,
+                deck: deckId,
                 createdByUsername: context.user._id,
             });
-            await Deck.findByIdAndUpdate(deck, { $push: { flashcards: flashcard._id } });
+            await Deck.findByIdAndUpdate(deckId, { $push: { flashcards: flashcard._id } });
             return flashcard;
         },
         updateFlashcard: async (_parent, { id, term, definition, isFavorite }, context) => {
@@ -100,23 +105,31 @@ const resolvers = {
             return card;
         },
         createDeck: async (_parent, { title, description }, context) => {
-            const userId = context.user?._id;
-            if (!userId)
+            if (!context.user) {
                 throw new AuthenticationError('You must be logged in to create a deck');
-            const exists = await Deck.findOne({ title });
-            if (exists)
-                throw new Error('Deck title must be unique.');
-            return Deck.create({ title, description, createdByUsername: userId });
+            }
+            if (!title || title.trim() === '') {
+                throw new Error('Title is required');
+            }
+            const deck = new Deck({
+                title,
+                description,
+                createdByUsername: context.user._id, // Use ObjectId from logged-in user
+                isPublic: false,
+                flashcards: [],
+            });
+            await deck.save();
+            return deck;
         },
         updateDeck: async (_parent, { id, title, description }, context) => {
             if (!context.user)
                 throw new AuthenticationError('Unauthorized');
-            const deck = await Deck.findById(id).populate('createdBy', 'username');
+            const deck = await Deck.findById(id);
             if (!deck)
                 throw new Error('Deck not found.');
             if (deck.createdByUsername.toString() !== context.user._id)
-                throw new AuthenticationError('You can only update your own Decks');
-            const updated = await Deck.findByIdAndUpdate(id, { $set: { title, description } }, { new: true, runValidators: true });
+                throw new AuthenticationError('You can only update your own decks');
+            const updated = await Deck.findByIdAndUpdate(id, { $set: { ...(title && { title }), ...(description && { description }) } }, { new: true, runValidators: true });
             return updated;
         },
         deleteDeck: async (_parent, { id }, context) => {
@@ -141,6 +154,9 @@ const resolvers = {
     Deck: {
         createdByUsername: async (deck) => {
             return await Profile.findById(deck.createdByUsername);
+        },
+        flashcards: async (deck) => {
+            return await Flashcard.find({ deck: deck._id });
         },
     },
 };
