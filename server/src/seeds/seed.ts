@@ -10,7 +10,7 @@ import { IProfile } from '../models/Profile';
 import { IDeck } from '../models/Deck';
 import { IFlashcard } from '../models/flashcard';
 import { toObjectId } from '../utils/objectId.js';
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 
 
 
@@ -19,15 +19,22 @@ const seedDatabase = async (): Promise<void> => {
     await db();
     await cleanDB();
 
-    const hashedProfileSeeds = await Promise.all(
-      profileSeeds.map(async (profile) => {
-        const hashedPassword = await bcrypt.hash(profile.password, 10);
-        return { ...profile, password: hashedPassword };
-      })
-    );
+    // const hashedProfileSeeds = await Promise.all(
+    //   profileSeeds.map(async (profile) => {
+    //     const hashedPassword = await bcrypt.hash(profile.password, 10);
+    //     return { ...profile, password: hashedPassword };
+    //   })
+    // );
 
     // 🔄 Insert profiles with hashed passwords
-    const createdProfiles: IProfile[] = await Profile.insertMany(hashedProfileSeeds);
+   const createdProfiles: IProfile[] = [];
+
+for (const seed of profileSeeds) {
+  const profile = new Profile(seed);
+  await profile.save(); // ✅ pre-save hook will hash the password
+  createdProfiles.push(profile);
+}
+
     const createdDecks: IDeck[] = [];
     
     console.log(profileSeeds)

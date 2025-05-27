@@ -62,12 +62,13 @@ const profileSchema = new Schema<IProfile>(
 );
 
 // set up pre-save middleware to create password
-profileSchema.pre<IProfile>('save', async function() {
-  const saltRounds = 10;
-  // const salt = bcrypt.genSaltSync(saltRounds);
-  this.password = await bcrypt.hash(this.password, saltRounds);
-  console.log(`password belongs to ${this.name}`)
-  console.log(`password has been hashed ${this.password}`)
+profileSchema.pre<IProfile>('save', async function(next) {
+  if (this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+    console.log(`Password hashed for user ${this.name}`);
+  }
+  next();
 });
 
 // compare the incoming password assert the hashed password

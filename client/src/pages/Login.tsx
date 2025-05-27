@@ -13,6 +13,8 @@ const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
   const [redirectToSignup, setRedirectToSignup] = useState(false);
+  // const [shouldRedirect, setShouldRedirect] = useState(false);
+
   const navigate = useNavigate();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -24,22 +26,27 @@ const Login = () => {
   };
 
   const handleFormSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    try {
-      const { data } = await login({ variables: { ...formState } });
-      Auth.login(data.login.token);
-      navigate("/Home");
-    } catch (e) {
-      console.error(e);
-    }
+  event.preventDefault();
+  try {
+    const { data } = await login({ variables: { ...formState } });
 
-    setFormState({ email: "", password: "" });
-  };
+    console.log("Login response:", data); // ✅ Confirm token and profile exist
+
+    Auth.login(data.login.token); // Save token
+    navigate("/Home"); // ✅ Redirect immediately
+  } catch (e) {
+    console.error("Login failed:", e);
+  }
+
+  setFormState({ email: "", password: "" });
+};
 
   if (redirectToSignup) {
     return <Navigate to="/signup" />;
   }
-
+// if (shouldRedirect) {
+//     return <Navigate to="/Home" />;
+//   }
 
   return (
     <>
