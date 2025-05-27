@@ -10,6 +10,7 @@ const DeckDetail = () => {
   const { loading, error, data } = useQuery(QUERY_SINGLEDECK, {
     variables: { id },
      skip: !id,
+     
   });
 
   const [deleteFlashcard] = useMutation(DELETE_FLASHCARD);

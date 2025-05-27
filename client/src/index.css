@@ -1,5 +1,5 @@
  *{
-  margin: 0;
+  margin: auto;
 }
 body {
   overflow: auto;
@@ -12,6 +12,7 @@ h1 {
   margin: 0.67em 0;
 }
 main{
+  margin-bottom: 35px;
   padding: 0 10px;
 }
 

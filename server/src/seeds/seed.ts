@@ -36,8 +36,6 @@ for (const seed of profileSeeds) {
 }
 
     const createdDecks: IDeck[] = [];
-    
-    console.log(profileSeeds)
   
 
     for (const deck of deckSeeds) {

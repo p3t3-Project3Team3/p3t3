@@ -26,7 +26,6 @@ const seedDatabase = async () => {
             createdProfiles.push(profile);
         }
         const createdDecks = [];
-        console.log(profileSeeds);
         for (const deck of deckSeeds) {
             const user = createdProfiles.find((profile) => profile.username === deck.createdByUsername);
             if (!user) {
