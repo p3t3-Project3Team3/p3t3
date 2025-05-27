@@ -114,28 +114,28 @@ const resolvers = {
       );
       return updated!;
     },
-
+    
     deleteFlashcard: async (_parent: unknown, { id }: { id: string }, context: Context): Promise<boolean> => {
       if (!context.user) throw new AuthenticationError('Unauthorized');
-
+      
       const flashcard = await Flashcard.findById(id);
       if (!flashcard) throw new Error('Flashcard not found.');
       if (flashcard.createdByUsername.toString() !== context.user._id)
         throw new AuthenticationError('You can only delete your own flashcards');
-
+      
       await flashcard.deleteOne();
       await Deck.updateOne({ flashcards: id }, { $pull: { flashcards: id } });
       return true;
     },
-
+    
     toggleFavorite: async (_parent: unknown, { id }: { id: string }, context: Context): Promise<IFlashcard> => {
       if (!context.user) throw new AuthenticationError('Unauthorized');
-
+      
       const card = await Flashcard.findById(id);
       if (!card) throw new Error('Not found');
       if (card.createdByUsername.toString() !== context.user._id)
         throw new AuthenticationError('You can only toggle your own flashcards');
-
+      
       card.isFavorite = !card.isFavorite;
       await card.save();
       return card;
@@ -148,13 +148,33 @@ const resolvers = {
     ): Promise<IDeck> => {
       const userId = context.user?._id;
       if (!userId) throw new AuthenticationError('You must be logged in to create a deck');
-
+      
       const exists = await Deck.findOne({ title });
       if (exists) throw new Error('Deck title must be unique.');
-
+      
       return Deck.create({ title, description, createdByUsername: userId });
     },
+    
+    updateDeck: async (
+      _parent: unknown,
+      { id, title, description }: { id: string; title: string; description?: string },
+      context: Context
+    ): Promise<IDeck> => {
+      if (!context.user) throw new AuthenticationError('Unauthorized');
 
+      const deck = await Deck.findById(id).populate('createdBy', 'username');
+      if (!deck) throw new Error('Deck not found.');
+      if (deck.createdByUsername.toString() !== context.user._id)
+        throw new AuthenticationError('You can only update your own Decks');
+
+      const updated = await Deck.findByIdAndUpdate(
+        id,
+        { $set: { title, description } },
+        { new: true, runValidators: true }
+      );
+      return updated!;
+    },
+    
     deleteDeck: async (_parent: unknown, { id }: { id: string }, context: Context): Promise<boolean> => {
       const userId = context.user?._id;
       if (!userId) throw new AuthenticationError('You must be logged in to delete a deck');

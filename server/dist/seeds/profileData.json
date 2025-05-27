@@ -43,7 +43,7 @@
         "name": "ADMIN",
         "username": "Admin",
         "email": "BigADMIN@gmail.com",
-        "password": "p@ssword$",
+        "password": "BigADMIN@gmail.com",
         "Deck": ["JS", "TS", "CSS"],
         "Favorites": []
     }

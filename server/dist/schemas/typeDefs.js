@@ -65,6 +65,7 @@ const typeDefs = `
     toggleFavorite(id: ID!): Flashcard
 
     createDeck(title: String!, description: String, createdByUsername: ID!): Deck
+    updateDeck(title: String!, description: String, createdByUsername: ID!): Deck
     deleteDeck(id: ID!): Boolean
   }
 `;

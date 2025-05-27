@@ -7,13 +7,19 @@ import deckSeeds from './deckData.json' with { type: "json" };
 import flashcardSeeds from './flashcardData.json' with { type: "json" };
 import cleanDB from './cleanDB.js';
 import { toObjectId } from '../utils/objectId.js';
+import bcrypt from 'bcrypt';
 const seedDatabase = async () => {
     try {
         await db();
         await cleanDB();
-        console.log(profileSeeds);
-        const createdProfiles = await Profile.insertMany(profileSeeds);
+        const hashedProfileSeeds = await Promise.all(profileSeeds.map(async (profile) => {
+            const hashedPassword = await bcrypt.hash(profile.password, 10);
+            return { ...profile, password: hashedPassword };
+        }));
+        // 🔄 Insert profiles with hashed passwords
+        const createdProfiles = await Profile.insertMany(hashedProfileSeeds);
         const createdDecks = [];
+        console.log(profileSeeds);
         for (const deck of deckSeeds) {
             const user = createdProfiles.find((profile) => profile.username === deck.createdByUsername);
             if (!user) {

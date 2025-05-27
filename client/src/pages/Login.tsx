@@ -28,7 +28,7 @@ const Login = () => {
     try {
       const { data } = await login({ variables: { ...formState } });
       Auth.login(data.login.token);
-      navigate("/home");
+      navigate("/Home");
     } catch (e) {
       console.error(e);
     }
@@ -40,20 +40,10 @@ const Login = () => {
     return <Navigate to="/signup" />;
   }
 
-    // click login button to show modal
-  const modalClick = () => {
-    const modal = document.querySelector(".ui.modal");
-    if (modal) {
-      modal.classList.toggle("active");
-      modal.classList.toggle("visible");
-    }
-  };
 
   return (
     <>
 
-        <p onClick={modalClick}>Login/Signup</p>
-      <div className="ui modal">
         <div className="ui segment">
           <div className="ui two column very relaxed grid">
             <div className="column">
@@ -96,14 +86,6 @@ const Login = () => {
                   <p>{error.message}</p>
                 </div>
               )}
-
-              <button
-                className="ui purple button"
-                onClick={() => setRedirectToSignup(true)}
-              >
-                <i className="signup icon"></i>
-                Sign Up
-              </button>
             </div>
       <Signup />
           </div>
@@ -111,7 +93,6 @@ const Login = () => {
     or
   </div>
         </div>
-      </div>
     </>
   );
 };

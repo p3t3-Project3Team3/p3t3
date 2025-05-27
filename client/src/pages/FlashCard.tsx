@@ -74,7 +74,7 @@ interface StudyStats {
   bestStreak: number;
 }
 
-const StudyPage = () => {
+const FlashCard = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   
@@ -393,4 +393,4 @@ const StudyPage = () => {
   );
 };
 
-export default StudyPage;
+export default FlashCard;

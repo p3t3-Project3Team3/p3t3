@@ -10,15 +10,28 @@ import { IProfile } from '../models/Profile';
 import { IDeck } from '../models/Deck';
 import { IFlashcard } from '../models/flashcard';
 import { toObjectId } from '../utils/objectId.js';
+import bcrypt from 'bcrypt';
+
+
 
 const seedDatabase = async (): Promise<void> => {
   try {
     await db();
     await cleanDB();
+
+    const hashedProfileSeeds = await Promise.all(
+      profileSeeds.map(async (profile) => {
+        const hashedPassword = await bcrypt.hash(profile.password, 10);
+        return { ...profile, password: hashedPassword };
+      })
+    );
+
+    // 🔄 Insert profiles with hashed passwords
+    const createdProfiles: IProfile[] = await Profile.insertMany(hashedProfileSeeds);
+    const createdDecks: IDeck[] = [];
     
     console.log(profileSeeds)
-    const createdProfiles: IProfile[] = await Profile.insertMany(profileSeeds);
-    const createdDecks: IDeck[] = [];
+  
 
     for (const deck of deckSeeds) {
       const user = createdProfiles.find(

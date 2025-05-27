@@ -82,6 +82,28 @@ export const Create_DECK = gql`
   }   
 `;
 
+export const UPDATE_DECK = gql`
+  mutation updateDeck($id: ID!) {
+    updateDeck(id: $id) {
+      _id
+      title
+      description
+      createdByUsername
+      isPublic
+
+      flashcards {
+        _id
+        term
+        definition
+        deck
+        isFavorite
+        createdAt
+        updatedAt
+      }
+    }
+  }
+`;
+
 export const DELETE_DECK = gql`
   mutation deleteDeck($id: ID!) {
     deleteDeck(id: $id) {

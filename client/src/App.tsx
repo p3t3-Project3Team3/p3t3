@@ -10,8 +10,10 @@ import { Outlet } from 'react-router-dom';
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Header from './components/Header';
-import NavigationBar from './components/Nav';
+import NavigationBar from './components/Nav/index';
 import Footer from './components/Footer';
+import { useContext } from 'react';
+import { AuthProvider } from './utils/authContext';
 // import LandingPage from './pages/LandingPage';
 // import Home from './pages/Home';
 
@@ -38,6 +40,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+
 const client = new ApolloClient({
   // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
@@ -46,6 +49,7 @@ const client = new ApolloClient({
 
 function App() {
   return (
+        <AuthProvider>
     <ApolloProvider client={client}>
       <Header />
       <NavigationBar />
@@ -53,6 +57,9 @@ function App() {
       <Outlet />
       <Footer />
     </ApolloProvider>
+
+        </AuthProvider>
+
   );
 }
 

@@ -1,7 +1,8 @@
 import React from "react";
-import  Button from "./../components/UI/Button";
-import BlockContent from "./../components/UI/Block";
-import Block from "./../components/UI/Block";
+
+import Button from "../components/UI/Button";
+import BlockContent from "../components/UI/Block";
+import Block from "../components/UI/Block";
 import { useNavigate } from "react-router-dom";
 // import "./../styles/LandingPage.css"; // Import your CSS file for styling
 

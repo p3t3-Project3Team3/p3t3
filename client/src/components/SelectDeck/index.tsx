@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { QUERY_ALL_DECKS } from "../utils/queries";
+// Make sure the path below is correct based on your project structure
+import { QUERY_ALL_DECKS } from "../../utils/queries";
 import { useNavigate } from "react-router-dom"; 
 
 interface Props {
@@ -30,7 +31,7 @@ const SelectDeck: React.FC<Props> = ({ gamePath }) => {
         <div>
             <h1>Select a Deck!</h1>
             {data.getAllDecks.map((deck: any) => (
-                <button key={deck._id} onClick={() => handleSelect(deck._id)}>
+                <button className='ui violet button'key={deck._id} onClick={() => handleSelect(deck._id)}>
                     <h2>{deck.title}</h2>
                     <p>{deck.description}</p>
                 </button>
@@ -39,5 +40,3 @@ const SelectDeck: React.FC<Props> = ({ gamePath }) => {
     );
 }
 export default SelectDeck;
-// This component allows users to select a deck for a specific game.
-

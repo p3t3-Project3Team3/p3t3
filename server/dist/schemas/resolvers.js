@@ -108,6 +108,17 @@ const resolvers = {
                 throw new Error('Deck title must be unique.');
             return Deck.create({ title, description, createdByUsername: userId });
         },
+        updateDeck: async (_parent, { id, title, description }, context) => {
+            if (!context.user)
+                throw new AuthenticationError('Unauthorized');
+            const deck = await Deck.findById(id).populate('createdBy', 'username');
+            if (!deck)
+                throw new Error('Deck not found.');
+            if (deck.createdByUsername.toString() !== context.user._id)
+                throw new AuthenticationError('You can only update your own Decks');
+            const updated = await Deck.findByIdAndUpdate(id, { $set: { title, description } }, { new: true, runValidators: true });
+            return updated;
+        },
         deleteDeck: async (_parent, { id }, context) => {
             const userId = context.user?._id;
             if (!userId)

@@ -9,15 +9,16 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
 import About from "./pages/AboutUs";
-import FlashCards from "./pages/FlashCard.js";
+import FlashCards from "./pages/FlashCard";
 import Matching from "./pages/Matching";
 import Crossword from "./pages/Crossword";
 import Game from "./pages/Game";
 import Decks from "./pages/Decks";
 import NewCard from "./components/NewCard/index";
 import LandingPage from "./pages/LandingPage";
+import CreateDeck from "./pages/createDeck";
 // import Study from "./pages/Study";
-import DeckDetail from "./components/Decks/details.js";
+import DeckDetails from "./components/Decks/details";
 import "./index.css";
 
 
@@ -87,7 +88,11 @@ const router = createBrowserRouter([
       // },
       {
         path:"/decks/:Id",
-        element: <DeckDetail />
+        element: <DeckDetails />
+      },
+      {
+        path:"/decks/createNewDeck",
+        element: <CreateDeck />
       }
     ],
   },

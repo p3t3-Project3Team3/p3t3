@@ -1,12 +1,13 @@
 import { useState, type FormEvent, type ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_PROFILE } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formState, setFormState] = useState({
     name: '',
     username: '',
@@ -36,6 +37,7 @@ const Signup = () => {
       });
 
       Auth.login(data.addProfile.token);
+      navigate('/home');
     } catch (e) {
       console.error(e);
     }
@@ -49,7 +51,7 @@ const Signup = () => {
             {data ? (
               <p>
                 Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
+                <Link to="/Home">Head to the homepage.</Link>
               </p>
             ) : (
                   <form onSubmit={handleFormSubmit} className="ui form">
