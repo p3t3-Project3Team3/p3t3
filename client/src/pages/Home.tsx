@@ -278,6 +278,14 @@ const Home: React.FC = () => {
                       Study
                     </button>
                   )}
+                  {deck.flashcards.length >= 1 && (
+                    <button 
+                      className="ui small red button"
+                      onClick={() => navigate(`/crossword/${deck._id}`)} // Fixed: Use correct route
+                    >
+                      Crossword
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
