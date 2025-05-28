@@ -12,12 +12,12 @@ const SelectDeck: React.FC<Props> = ({ gamePath }) => {
     const navigate = useNavigate();
 
     if (loading) {
-        return <div>Loading decks...</div>;
+        return <div>Shuffling decks...</div>;
     }
 
     if (error) {
         console.error("Error fetching decks:", error);
-        return <div>Error loading decks.</div>;
+        return <div>Error Shuffling decks.</div>;
     }
     
    const handleSelect = (deckId: string) => {

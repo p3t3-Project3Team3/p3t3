@@ -29,6 +29,7 @@ import NewCard from "./components/NewCard/index";
 import LandingPage from "./pages/LandingPage";
 import CreateDeck from "./pages/createDeck";
 import ViewDeck from "./pages/ViewADeck.js";
+import Stats from "./pages/Stats";
 import "./index.css";
 
 const handleAddCard = (newFlashcard: { term: string; definition: string }) => {
@@ -100,6 +101,10 @@ const router = createBrowserRouter([
       {
         path:"/decks/createNewDeck",
         element: <CreateDeck />
+      },
+      {
+        path:"stats/:gameType",
+        element: <Stats />
       }
     ],
   },
