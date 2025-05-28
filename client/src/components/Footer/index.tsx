@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import '../../styles/Footer.css';
+import Login from "../../pages/Login";
 
 const Footer: React.FC = () => {
   const location = useLocation();
@@ -13,6 +14,10 @@ const Footer: React.FC = () => {
       navigate('/');
     }
   }
+  
+    const handleLoginClick = () => {
+    navigate('/login');
+  };
   
   return (
     <footer>
@@ -29,6 +34,7 @@ const Footer: React.FC = () => {
           <p><i className="facebook icon"></i></p>
           <p><i className="twitter icon"></i></p>
           <p><i className="youtube icon"></i></p>
+           <p onClick={handleLoginClick} className="login-link">Login</p>
         </div>
         <h4>&copy; {new Date().getFullYear()} - Brain Games</h4>
       </div>
