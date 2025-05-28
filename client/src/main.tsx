@@ -103,7 +103,7 @@ const router = createBrowserRouter([
         element: <CreateDeck />
       },
       {
-        path:"stats/:gameType",
+        path:"/stats",
         element: <Stats />
       }
     ],

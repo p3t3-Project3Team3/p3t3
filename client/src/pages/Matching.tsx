@@ -118,7 +118,7 @@ const Matching: React.FC = () => {
         content: flashcard.term,
         type: 'term',
         flashcardId: flashcard._id,
-        isFlipped: false,
+        isFlipped: true,
         isMatched: false,
         isMismatch: false
       });
@@ -129,7 +129,7 @@ const Matching: React.FC = () => {
         content: flashcard.definition,
         type: 'definition',
         flashcardId: flashcard._id,
-        isFlipped: false,
+        isFlipped: true,
         isMatched: false,
         isMismatch: false
       });
@@ -396,33 +396,34 @@ const Matching: React.FC = () => {
 
       {/* Game Board */}
       <div className={`memory-game-board board-${difficulty}`}>
-        {cards.map((card) => (
-          <div
-            key={card.id}
-            className={`memory-card ${card.isFlipped ? 'flipped' : ''} ${
-              card.isMatched ? 'matched' : ''
-            } ${card.isMismatch ? 'mismatch' : ''} ${
-              isProcessing && flippedCards.some(fc => fc.id === card.id) ? 'disabled' : ''
-            }`}
-            onClick={() => handleCardClick(card)}
-          >
-            <div className="card-inner">
-              {/* Card Back */}
-              <div className="card-face card-back">
-                <div className="card-back-content">?</div>
-              </div>
-              
-              {/* Card Front */}
-              <div className={`card-face card-front ${card.type}`}>
-                <div className="card-content">
-                  <div className="card-type">{card.type}</div>
-                  <div className="card-text">{card.content}</div>
-                </div>
-              </div>
-            </div>
+  {cards.map((card) => (
+    <div
+      key={card.id}
+      className={`memory-card ${card.isFlipped ? 'flipped' : ''} ${
+        card.isMatched ? 'matched' : ''
+      } ${card.isMismatch ? 'mismatch' : ''} ${
+        isProcessing && flippedCards.some(fc => fc.id === card.id) ? 'disabled' : ''
+      }`}
+      onClick={() => handleCardClick(card)}
+    >
+      <div className="card-inner">
+        {/* Card Back - should show when NOT flipped */}
+        <div className="card-face card-back">
+          <div className="card-back-content">?</div>
+        </div>
+        
+        {/* Card Front - should show when flipped */}
+        <div className={`card-face card-front ${card.type}`}>
+          <div className="card-content">
+            <div className="card-type">{card.type}</div>
+            <div className="card-text">{card.content}</div>
           </div>
-        ))}
+        </div>
       </div>
+    </div>
+  ))}
+</div>
+      
 
       {/* Game Complete Modal */}
       {showComplete && (

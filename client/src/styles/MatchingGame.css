@@ -219,7 +219,7 @@
   background: white;
   color: #1f2937;
   border: 2px solid #e5e7eb;
-  transform: rotateY(180deg);
+  transform: rotateY(180deg); 
 }
 
 .card-front.term {
