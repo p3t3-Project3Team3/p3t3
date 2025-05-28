@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { QUERY_ALL_DECKS } from '../utils/queries';
+// ✅ FIXED: Use QUERY_SINGLE_DECK instead of QUERY_ALL_DECKS
+import { QUERY_SINGLE_DECK } from '../utils/queries';
 import '../styles/MatchingGame.css';
 
 interface Flashcard {
@@ -34,9 +35,10 @@ type Difficulty = 'easy' | 'medium' | 'hard';
 const Matching: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   
-  // Apollo query for deck data
-  const { data, loading, error } = useQuery(QUERY_ALL_DECKS, {
+  // ✅ FIXED: Use correct query and variables
+  const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {
     variables: { id: id },
+    skip: !id, // Don't run query if no ID
   });
 
   // Game state
@@ -81,7 +83,8 @@ const Matching: React.FC = () => {
 
   // Initialize game when data loads or difficulty changes
   useEffect(() => {
-    if (data?.getDeck?.flashcards && data.getDeck.flashcards.length > 0) {
+    // ✅ FIXED: Use correct data path
+    if (data?.getSingleDeck?.flashcards && data.getSingleDeck.flashcards.length > 0) {
       initializeGame();
     }
   }, [data, difficulty]);
@@ -96,9 +99,10 @@ const Matching: React.FC = () => {
 
   // Initialize or restart the game
   const initializeGame = useCallback(() => {
-    if (!data?.getDeck?.flashcards) return;
+    // ✅ FIXED: Use correct data path
+    if (!data?.getSingleDeck?.flashcards) return;
 
-    const flashcards: Flashcard[] = data.getDeck.flashcards;
+    const flashcards: Flashcard[] = data.getSingleDeck.flashcards;
     const pairCount = Math.min(difficultySettings[difficulty].pairs, flashcards.length);
     const selectedFlashcards = [...flashcards]
       .sort(() => Math.random() - 0.5)
@@ -305,7 +309,9 @@ const Matching: React.FC = () => {
 
   if (loading) return <div className="loading-cards">Loading flashcards...</div>;
   if (error) return <div className="loading-cards">Error: {error.message}</div>;
-  if (!data?.getDeck?.flashcards || data.getDeck.flashcards.length === 0) {
+  
+ 
+  if (!data?.getSingleDeck?.flashcards || data.getSingleDeck.flashcards.length === 0) {
     return (
       <div className="memory-game-container">
         <div className="no-cards-message">
@@ -325,10 +331,11 @@ const Matching: React.FC = () => {
       <div className="memory-game-header">
         <h1 className="memory-game-title">Memory Matching Game</h1>
         <p className="memory-game-subtitle">
-          Match terms with their definitions from: <strong>{data.getDeck.title}</strong>
+          Match terms with their definitions from: <strong>{data.getSingleDeck.title}</strong>
         </p>
       </div>
 
+      {/* Rest of the component remains the same... */}
       {/* Difficulty Selector */}
       <div className="difficulty-selector">
         {(Object.keys(difficultySettings) as Difficulty[]).map(level => (

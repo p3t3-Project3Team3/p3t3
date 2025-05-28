@@ -189,6 +189,7 @@
   text-align: center;
   transition: transform 0.6s;
   transform-style: preserve-3d;
+  background: rgba(70, 0, 136, 0.952);
 }
 
 .memory-card.flipped .card-inner {

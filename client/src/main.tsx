@@ -66,15 +66,15 @@ const router = createBrowserRouter([
         element: <Profile />
       },
       {
-        path: "/flashcard/:deckId",
+        path: "/flashcard/:id/flashCards",
         element: <FlashCards />
       },
       {
-        path: "/matching/:deckId",
+        path: "/matching/:id",
         element: <Matching />
       },
       {
-        path: "/crossword/:deckId",
+        path: "/crossword/:id",
         element: <Crossword />,
       },
       {
@@ -109,3 +109,5 @@ const rootElement = document.getElementById("root");
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
 }
+
+

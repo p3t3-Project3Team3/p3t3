@@ -66,7 +66,7 @@ const Decks: React.FC = () => {
 
   const handleStudyClick = (deckId: string, event: React.MouseEvent) => {
     event.stopPropagation(); // Prevent deck click from firing
-    navigate(`/study/${deckId}`);
+    navigate(`/flashcard/${deckId}`);
   };
 
   const handleEdit = async (card: Flashcard) => {

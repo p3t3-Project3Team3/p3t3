@@ -25,7 +25,7 @@ input FlashcardInput {
   term: String!
   definition: String!
   example: String
-  deck: ID
+  deckId: ID
   isFavorite: Boolean
 }
 

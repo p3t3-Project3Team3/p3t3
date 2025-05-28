@@ -20,13 +20,13 @@ interface StudyStats {
 }
 
 const FlashCard = () => {
-  const { id } = useParams<{ id: string }>();
+  const { deckId } = useParams<{ deckId: string }>();
   const navigate = useNavigate();
   
   // Fixed: Use correct query and data access
   const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {
-    variables: { id: id },
-    skip: !id,
+    variables: { id: deckId },
+    skip: !deckId,
   });
 
   // Study state
@@ -150,12 +150,82 @@ const FlashCard = () => {
     restartStudy();
   };
 
-  if (loading) return <div className="loading-container"><p>Loading deck...</p></div>;
-  if (error) return <div className="error-container"><p className="error-text">Error: {error.message}</p></div>;
-  if (!data?.getSingleDeck) return <div className="not-found-container"><p>Deck not found</p></div>;
+ if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="ui segment">
+          <div className="ui active dimmer">
+            <div className="ui indeterminate text loader">Loading deck...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-  // Fixed: Use correct data path
+  if (error) {
+    console.error('FlashCard GraphQL Error:', error);
+    return (
+      <div className="error-container">
+        <div className="ui negative message">
+          <div className="header">Error Loading Deck</div>
+          <p>{error.message}</p>
+          <button 
+            className="ui button" 
+            onClick={() => navigate('/game/flashCards/Decks')}
+          >
+            Back to Decks
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data?.getSingleDeck) {
+    return (
+      <div className="not-found-container">
+        <div className="ui warning message">
+          <div className="header">Deck Not Found</div>
+          <p>The requested deck could not be found.</p>
+          <button 
+            className="ui button" 
+            onClick={() => navigate('/game/flashCards/Decks')}
+          >
+            Back to Decks
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const deck = data.getSingleDeck;
+
+ if (!deck.flashcards || deck.flashcards.length === 0) {
+    return (
+      <div className="no-cards-container">
+        <div className="ui placeholder segment">
+          <div className="ui icon header">
+            <i className="file outline icon"></i>
+            No flashcards in this deck
+          </div>
+          <div className="inline">
+            <button 
+              className="ui primary button"
+              onClick={() => navigate(`/deck/${deckId}/new-card`)}
+            >
+              Add Flashcards
+            </button>
+            <button 
+              className="ui button"
+              onClick={() => navigate('/game/flashCards/Decks')}
+            >
+              Back to Decks
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const currentCard = studyCards[currentCardIndex];
 
   if (isStudyComplete) {
@@ -198,7 +268,7 @@ const FlashCard = () => {
             </button>
           )}
           
-          <button onClick={() => navigate(`/deck/${id}`)} className="btn-tertiary">
+          <button onClick={() => navigate(`/deck/${deckId}`)} className="btn-tertiary">
             Back to Deck
           </button>
         </div>
@@ -325,7 +395,7 @@ const FlashCard = () => {
           Previous
         </button>
 
-        <button onClick={() => navigate(`/deck/${id}`)} className="nav-button nav-button-light-gray">
+        <button onClick={() => navigate(`/deck/${deckId}`)} className="nav-button nav-button-light-gray">
           Exit Study
         </button>
 

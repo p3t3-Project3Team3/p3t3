@@ -12,13 +12,6 @@ const seedDatabase = async () => {
     try {
         await db();
         await cleanDB();
-        // const hashedProfileSeeds = await Promise.all(
-        //   profileSeeds.map(async (profile) => {
-        //     const hashedPassword = await bcrypt.hash(profile.password, 10);
-        //     return { ...profile, password: hashedPassword };
-        //   })
-        // );
-        // 🔄 Insert profiles with hashed passwords
         const createdProfiles = [];
         for (const seed of profileSeeds) {
             const profile = new Profile(seed);
@@ -70,6 +63,17 @@ const seedDatabase = async () => {
             await deck.save();
             createdFlashcards.push(createdFlashcard);
             console.log(`Flashcard created: ${createdFlashcard.term}`);
+        }
+        // After all flashcards are created, randomly assign some favorites
+        for (const profile of createdProfiles) {
+            if (profile.username !== "Admin") {
+                // Randomly pick 2-3 flashcards as favorites
+                const randomFlashcards = createdFlashcards
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, Math.floor(Math.random() * 3) + 1);
+                profile.favorites = randomFlashcards.map(fc => toObjectId(fc._id));
+                await profile.save();
+            }
         }
         console.log('Seeding completed successfully!');
         process.exit(0);

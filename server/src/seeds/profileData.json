@@ -3,48 +3,42 @@
     "name": "Brian Kernighan",
     "username": "Bigk",
     "email": "bkernighan@techfriends.com",
-    "password": "password01",
-    "Deck": ["JS", "TS", "CSS"],
-    "Favorites": ["FLASHCARD ID", "FLASHCARD ID"]
+    "password": "password01"
+   
   },
   {
     "name": "Max Kanat-Alexander",
     "username": "Max-A",
     "email": "mkanatalexander@techfriends.com",
-    "password": "password02",
-    "Deck": ["JS", "TS", "CSS"],
-    "Favorites": []
+    "password": "password02"
+    
   },
   {
     "name": "Amiko",
     "username": "Ami",
     "email": "amiko@techfriends.com",
-    "password": "password03",
-    "Deck": ["JS", "TS", "CSS"],
-    "Favorites": []
+    "password": "password03"
+    
   },
   {
     "name": "Kent Beck",
     "username": "K-Beck",
     "email": "kbeck@techfriends.com",
-    "password": "password04",
-    "Deck": ["JS", "TS", "CSS"],
-    "Favorites": []
+    "password": "password04"
+    
   },
   {
     "name": "Edward V. Berard",
     "username": "EV-Berard",
     "email": "evberard@techfriends.com",
-    "password": "password05",
-    "Deck": ["JS", "TS", "CSS"], 
-    "Favorites": []
+    "password": "password05"
+   
   },
   {
     "name": "ADMIN",
     "username": "Admin",
     "email": "BigADMIN@gmail.com",
-    "password": "BigADMIN@gmail.com",
-    "Deck": ["JS", "TS", "CSS"], 
-    "Favorites": []
+    "password": "BigADMIN@gmail.com"
+    
   }
 ]

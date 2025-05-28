@@ -1,4 +1,4 @@
-import Flashcard from '../models/flashcard.js';
+import FlashcardModel from '../models/flashcard.js';
 import Deck from '../models/Deck.js';
 import { Profile } from '../models/index.js';
 import { signToken, AuthenticationError } from '../utils/auth.js';
@@ -17,7 +17,7 @@ const resolvers = {
             throw new AuthenticationError('Invalid credentials');
         },
         getFlashcard: async (_parent, { id }, _context) => {
-            return Flashcard.findById(id).populate('createdByUsername').populate('deck');
+            return FlashcardModel.findById(id).populate('createdByUsername').populate('deck');
         },
         getAllDecks: async () => {
             return Deck.find().populate('flashcards').populate('createdByUsername');
@@ -26,7 +26,7 @@ const resolvers = {
             return Deck.findById(id).populate('flashcards').populate('createdByUsername');
         },
         getFlashcardsByDeck: async (_parent, { deckId }) => {
-            return await Flashcard.find({ deck: deckId }).populate('createdByUsername');
+            return await FlashcardModel.find({ deck: deckId }).populate('createdByUsername');
         },
     },
     Mutation: {
@@ -59,43 +59,44 @@ const resolvers = {
             if (!context.user)
                 throw new AuthenticationError('You must be logged in to create a flashcard');
             const { term, definition, example, deckId } = input;
-            const flashcard = await Flashcard.create({
+            const flashcardDoc = await FlashcardModel.create({
                 term,
                 definition,
                 example,
                 deck: deckId,
                 createdByUsername: context.user._id,
             });
-            await Deck.findByIdAndUpdate(deckId, { $push: { flashcards: flashcard._id } });
-            return flashcard;
+            await Deck.findByIdAndUpdate(deckId, { $push: { flashcards: flashcardDoc._id } });
+            return flashcardDoc;
         },
-        updateFlashcard: async (_parent, { id, term, definition, isFavorite }, context) => {
+        updateFlashcard: async (_parent, { id, input }, context) => {
             if (!context.user)
                 throw new AuthenticationError('Unauthorized');
-            const flashcard = await Flashcard.findById(id);
-            if (!flashcard)
+            const { term, definition, isFavorite } = input;
+            const flashcardDoc = await FlashcardModel.findById(id);
+            if (!flashcardDoc)
                 throw new Error('Flashcard not found.');
-            if (flashcard.createdByUsername.toString() !== context.user._id)
+            if (flashcardDoc.createdByUsername.toString() !== context.user._id)
                 throw new AuthenticationError('You can only update your own flashcards');
-            const updated = await Flashcard.findByIdAndUpdate(id, { $set: { term, definition, isFavorite } }, { new: true, runValidators: true });
+            const updated = await FlashcardModel.findByIdAndUpdate(id, { $set: { term, definition, isFavorite } }, { new: true, runValidators: true });
             return updated;
         },
         deleteFlashcard: async (_parent, { id }, context) => {
             if (!context.user)
                 throw new AuthenticationError('Unauthorized');
-            const flashcard = await Flashcard.findById(id);
-            if (!flashcard)
+            const flashcardDoc = await FlashcardModel.findById(id);
+            if (!flashcardDoc)
                 throw new Error('Flashcard not found.');
-            if (flashcard.createdByUsername.toString() !== context.user._id)
+            if (flashcardDoc.createdByUsername.toString() !== context.user._id)
                 throw new AuthenticationError('You can only delete your own flashcards');
-            await flashcard.deleteOne();
+            await flashcardDoc.deleteOne();
             await Deck.updateOne({ flashcards: id }, { $pull: { flashcards: id } });
             return true;
         },
         toggleFavorite: async (_parent, { id }, context) => {
             if (!context.user)
                 throw new AuthenticationError('Unauthorized');
-            const card = await Flashcard.findById(id);
+            const card = await FlashcardModel.findById(id);
             if (!card)
                 throw new Error('Not found');
             if (card.createdByUsername.toString() !== context.user._id)
@@ -114,7 +115,7 @@ const resolvers = {
             const deck = new Deck({
                 title,
                 description,
-                createdByUsername: context.user._id, // Use ObjectId from logged-in user
+                createdByUsername: context.user._id,
                 isPublic: false,
                 flashcards: [],
             });
@@ -129,7 +130,12 @@ const resolvers = {
                 throw new Error('Deck not found.');
             if (deck.createdByUsername.toString() !== context.user._id)
                 throw new AuthenticationError('You can only update your own decks');
-            const updated = await Deck.findByIdAndUpdate(id, { $set: { ...(title && { title }), ...(description && { description }) } }, { new: true, runValidators: true });
+            const updateFields = {};
+            if (title !== undefined)
+                updateFields.title = title;
+            if (description !== undefined)
+                updateFields.description = description;
+            const updated = await Deck.findByIdAndUpdate(id, { $set: updateFields }, { new: true, runValidators: true });
             return updated;
         },
         deleteDeck: async (_parent, { id }, context) => {
@@ -142,13 +148,13 @@ const resolvers = {
             if (deck.createdByUsername.toString() !== userId)
                 throw new AuthenticationError('You can only delete your own decks');
             await deck.deleteOne();
-            await Flashcard.deleteMany({ deck: id });
+            await FlashcardModel.deleteMany({ deck: id });
             return true;
         },
     },
     Flashcard: {
-        createdByUsername: async (flashcard) => {
-            return await Profile.findById(flashcard.createdByUsername);
+        createdByUsername: async (flashcardDoc) => {
+            return await Profile.findById(flashcardDoc.createdByUsername);
         },
     },
     Deck: {
@@ -156,7 +162,7 @@ const resolvers = {
             return await Profile.findById(deck.createdByUsername);
         },
         flashcards: async (deck) => {
-            return await Flashcard.find({ deck: deck._id });
+            return await FlashcardModel.find({ deck: deck._id });
         },
     },
 };
