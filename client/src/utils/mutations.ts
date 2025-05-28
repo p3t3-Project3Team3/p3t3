@@ -115,28 +115,7 @@ export const UPDATE_DECK = gql`
 `;
 
 export const DELETE_DECK = gql`
-  mutation deleteDeck($id: ID!) {
-    deleteDeck(id: $id) {
-      _id
-      title
-      description
-       createdByUsername {
-    _id
-    username
-    email
-    # any other fields you need from Profile
-  }
-      isPublic
-
-      flashcards {
-        _id
-        term
-        definition
-        deck
-        isFavorite
-        createdAt
-        updatedAt
-      }
-    }
+ mutation deleteDeck($id: ID!) {
+    deleteDeck(id: $id)
   }
 `;

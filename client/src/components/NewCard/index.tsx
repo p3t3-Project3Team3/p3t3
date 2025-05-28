@@ -11,6 +11,7 @@ interface Flashcard {
   _id: string;
   term: string;
   definition: string;
+  example: string;
 }
 
 interface Deck {
@@ -27,6 +28,7 @@ const NewCard: React.FC<NewCardProps> = ({ onAdd }) => {
   const { id } = useParams<{ id: string }>();
   const [term, setTerm] = useState('');
   const [definition, setDefinition] = useState('');
+  const [example, setExample] = useState('');
   const [isCreating, setIsCreating] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [previewFlipped, setPreviewFlipped] = useState(false);
@@ -41,6 +43,7 @@ const [createFlashcard] = useMutation(CREATE_FLASHCARD, {
     console.log('Flashcard created, server returned:', data);
     setTerm('');
     setDefinition('');
+    setExample('');
     setIsCreating(false);
     setShowPreview(false);
   },
@@ -63,6 +66,7 @@ const handleCreate = async () => {
     input: {
       term,
       definition,
+      example,
       deckId: id, 
     
     }
@@ -124,69 +128,84 @@ const handleCreate = async () => {
       </div>
 
       {/* New Card Form */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h3 className="text-lg font-semibold mb-4">Create New Flashcard</h3>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Term Input */}
-          <div>
-            <label htmlFor="term" className="block text-sm font-medium text-gray-700 mb-2">
-              Term/Question (Front of card)
-            </label>
-            <textarea
-              id="term"
-              value={term}
-              onChange={(e) => setTerm(e.target.value)}
-              placeholder="Enter the term, question, or prompt..."
-              rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
+      <form className="ui form">
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h3 className="text-lg font-semibold mb-4">Create New Flashcard</h3>
+          
+          <div className="field">
+            {/* Term Input */}
+            <div>
+              <label>Term or Question: </label>
+              <textarea
+                name="term"
+                value={term}
+                onChange={(e) => setTerm(e.target.value)}
+                placeholder="Enter the term, question, or prompt..."
+                rows={4}
+                maxLength={500}
+              />
+            </div>
+            
+            {/* Definition Input */}
+            <div className="field">
+              <label>
+                Definition or Answer: 
+              </label>
+              <textarea
+                name="definition"
+                value={definition}
+                onChange={(e) => setDefinition(e.target.value)}
+                placeholder="Enter the definition, answer, or explanation..."
+                rows={4}
+                maxLength={500}
+              />
+            </div>
+  
+            {/* Example Input */}
+            <div className="field">
+              <label>
+                Example: 
+              </label>
+              <textarea
+                name="example"
+                value={example}
+                onChange={(e) => setExample(e.target.value)}
+                placeholder="Enter an example..."
+                rows={4}
+                maxLength={500}
+              />
+            </div>
+  
           </div>
-
-          {/* Definition Input */}
-          <div>
-            <label htmlFor="definition" className="block text-sm font-medium text-gray-700 mb-2">
-              Definition/Answer (Back of card)
-            </label>
-            <textarea
-              id="definition"
-              value={definition}
-              onChange={(e) => setDefinition(e.target.value)}
-              placeholder="Enter the definition, answer, or explanation..."
-              rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
+          {/* Action Buttons */}
+          <div className="flex flex-wrap gap-3 mt-6">
+            <button
+              onClick={handleCreate}
+              disabled={isCreating || !term.trim() || !definition.trim()}
+              className="ui blue button"
+            >
+              {isCreating ? 'Creating...' : 'Add Flashcard'}
+            </button>
+            
+            <button
+              onClick={handlePreview}
+              disabled={!term.trim() || !definition.trim()}
+              className="ui pink button"
+            >
+              Preview Card
+            </button>
+            
+            <button
+              onClick={handleClearForm}
+              className="ui grey button"
+            >
+              Clear Form
+            </button>
+            <button onClick={handleDone} className="ui red button">Done</button>
+  
           </div>
         </div>
-
-        {/* Action Buttons */}
-        <div className="flex flex-wrap gap-3 mt-6">
-          <button
-            onClick={handleCreate}
-            disabled={isCreating || !term.trim() || !definition.trim()}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
-          >
-            {isCreating ? 'Creating...' : 'Add Flashcard'}
-          </button>
-          
-          <button
-            onClick={handlePreview}
-            disabled={!term.trim() || !definition.trim()}
-            className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
-          >
-            Preview Card
-          </button>
-          
-          <button
-            onClick={handleClearForm}
-            className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition-colors"
-          >
-            Clear Form
-          </button>
-          <button onClick={handleDone}>Done</button>
-
-        </div>
-      </div>
+      </form>
 
       {/* Preview Modal */}
       {showPreview && (

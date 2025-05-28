@@ -21,12 +21,12 @@ const typeDefs = `
     password: String!
   }
 
- input FlashcardInput {
+input FlashcardInput {
   term: String!
   definition: String!
   example: String
-  deckId: ID!
-  
+  deck: ID
+  isFavorite: Boolean
 }
 
   type Flashcard {
@@ -73,7 +73,7 @@ const typeDefs = `
     deleteDeck(id: ID!): Boolean!
 
     createFlashcard(input: FlashcardInput!): Flashcard!
-    updateFlashcard(id: ID!, term: String, definition: String, example: String, isFavorite: Boolean): Flashcard!
+    updateFlashcard(id: ID!, input: FlashcardInput!): Flashcard
     deleteFlashcard(id: ID!): Boolean!
     toggleFavorite(id: ID!): Flashcard!
   }

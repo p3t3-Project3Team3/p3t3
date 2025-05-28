@@ -88,6 +88,7 @@ export const QUERY_ALL_DECKS = gql`
         _id
         term
         definition
+        example
         isFavorite
         createdByUsername {
         username

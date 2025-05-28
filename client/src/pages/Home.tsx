@@ -158,7 +158,7 @@ const Home: React.FC = () => {
         <div className="action-buttons">
           <button 
             className="ui large primary button"
-            onClick={() => navigate('/decks')}
+            onClick={() => navigate('/game/flashCards/Decks')}
           >
             <i className="clone outline icon"></i>
             View All Decks
@@ -232,7 +232,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Recent Decks Preview */}
-      {decks.length > 0 && (
+      {/* {decks.length > 0 && (
         <div className="recent-decks-section">
           <h3>Recent Decks</h3>
           <div className="decks-preview">
@@ -273,7 +273,7 @@ const Home: React.FC = () => {
             </div>
           )}
         </div>
-      )}
+      )} */}
 
       {/* Empty State */}
       {decks.length === 0 && (
