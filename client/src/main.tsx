@@ -66,7 +66,7 @@ const router = createBrowserRouter([
         element: <Profile />
       },
       {
-        path: "/flashcard/:id/flashCards",
+        path: "/flashcard/:id/",
         element: <FlashCards />
       },
       {

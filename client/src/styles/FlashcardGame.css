@@ -261,6 +261,7 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+ 
 }
 
 .card-front {
@@ -420,4 +421,137 @@
 
 .btn-tertiary:hover {
   background-color: #374151;
+}
+
+/* Additional CSS to fix flashcard display issues */
+/* Add this to your FlashcardGame.css file */
+
+/* Ensure proper 3D transform context */
+.card-container {
+  perspective: 1000px;
+  perspective-origin: center center;
+}
+
+.card-wrapper {
+  transform-style: preserve-3d;
+}
+
+.card {
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+/* Force proper positioning and visibility */
+.card-face {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Ensure front face is visible by default */
+.card-front {
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+  transform: rotateY(0deg) !important;
+  z-index: 2;
+}
+
+/* Ensure back face is hidden by default */
+.card-back {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  transform: rotateY(180deg) !important;
+  z-index: 1;
+}
+
+/* Ensure text content is visible and properly styled */
+.card-content {
+  text-align: center !important;
+  z-index: 10 !important;
+  position: relative !important;
+  width: 100% !important;
+  height: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.card-text {
+  color: white !important;
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  line-height: 1.25 !important;
+  margin: 1rem 0 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  word-wrap: break-word !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+
+.card-label {
+  color: white !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  margin-bottom: 1rem !important;
+  opacity: 0.9 !important;
+  font-weight: 600 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  display: block !important;
+}
+
+.card-instruction {
+  color: white !important;
+  font-size: 0.875rem !important;
+  opacity: 0.8 !important;
+  font-weight: 400 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  margin-top: 1rem !important;
+  display: block !important;
+}
+
+/* Ensure proper contrast and visibility */
+.card-face * {
+  color: white !important;
+}
+
+/* Remove any conflicting styles */
+.card-face .card-content * {
+  background: none !important;
+  border: none !important;
+}
+
+/* Debug styles - REMOVE these once text is visible */
+.card-face {
+  border: 3px solid red !important; /* Temporary - remove once working */
+}
+
+.card-front {
+  border-color: blue !important; /* Temporary - remove once working */
+}
+
+.card-back {
+  border-color: green !important; /* Temporary - remove once working */
+}
+
+.card-text {
+  border: 1px solid yellow !important; /* Temporary - remove once working */
+  background: rgba(255, 255, 255, 0.1) !important; /* Temporary - remove once working */
+}
+
+/* Fallback for any missing text */
+.card-text:empty::before {
+  content: "No text available" !important;
+  color: white !important;
+  font-style: italic !important;
 }

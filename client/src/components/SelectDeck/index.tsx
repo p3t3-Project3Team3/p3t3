@@ -20,13 +20,19 @@ const SelectDeck: React.FC<Props> = ({ gamePath }) => {
         return <div>Error loading decks.</div>;
     }
     
-    const handleSelect = (deckId: string) => {
+   const handleSelect = (deckId: string) => {
         if (deckId !== undefined) {
-            navigate(`/${gamePath}/${deckId}`);
+    
+            if (gamePath === 'flashcard') {
+                navigate(`/flashcard/${deckId}`);
+            } else {
+                navigate(`/${gamePath}/${deckId}`);
+            }
         } else {
             console.error("No deck Found");
         }
     };
+
     return (
         <div>
             <h1>Select a Deck!</h1>

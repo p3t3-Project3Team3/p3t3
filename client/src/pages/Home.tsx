@@ -1,49 +1,3 @@
-// import { useQuery } from '@apollo/client';
-// import 'semantic-ui-css/semantic.min.css';
-// import '../styles/Home.css';
-
-// import { QUERY_PROFILES } from '../utils/queries';
-
-// const Home = () => {
-//   const { loading, data } = useQuery(QUERY_PROFILES);
-//   const profiles = data?.profiles || [];
-
-//   return (
-//     <main>
-//       <div>
-//         <h1>Welcome to the Brain games Page</h1>
-//         <h4>This is the home page. It can display the games and the different decks here.</h4>
-//         {/* <div>
-//           {loading ? (
-//             <div>Loading...</div>
-//           ) : (
-//             <h3>There are {profiles.length} users.</h3>
-//           )}
-//         </div> */}
-//         <div className='gameContainer'> 
-//           <div className="homeFlashcard">
-//             <h2>Flashcard Game</h2>
-//             <p>Test your knowledge with our flashcard game!</p>
-//             <button className="ui violet button">Play Now</button>
-//           </div>
-//           <div className="homeMatching">
-//             <h2>Matching Game</h2>
-//             <p>Test your knowledge with our Matching game!</p>
-//             <button className="ui violet button">Play Now</button>
-//           </div>
-//           <div className="homeCrossword">
-//             <h2>Crossword Game</h2>
-//             <p>Test your knowledge with our Crossword game!</p>
-//             <button className="ui violet button">Play Now</button>
-//           </div>
-//         </div>
-//       </div>
-//     </main>
-//   );
-// };
-
-// export default Home;
-
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
@@ -95,10 +49,10 @@ const Home: React.FC = () => {
     if (gameType === 'flashcard') {
       if (availableDecks.length === 0) {
         alert('No decks available! Create a deck first.');
-        navigate('/game/flashCards/Decks'); // Fixed: Use your existing route
+        navigate('/game/flashCards/Decks');
       } else if (availableDecks.length === 1) {
-        // Fixed: Navigate to specific deck flashcard route
-        navigate(`/flashcard/${availableDecks[0]._id}/flashCards`);
+        
+        navigate(`/flashcard/${availableDecks[0]._id}`);
       } else {
         navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
       }
@@ -107,7 +61,6 @@ const Home: React.FC = () => {
         alert('Need at least one deck with 2 or more cards for the memory game!');
         navigate('/game/flashCards/Decks');
       } else if (memoryGameDecks.length === 1) {
-        // Fixed: Navigate to specific deck matching route
         navigate(`/matching/${memoryGameDecks[0]._id}`);
       } else {
         navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
@@ -117,7 +70,6 @@ const Home: React.FC = () => {
         alert('Need at least one deck with 6 or more cards for crosswords!');
         navigate('/game/flashCards/Decks');
       } else if (crosswordGameDecks.length === 1) {
-        // Fixed: Navigate to specific deck crossword route
         navigate(`/crossword/${crosswordGameDecks[0]._id}`);
       } else {
         navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
@@ -243,66 +195,6 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Recent Decks Preview */}
-      {/* {decks.length > 0 && (
-        <div className="recent-decks-section">
-          <h3>Recent Decks</h3>
-          <div className="decks-preview">
-            {decks.slice(0, 3).map((deck) => (
-              <div key={deck._id} className="deck-preview-card">
-                <h4>{deck.title}</h4>
-                <p>{deck.description}</p>
-                <div className="deck-preview-stats">
-                  <span>{deck.flashcards.length} cards</span>
-                </div>
-                <div className="deck-preview-actions">
-                  <button 
-                    className="ui small button"
-                    onClick={() => navigate(`/deck/${deck._id}`)}
-                  >
-                    View
-                  </button>
-                  {deck.flashcards.length >= 2 && (
-                    <button 
-                      className="ui small violet button"
-                      onClick={() => navigate(`/matching/${deck._id}`)} // Fixed: Use correct route
-                    >
-                      Play Memory
-                    </button>
-                  )}
-                  {deck.flashcards.length >= 1 && (
-                    <button 
-                      className="ui small blue button"
-                      onClick={() => navigate(`/flashcard/${deck._id}/flashCards`)} // Fixed: Use correct route
-                    >
-                      Study
-                    </button>
-                  )}
-                  {deck.flashcards.length >= 1 && (
-                    <button 
-                      className="ui small red button"
-                      onClick={() => navigate(`/crossword/${deck._id}`)} // Fixed: Use correct route
-                    >
-                      Crossword
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-          {decks.length > 3 && (
-            <div className="view-all-link">
-              <button 
-                className="ui basic button"
-                onClick={() => navigate('/game/flashCards/Decks')} // Fixed: Use your existing route
-              >
-                View All {decks.length} Decks →
-              </button>
-            </div>
-          )}
-        </div>
-      )} */}
-
       {/* Empty State */}
       {decks.length === 0 && (
         <div className="empty-state">
@@ -311,7 +203,7 @@ const Home: React.FC = () => {
           <p>Create your first flashcard deck to begin your learning journey.</p>
           <button 
             className="ui large primary button"
-            onClick={() => navigate('/decks/createNewDeck')} // Fixed: Use your existing route
+            onClick={() => navigate('/decks/createNewDeck')}
           >
             Create Your First Deck
           </button>

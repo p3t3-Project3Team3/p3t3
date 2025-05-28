@@ -20,13 +20,11 @@ interface StudyStats {
 }
 
 const FlashCard = () => {
-  const { deckId } = useParams<{ deckId: string }>();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
-  // Fixed: Use correct query and data access
   const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {
-    variables: { id: deckId },
-    skip: !deckId,
+    variables: { id: id },
+    skip: !id,
   });
 
   // Study state
@@ -47,7 +45,6 @@ const FlashCard = () => {
 
   // Initialize study cards when data loads
   useEffect(() => {
-    // Fixed: Use correct data path
     if (data?.getSingleDeck?.flashcards) {
       const cards = [...data.getSingleDeck.flashcards];
       if (studyMode === 'random') {
@@ -58,6 +55,9 @@ const FlashCard = () => {
         }
       } else if (studyMode === 'incorrect' && incorrectCards.length > 0) {
         setStudyCards(incorrectCards);
+        // Reset flip state when changing modes
+        setIsFlipped(false);
+        setShowAnswer(false);
         return;
       }
       setStudyCards(cards);
@@ -210,7 +210,7 @@ const FlashCard = () => {
           <div className="inline">
             <button 
               className="ui primary button"
-              onClick={() => navigate(`/deck/${deckId}/new-card`)}
+              onClick={() => navigate(`/deck/${id}/new-card`)}
             >
               Add Flashcards
             </button>
@@ -268,7 +268,7 @@ const FlashCard = () => {
             </button>
           )}
           
-          <button onClick={() => navigate(`/deck/${deckId}`)} className="btn-tertiary">
+          <button onClick={() => navigate(`/deck/${id}`)} className="btn-tertiary">
             Back to Deck
           </button>
         </div>
@@ -347,23 +347,37 @@ const FlashCard = () => {
         <div className="card-wrapper">
           <motion.div
             className="card"
-            initial={isFlipped ? "back" : "front"}
+            initial="front"
             animate={isFlipped ? "back" : "front"}
             variants={cardVariants}
             transition={cardTransition}
             onClick={handleFlip}
+            style={{ transformStyle: 'preserve-3d' }}
           >
             {/* Front of Card */}
-            <div className="card-face card-front">
+            <div className="card-face card-front" style={{ 
+              backfaceVisibility: 'hidden',
+              position: 'absolute',
+              width: '100%',
+              height: '100%'
+            }}>
               <div className="card-content">
                 <div className="card-label">Term</div>
-                <div className="card-text">{currentCard.term}</div>
+                <div className="card-text">
+                  {currentCard?.term || "No term available"}
+                </div>
                 <div className="card-instruction">Click to reveal answer</div>
               </div>
             </div>
 
             {/* Back of Card */}
-            <div className="card-face card-back">
+            <div className="card-face card-back" style={{ 
+              backfaceVisibility: 'hidden',
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              transform: 'rotateY(180deg)'
+            }}>
               <div className="card-content">
                 <div className="card-label">Definition</div>
                 <div className="card-text">{currentCard.definition}</div>
@@ -395,7 +409,7 @@ const FlashCard = () => {
           Previous
         </button>
 
-        <button onClick={() => navigate(`/deck/${deckId}`)} className="nav-button nav-button-light-gray">
+        <button onClick={() => navigate(`/deck/${id}`)} className="nav-button nav-button-light-gray">
           Exit Study
         </button>
 
