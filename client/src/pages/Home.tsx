@@ -89,29 +89,39 @@ const Home: React.FC = () => {
   const totalFlashcards = decks.reduce((total, deck) => total + deck.flashcards.length, 0);
   const availableDecks = decks.filter(deck => deck.flashcards.length > 0);
   const memoryGameDecks = decks.filter(deck => deck.flashcards.length >= 2);
+  const crosswordGameDecks = decks.filter(deck => deck.flashcards.length >= 6);
 
   const handleGameNavigation = (gameType: string) => {
     if (gameType === 'flashcard') {
       if (availableDecks.length === 0) {
         alert('No decks available! Create a deck first.');
-        navigate('/decks');
+        navigate('/game/flashCards/Decks'); // Fixed: Use your existing route
       } else if (availableDecks.length === 1) {
-        navigate(`/study/${availableDecks[0]._id}`);
+        // Fixed: Navigate to specific deck flashcard route
+        navigate(`/flashcard/${availableDecks[0]._id}/flashCards`);
       } else {
-        navigate('/decks');
+        navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
       }
     } else if (gameType === 'memory') {
       if (memoryGameDecks.length === 0) {
         alert('Need at least one deck with 2 or more cards for the memory game!');
-        navigate('/decks');
+        navigate('/game/flashCards/Decks');
       } else if (memoryGameDecks.length === 1) {
-        navigate(`/memory-game/${memoryGameDecks[0]._id}`);
+        // Fixed: Navigate to specific deck matching route
+        navigate(`/matching/${memoryGameDecks[0]._id}`);
       } else {
-        navigate('/decks');
+        navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
       }
     } else if (gameType === 'crossword') {
-      // Placeholder for future crossword game
-      alert('Crossword game coming soon!');
+      if (crosswordGameDecks.length === 0) {
+        alert('Need at least one deck with 6 or more cards for crosswords!');
+        navigate('/game/flashCards/Decks');
+      } else if (crosswordGameDecks.length === 1) {
+        // Fixed: Navigate to specific deck crossword route
+        navigate(`/crossword/${crosswordGameDecks[0]._id}`);
+      } else {
+        navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
+      }
     }
   };
 
@@ -158,7 +168,7 @@ const Home: React.FC = () => {
         <div className="action-buttons">
           <button 
             className="ui large primary button"
-            onClick={() => navigate('/decks')}
+            onClick={() => navigate('/game/flashCards/Decks')} // Fixed: Use your existing route
           >
             <i className="clone outline icon"></i>
             View All Decks
@@ -218,14 +228,16 @@ const Home: React.FC = () => {
             <h3>Crossword Puzzle</h3>
             <p>Challenge yourself with crossword puzzles based on your flashcards!</p>
             <div className="game-stats">
-              <span className="game-stat coming-soon">Coming Soon</span>
+              <span className="game-stat">
+                {crosswordGameDecks.length} crossword-ready decks
+              </span>
             </div>
             <button 
               className="ui violet button game-button"
               onClick={() => handleGameNavigation('crossword')}
-              disabled
+              disabled={crosswordGameDecks.length === 0}
             >
-              Coming Soon
+              {crosswordGameDecks.length === 0 ? 'Need 6+ Cards' : 'Play Crosswords'}
             </button>
           </div>
         </div>
@@ -253,9 +265,17 @@ const Home: React.FC = () => {
                   {deck.flashcards.length >= 2 && (
                     <button 
                       className="ui small violet button"
-                      onClick={() => navigate(`/memory-game/${deck._id}`)}
+                      onClick={() => navigate(`/matching/${deck._id}`)} // Fixed: Use correct route
                     >
-                      Play
+                      Play Memory
+                    </button>
+                  )}
+                  {deck.flashcards.length >= 1 && (
+                    <button 
+                      className="ui small blue button"
+                      onClick={() => navigate(`/flashcard/${deck._id}/flashCards`)} // Fixed: Use correct route
+                    >
+                      Study
                     </button>
                   )}
                 </div>
@@ -266,7 +286,7 @@ const Home: React.FC = () => {
             <div className="view-all-link">
               <button 
                 className="ui basic button"
-                onClick={() => navigate('/decks')}
+                onClick={() => navigate('/game/flashCards/Decks')} // Fixed: Use your existing route
               >
                 View All {decks.length} Decks →
               </button>
@@ -283,28 +303,13 @@ const Home: React.FC = () => {
           <p>Create your first flashcard deck to begin your learning journey.</p>
           <button 
             className="ui large primary button"
-            onClick={() => navigate('/create-deck')}
+            onClick={() => navigate('/decks/createNewDeck')} // Fixed: Use your existing route
           >
             Create Your First Deck
           </button>
         </div>
       )}
 
-      {/* Tips Section */}
-      <div className="tips-section">
-        <h3>💡 Pro Tips</h3>
-        <div className="tips-grid">
-          <div className="tip-card">
-            <strong>Study Regularly:</strong> Review your flashcards daily for better retention.
-          </div>
-          <div className="tip-card">
-            <strong>Mix It Up:</strong> Alternate between study mode and memory games for variety.
-          </div>
-          <div className="tip-card">
-            <strong>Create Quality Cards:</strong> Use clear, concise definitions and examples.
-          </div>
-        </div>
-      </div>
     </main>
   );
 };

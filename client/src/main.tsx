@@ -1,6 +1,17 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-// import AuthService from "./utils/auth"; 
+
+// Suppress findDOMNode warning from Semantic UI React
+const originalError = console.error;
+console.error = (...args) => {
+  if (
+    typeof args[0] === 'string' &&
+    args[0].includes('findDOMNode is deprecated')
+  ) {
+    return;
+  }
+  originalError.call(console, ...args);
+};
 
 import App from "./App.jsx";
 import Home from "./pages/Home";
@@ -17,17 +28,12 @@ import Decks from "./pages/Decks";
 import NewCard from "./components/NewCard/index";
 import LandingPage from "./pages/LandingPage";
 import CreateDeck from "./pages/createDeck";
-// import Study from "./pages/Study";
-// import DeckDetails from "./components/Decks/details";
-import "./index.css";
-// import DeckDetail from "./pages/DeckDetails.js";
 import ViewDeck from "./pages/ViewADeck.js";
+import "./index.css";
 
 const handleAddCard = (newFlashcard: { term: string; definition: string }) => {
   console.log('Card added:', newFlashcard);
-  // You can do something here or pass the real handler later
 };
-
 
 const router = createBrowserRouter([
   {
@@ -50,7 +56,6 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />
-
       },
       {
         path: "/profiles/:profileId",
@@ -61,7 +66,7 @@ const router = createBrowserRouter([
         element: <Profile />
       },
       {
-        path: "/flashcard/:deckId/flashCards",
+        path: "/flashcard/:deckId",
         element: <FlashCards />
       },
       {
@@ -78,7 +83,7 @@ const router = createBrowserRouter([
       },
       {
        path: '/deck/:id/new-card',
-       element: <NewCard onAdd={handleAddCard} />,  // pass the required prop here
+       element: <NewCard onAdd={handleAddCard} />,
       },
       {
         path: "/game",
@@ -90,17 +95,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/deck/:id",
-        element: <ViewDeck />  // or whatever component shows the deck detail page
+        element: <ViewDeck />
       },
-
-      // { 
-      //   path:"/deck/${deckId}/study",
-      //   element: <Study />
-      // },
-      // {
-      //   path:"/decks/:Id",
-      //   element: <DeckDetails />
-      // },
       {
         path:"/decks/createNewDeck",
         element: <CreateDeck />

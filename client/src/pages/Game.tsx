@@ -1,7 +1,4 @@
-import { useState } from 'react';
-// import { useQuery } from '@apollo/client';
-// import { QUERY_ALL_DECKS } from '../utils/queries';
-// import { useNavigate } from 'react-router-dom';
+import { useState } from 'react'
 import "../styles/games.css"; // Adjust the path if needed
 import SelectDeck from '../components/SelectDeck/index'; // Adjust the path if needed
 

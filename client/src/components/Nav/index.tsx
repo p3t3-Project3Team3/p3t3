@@ -1,47 +1,16 @@
-// import 'semantic-ui-css/semantic.min.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import { useState, useEffect } from "react";
-import auth from "../../utils/auth";
 import { NavLink } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import "../Nav/Nav.css";
-import Login from "../../pages/Login";
+
+import "../../styles/Nav.css";
 import { useAuth } from '../../utils/authContext';
-
-// import { useNavigate } from "react-router";
-
 const NavigationBar = () => {
-  //   const  navigate = useNavigate();
-  const [loginCheck, setLoginCheck] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const { isAuthenticated, username, logout } = useAuth();
-
-  // const navigate = useNavigate();
-
- if (!isAuthenticated) {
+const { isAuthenticated, username, logout } = useAuth();
+if (!isAuthenticated) {
     return null; 
   }
-  // const checkLogin = () => {
-  //   if (auth.loggedIn()) {
-  //     setLoginCheck(true);
-  //   }
-  // };
-
-// useEffect(() => {
-//   if (auth.loggedIn()) {
-//     setLoginCheck(true);
-//     const profile = auth.getProfile();
-//     setUsername(profile.data.username);
-//   } else {
-//     setLoginCheck(false);
-//     setUsername("");
-//   }
-// }, []);
-
-  return (
+ return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -50,32 +19,15 @@ const NavigationBar = () => {
             <Nav.Link as={NavLink} to="/Home">
               Home
             </Nav.Link>
-            <Nav.Link as={NavLink}to="/decks/createNewDeck">Create Deck</Nav.Link>
+            <Nav.Link as={NavLink} to="/decks/createNewDeck">
+            Create Deck
+            </Nav.Link>
             <Nav.Link as={NavLink} to="/game/flashCards/Decks">
               View Decks
+            </Nav.Link> 
+            <Nav.Link as={NavLink} to="/game">
+            Games
             </Nav.Link>
-            <NavDropdown
-              title={
-                <NavLink
-                  to="/game"
-                  className="dropdown-title-link"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  Games
-                </NavLink>
-              }
-              id="games-dropdown"
-            >
-              <NavDropdown.Item as={NavLink} to="/game/FlashCards">
-                Flashcards
-              </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/game/Matching">
-                Matching
-              </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/game/Crossword">
-                Crosswords
-              </NavDropdown.Item>
-            </NavDropdown>
             <Nav.Link as={NavLink} to="/AboutUs">
               About Us
             </Nav.Link>

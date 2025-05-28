@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CardFront } from "../CardFront";
 import { CardBack } from "../CardBack";
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_SINGLE_DECK } from '../../utils/queries';  // <-- updated import
+import { QUERY_SINGLE_DECK } from '../../utils/queries';  // Fixed import
 import { CREATE_FLASHCARD } from '../../utils/mutations';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -32,8 +32,9 @@ const NewCard: React.FC<NewCardProps> = ({ onAdd }) => {
   const [previewFlipped, setPreviewFlipped] = useState(false);
   const navigate = useNavigate();
 
-  const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {  // <-- updated query
+  const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {  // Fixed query name
     variables: { id: id },
+    skip: !id,
   });
 
 const [createFlashcard] = useMutation(CREATE_FLASHCARD, {
@@ -59,17 +60,15 @@ const handleCreate = async () => {
   setIsCreating(true);
   try {
     await createFlashcard({
-  variables: {
-    input: {
-      term,
-      definition,
-      deckId: id, 
-    
-    }
-  },
-  refetchQueries: [{ query: QUERY_SINGLE_DECK, variables: { id } }],
-});
-
+      variables: {
+        input: {
+          term,
+          definition,
+          deckId: id, 
+        }
+      },
+      refetchQueries: [{ query: QUERY_SINGLE_DECK, variables: { id } }],
+    });
 
     // Notify parent component
     onAdd({ term: term.trim(), definition: definition.trim() });
@@ -108,16 +107,13 @@ const handleCreate = async () => {
   if (error) return <div className="flex justify-center p-8 text-red-600"><p>Error loading deck: {error.message}</p></div>;
   if (!data?.getSingleDeck) return <div className="flex justify-center p-8"><p>Deck not found</p></div>;
 
- 
-
-  const deck: Deck = data.getSingleDeck;  // <-- updated data access
+  const deck: Deck = data.getSingleDeck;  // Fixed data access
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-800 mb-2">Add Flashcards to "{deck.title}"</h1>
-    
         <p className="text-sm text-gray-500 mt-1">
           Current cards in deck: {deck.flashcards.length}
         </p>
@@ -184,7 +180,6 @@ const handleCreate = async () => {
             Clear Form
           </button>
           <button onClick={handleDone}>Done</button>
-
         </div>
       </div>
 
@@ -252,6 +247,5 @@ const handleCreate = async () => {
     </div>
   );
 };
-
 
 export default NewCard;

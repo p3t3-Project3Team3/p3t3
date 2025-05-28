@@ -1,63 +1,8 @@
-// import { useParams } from "react-router-dom";
-// import { useQuery } from "@apollo/client";
-// import { QUERY_SINGLEDECK } from "../utils/queries";
-
-// const FlashCards = () => {
-//   const { deckId } = useParams<{ deckId: string }>();
-//   console.log("deckId from params:", deckId);
-
-//   const { data, loading, error } = useQuery(QUERY_SINGLEDECK, {
-//     variables: { id: deckId },
-//     skip: !deckId, // don't run the query if deckId is undefined
-//   });
-
-//   if (loading) {
-//     return <div>Loading...</div>;
-//   }
-
-//   if (error) {
-//     console.error("Error fetching deck:", error);
-//     return <div>Error loading deck.</div>;
-//   }
-
-//   if (!data || !data.getSingleDeck) {
-//     return <div>Deck not found.</div>;
-//   }
-
-//   const deck = data.getSingleDeck;
-
-//   return (
-//     <main>
-//       <div>
-//         <h1>Play Flashcards with your "{deck.title}" deck!</h1>
-//         <p>{deck.description}</p>
-//         <button className="ui violet button">Play Now</button>
-
-//         <div style={{ marginTop: "2rem" }}>
-//           <h2>Flashcards:</h2>
-//           {deck.flashcards.length === 0 ? (
-//             <p>No flashcards in this deck yet.</p>
-//           ) : (
-//             <ul>
-//               {deck.flashcards.map((card: any) => (
-//                 <li key={card._id}>
-//                   <strong>{card.term}</strong>: {card.definition}
-//                 </li>
-//               ))}
-//             </ul>
-//           )}
-//         </div>
-//       </div>
-//     </main>
-//   );
-// };
-
-// export default FlashCards;
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
-import { QUERY_ALL_DECKS } from '../utils/queries';
+import { QUERY_SINGLE_DECK } from '../utils/queries'; // Fixed import
 import '../styles/FlashcardGame.css';
 
 interface Flashcard {
@@ -78,9 +23,10 @@ const FlashCard = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   
-  // Apollo query for deck data
-  const { data, loading, error } = useQuery(QUERY_ALL_DECKS, {
+  // Fixed: Use correct query and data access
+  const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {
     variables: { id: id },
+    skip: !id,
   });
 
   // Study state
@@ -101,8 +47,9 @@ const FlashCard = () => {
 
   // Initialize study cards when data loads
   useEffect(() => {
-    if (data?.getDeck?.flashcards) {
-      const cards = [...data.getDeck.flashcards];
+    // Fixed: Use correct data path
+    if (data?.getSingleDeck?.flashcards) {
+      const cards = [...data.getSingleDeck.flashcards];
       if (studyMode === 'random') {
         // Shuffle cards for random mode
         for (let i = cards.length - 1; i > 0; i--) {
@@ -205,9 +152,10 @@ const FlashCard = () => {
 
   if (loading) return <div className="loading-container"><p>Loading deck...</p></div>;
   if (error) return <div className="error-container"><p className="error-text">Error: {error.message}</p></div>;
-  if (!data?.getDeck) return <div className="not-found-container"><p>Deck not found</p></div>;
+  if (!data?.getSingleDeck) return <div className="not-found-container"><p>Deck not found</p></div>;
 
-  const deck = data.getDeck;
+  // Fixed: Use correct data path
+  const deck = data.getSingleDeck;
   const currentCard = studyCards[currentCardIndex];
 
   if (isStudyComplete) {
