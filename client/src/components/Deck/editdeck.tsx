@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { QUERY_SINGLE_DECK } from "../../utils/queries";
+import { QUERY_SINGLE_DECK, QUERY_ALL_DECKS } from "../../utils/queries";
 import { UPDATE_DECK, DELETE_DECK } from "../../utils/mutations";
 import { Modal, Button, Form, Message, Confirm } from "semantic-ui-react";
 
@@ -46,40 +46,55 @@ const EditDeck: React.FC<EditDeckProps> = ({
     description?: string;
   }>({});
 
+  // Get the actual deck ID to use
+  const actualDeckId = deckId || selectedDeck?._id;
+
   const [updateDeck] = useMutation(UPDATE_DECK, {
     refetchQueries: [
-      { query: QUERY_SINGLE_DECK, variables: { id: deckId } },
-      { query: QUERY_SINGLE_DECK, variables: { id: selectedDeck?._id } }
+      { query: QUERY_SINGLE_DECK, variables: { id: actualDeckId } },
+      { query: QUERY_ALL_DECKS }
     ],
+    onCompleted: (data) => {
+      console.log("Deck update completed:", data);
+      if (refetch) {
+        refetch();
+      }
+    },
+    onError: (error) => {
+      console.error("Mutation error:", error);
+      setError(`Failed to update deck: ${error.message}`);
+      setIsLoading(false);
+    }
   });
 
   const [deleteDeck] = useMutation(DELETE_DECK, {
+    refetchQueries: [
+      { query: QUERY_ALL_DECKS }
+    ],
     onCompleted: () => {
-      navigate("/game/flashDecks/Decks");
+      console.log("Deck deleted successfully");
+      // Fixed navigation path
+      navigate("/game/flashCards/Decks");
+    },
+    onError: (error) => {
+      console.error("Delete error:", error);
+      setError(`Failed to delete deck: ${error.message}`);
+      setIsLoading(false);
     }
   });
 
-  // Initialize form when selectedDeck changes
+  // Initialize form when selectedDeck changes or modal opens
   useEffect(() => {
-    if (selectedDeck) {
-      setEditTitle(selectedDeck.title);
-      setEditDescription(selectedDeck.description);
-    }
-  }, [selectedDeck]);
-
-  // Reset form when modal closes
-  useEffect(() => {
-    if (!modalOpen) {
+    if (modalOpen && selectedDeck) {
+      console.log("Initializing form with deck:", selectedDeck);
+      setEditTitle(selectedDeck.title || "");
+      setEditDescription(selectedDeck.description || "");
       setIsEditing(false);
       setShowSuccess(false);
       setError(null);
       setFormErrors({});
-      if (selectedDeck) {
-        setEditTitle(selectedDeck.title);
-        setEditDescription(selectedDeck.description);
-      }
     }
-  }, [modalOpen, selectedDeck]);
+  }, [selectedDeck, modalOpen]);
 
   const validateForm = (): boolean => {
     const errors: { title?: string; description?: string } = {};
@@ -103,7 +118,17 @@ const EditDeck: React.FC<EditDeckProps> = ({
   const handleSubmitDeckEdit = async (e?: React.FormEvent) => {
     e?.preventDefault();
     
+    console.log("Attempting to save deck update...");
+    console.log("Current values:", { editTitle, editDescription });
+    console.log("Deck ID:", actualDeckId);
+    
     if (!validateForm()) {
+      console.log("Form validation failed");
+      return;
+    }
+
+    if (!actualDeckId) {
+      setError("No deck ID found. Cannot update deck.");
       return;
     }
 
@@ -111,9 +136,10 @@ const EditDeck: React.FC<EditDeckProps> = ({
     setError(null);
 
     try {
-      await updateDeck({
+      console.log("Calling updateDeck mutation...");
+      const result = await updateDeck({
         variables: {
-          id: selectedDeck?._id,
+          id: actualDeckId,
           input: {
             title: editTitle.trim(),
             description: editDescription.trim(),
@@ -121,35 +147,45 @@ const EditDeck: React.FC<EditDeckProps> = ({
         },
       });
       
-      refetch?.();
+      console.log("Update result:", result);
+      
       setShowSuccess(true);
       setIsEditing(false);
       
+      // Auto-close after success
       setTimeout(() => {
         setShowSuccess(false);
         setModalOpen(false);
       }, 2000);
-    } catch (err) {
+      
+    } catch (err: any) {
       console.error("Error updating deck:", err);
-      setError("Failed to update deck. Please try again.");
+      setError(err.message || "Failed to update deck. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleDeleteDeck = async () => {
+    if (!actualDeckId) {
+      setError("No deck ID found. Cannot delete deck.");
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
     
     try {
+      console.log("Deleting deck with ID:", actualDeckId);
       await deleteDeck({ 
         variables: { 
-          deckId: deckId || selectedDeck?._id 
+          deckId: actualDeckId 
         } 
       });
-    } catch (err) {
+      setModalOpen(false);
+    } catch (err: any) {
       console.error("Error deleting deck:", err);
-      setError("Failed to delete deck. Please try again.");
+      setError(err.message || "Failed to delete deck. Please try again.");
       setIsLoading(false);
     }
   };
@@ -164,9 +200,10 @@ const EditDeck: React.FC<EditDeckProps> = ({
     setIsEditing(false);
     setFormErrors({});
     setError(null);
+    // Reset to original values
     if (selectedDeck) {
-      setEditTitle(selectedDeck.title);
-      setEditDescription(selectedDeck.description);
+      setEditTitle(selectedDeck.title || "");
+      setEditDescription(selectedDeck.description || "");
     }
   };
 
@@ -176,7 +213,21 @@ const EditDeck: React.FC<EditDeckProps> = ({
     }
   };
 
+  // Debug logging
+  useEffect(() => {
+    console.log("EditDeck component state:", {
+      selectedDeck,
+      modalOpen,
+      deckId,
+      actualDeckId,
+      editTitle,
+      editDescription,
+      isEditing
+    });
+  }, [selectedDeck, modalOpen, deckId, actualDeckId, editTitle, editDescription, isEditing]);
+
   if (!selectedDeck) {
+    console.log("No selectedDeck provided");
     return null;
   }
 
@@ -187,6 +238,7 @@ const EditDeck: React.FC<EditDeckProps> = ({
         onClose={handleCloseModal} 
         size="small"
         closeOnDimmerClick={!isLoading}
+        closeIcon={!isLoading}
       >
         <Modal.Header>
           {isEditing ? "Edit Deck" : "Deck Details"}
@@ -218,11 +270,14 @@ const EditDeck: React.FC<EditDeckProps> = ({
                   <strong>Created by:</strong> {selectedDeck.createdByUsername.username}
                 </p>
               )}
+              <p style={{ fontSize: '0.9em', color: '#666' }}>
+                <strong>ID:</strong> {actualDeckId}
+              </p>
             </div>
           ) : (
             <Form onSubmit={handleSubmitDeckEdit} loading={isLoading}>
               <Form.Field error={!!formErrors.title}>
-                <label>Title</label>
+                <label>Title *</label>
                 <input
                   type="text"
                   value={editTitle}
@@ -238,12 +293,12 @@ const EditDeck: React.FC<EditDeckProps> = ({
               </Form.Field>
               
               <Form.Field error={!!formErrors.description}>
-                <label>Description</label>
+                <label>Description *</label>
                 <textarea
                   value={editDescription}
                   onChange={(e) => setEditDescription(e.target.value)}
                   placeholder="Enter deck description..."
-                  rows={3}
+                  rows={4}
                   disabled={isLoading}
                 />
                 {formErrors.description && (
@@ -263,16 +318,16 @@ const EditDeck: React.FC<EditDeckProps> = ({
                 primary 
                 onClick={handleStartEdit}
                 disabled={isLoading}
-              >
-                Edit
-              </Button>
+                icon="edit"
+                content="Edit"
+              />
               <Button 
                 color="red" 
                 onClick={() => setShowDeleteConfirm(true)}
                 disabled={isLoading}
-              >
-                Delete
-              </Button>
+                icon="trash"
+                content="Delete"
+              />
             </>
           ) : (
             <>
@@ -280,25 +335,25 @@ const EditDeck: React.FC<EditDeckProps> = ({
                 positive 
                 onClick={handleSubmitDeckEdit}
                 loading={isLoading}
-                disabled={isLoading}
-              >
-                Save Changes
-              </Button>
+                disabled={isLoading || !editTitle.trim() || !editDescription.trim()}
+                icon="save"
+                content="Save Changes"
+              />
               <Button 
                 onClick={handleCancelEdit}
                 disabled={isLoading}
-              >
-                Cancel
-              </Button>
+                icon="cancel"
+                content="Cancel"
+              />
             </>
           )}
           
           <Button 
             onClick={handleCloseModal}
             disabled={isLoading}
-          >
-            Close
-          </Button>
+            icon="close"
+            content="Close"
+          />
         </Modal.Actions>
       </Modal>
 
@@ -310,7 +365,7 @@ const EditDeck: React.FC<EditDeckProps> = ({
           handleDeleteDeck();
         }}
         header="Delete Deck"
-        content="Are you sure you want to delete this deck? This action cannot be undone."
+        content="Are you sure you want to delete this deck? This action cannot be undone and will delete all flashcards in this deck."
         confirmButton="Delete"
         cancelButton="Cancel"
       />

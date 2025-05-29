@@ -88,8 +88,8 @@ export const CREATE_DECK = gql`
 }
 `;
 export const UPDATE_DECK = gql`
-  mutation updateDeck($id: ID!) {
-    updateDeck(id: $id) {
+  mutation updateDeck($id: ID!, $input: DeckUpdateInput!) {
+    updateDeck(id: $id, input: $input) {
       _id
       title
       description
