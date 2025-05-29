@@ -1,13 +1,13 @@
 .navbar {
-  background-color: rgb(0, 117, 171);
+  background-color: var(--secondary-color, #fef7ed);
   margin: 0;
   padding-left: 13px;
-
+  box-shadow: 1px 1px 2px var(--dark--bg-color, #0f172a);
   a {
-    color: white;
+    color: var(--dark-color, #0f172a);
   }
   a:hover {
-    color: rgb(0, 117, 171);
+    color: var(--primary-color, #5ecfff);
     background-color: white;
   }
   .navbar-nav {
@@ -18,32 +18,51 @@
   }
   button {
     background-color: #5ecfff;
-    color: white;
+    color: #fef7ed;
     border-radius: 10px;
     border: none;
     cursor: pointer;
     margin-top: 8px;
     margin-left: 8px;
   }
-  .dropdown-menu {
-    background-color: rgb(0, 117, 171);
-    z-index: 1100;
-    position: absolute;
-    padding: 5px;
-  }
-  .dropdown-item:hover,
-  .dropdown-item:focus {
-    background-color: white;
-    color: rgb(0, 117, 171);
-
-  }
 }
+ 
+
 
 .dark {
   .navbar {
-    background-color: #24b4f2;
+    background-color: var(--dark-bg-color,#0f172a);
     a {
-      color: black;
+      color:var(--dark-color, #fef7ed);
     }
+  }
+}
+
+@media (max-width: 575px) {
+  .navbar {
+    padding-left: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .navbar a {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  .navbar button {
+    margin: 5px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
   }
 }

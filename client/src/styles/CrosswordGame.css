@@ -394,3 +394,47 @@
     color: #ffffff;
   }
 }
+
+@media (max-width: 575px) {
+  .crossword-container {
+    padding: 0.75rem;
+  }
+  
+  .crossword-title {
+    font-size: 1.5rem;
+  }
+  
+  .crossword-cell {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+  
+  .cell-number {
+    font-size: 6px;
+    top: 0px;
+    left: 1px;
+  }
+  
+  .clues-panel {
+    max-height: 250px;
+    padding: 1rem;
+  }
+  
+  .clues-title {
+    font-size: 1rem;
+  }
+  
+  .clue-text {
+    font-size: 0.8rem;
+  }
+  
+  .crossword-controls {
+    gap: 0.25rem;
+  }
+  
+  .control-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}

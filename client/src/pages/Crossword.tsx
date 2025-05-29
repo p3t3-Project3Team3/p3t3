@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useQuery } from '@apollo/client';
+import { useParams, useNavigate } from 'react-router-dom';
+import { QUERY_SINGLE_DECK } from '../utils/queries';
 import '../styles/CrosswordGame.css';
 
 interface CrosswordWord {
@@ -26,19 +29,24 @@ interface GameStats {
   totalCells: number;
 }
 
-const Crossword: React.FC = () => {
-  // Sample crossword data - in a real app, this would come from props or API
-  const sampleWords: CrosswordWord[] = [
-    { id: 1, word: 'REACT', clue: 'JavaScript library for building user interfaces', direction: 'across', startRow: 0, startCol: 0, number: 1 },
-    { id: 2, word: 'CODE', clue: 'Instructions written in a programming language', direction: 'down', startRow: 0, startCol: 2, number: 2 },
-    { id: 3, word: 'HTML', clue: 'Markup language for web pages', direction: 'across', startRow: 2, startCol: 1, number: 3 },
-    { id: 4, word: 'CSS', clue: 'Styling language for web design', direction: 'down', startRow: 1, startCol: 4, number: 4 },
-    { id: 5, word: 'API', clue: 'Application Programming Interface', direction: 'across', startRow: 4, startCol: 0, number: 5 },
-    { id: 6, word: 'DOM', clue: 'Document Object Model', direction: 'down', startRow: 2, startCol: 0, number: 6 },
-  ];
+interface Flashcard {
+  _id: string;
+  term: string;
+  definition: string;
+}
 
-  const gridSize = 6;
-  const [words] = useState<CrosswordWord[]>(sampleWords);
+const Crossword: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  
+  // Query for deck data
+  const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {
+    variables: { id: id },
+    skip: !id,
+  });
+
+  const gridSize = 10; // Increased for more flexibility
+  const [words, setWords] = useState<CrosswordWord[]>([]);
   const [grid, setGrid] = useState<CrosswordCell[][]>([]);
   const [selectedCell, setSelectedCell] = useState<{row: number, col: number} | null>(null);
   const [selectedWord, setSelectedWord] = useState<CrosswordWord | null>(null);
@@ -54,8 +62,170 @@ const Crossword: React.FC = () => {
   const [timer, setTimer] = useState(0);
   const gridRef = useRef<HTMLDivElement>(null);
 
-  // Initialize grid
+  // Create crossword words from flashcards
+  const createCrosswordFromFlashcards = useCallback((flashcards: Flashcard[]): CrosswordWord[] => {
+    if (!flashcards || flashcards.length === 0) return [];
+
+    // Filter and prepare words (remove spaces, special chars, keep only letters)
+    const processedCards = flashcards
+      .map(card => ({
+        ...card,
+        cleanTerm: card.term.replace(/[^A-Za-z]/g, '').toUpperCase()
+      }))
+      .filter(card => card.cleanTerm.length >= 3 && card.cleanTerm.length <= 12)
+      .slice(0, 12); // Limit to prevent overcrowding
+
+    if (processedCards.length < 3) return []; // Need minimum words for crossword
+
+    const crosswordWords: CrosswordWord[] = [];
+    const usedPositions = new Set<string>();
+
+    // Start with the longest word in the center
+    const sortedCards = [...processedCards].sort((a, b) => b.cleanTerm.length - a.cleanTerm.length);
+    
+    // Place first word horizontally in center
+    const firstCard = sortedCards[0];
+    const firstWord: CrosswordWord = {
+      id: 1,
+      word: firstCard.cleanTerm,
+      clue: firstCard.definition,
+      direction: 'across',
+      startRow: Math.floor(gridSize / 2),
+      startCol: Math.floor((gridSize - firstCard.cleanTerm.length) / 2),
+      number: 1
+    };
+    
+    crosswordWords.push(firstWord);
+    
+    // Mark positions as used
+    for (let i = 0; i < firstWord.word.length; i++) {
+      usedPositions.add(`${firstWord.startRow}-${firstWord.startCol + i}`);
+    }
+
+    let wordNumber = 2;
+
+    // Try to place remaining words
+    for (let cardIndex = 1; cardIndex < sortedCards.length && crosswordWords.length < 8; cardIndex++) {
+      const card = sortedCards[cardIndex];
+      const newWord = card.cleanTerm;
+      
+      // Try to find intersection with existing words
+      let placed = false;
+      
+      for (const existingWord of crosswordWords) {
+        if (placed) break;
+        
+        // Try each letter in the new word
+        for (let newWordIndex = 0; newWordIndex < newWord.length && !placed; newWordIndex++) {
+          const newLetter = newWord[newWordIndex];
+          
+          // Try each letter in existing word
+          for (let existingIndex = 0; existingIndex < existingWord.word.length && !placed; existingIndex++) {
+            const existingLetter = existingWord.word[existingIndex];
+            
+            if (newLetter === existingLetter) {
+              // Calculate position for intersection
+              let newStartRow: number, newStartCol: number;
+              const newDirection: 'across' | 'down' = existingWord.direction === 'across' ? 'down' : 'across';
+              
+              if (existingWord.direction === 'across') {
+                // Place new word vertically
+                newStartRow = existingWord.startRow - newWordIndex;
+                newStartCol = existingWord.startCol + existingIndex;
+              } else {
+                // Place new word horizontally
+                newStartRow = existingWord.startRow + existingIndex;
+                newStartCol = existingWord.startCol - newWordIndex;
+              }
+              
+              // Check if placement is valid
+              if (isValidPlacement(newWord, newStartRow, newStartCol, newDirection, crosswordWords, gridSize)) {
+                const intersectingWord: CrosswordWord = {
+                  id: wordNumber,
+                  word: newWord,
+                  clue: card.definition,
+                  direction: newDirection,
+                  startRow: newStartRow,
+                  startCol: newStartCol,
+                  number: wordNumber
+                };
+                
+                crosswordWords.push(intersectingWord);
+                wordNumber++;
+                placed = true;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return crosswordWords;
+  }, []);
+
+  // Check if word placement is valid
+  const isValidPlacement = (
+    word: string,
+    startRow: number,
+    startCol: number,
+    direction: 'across' | 'down',
+    existingWords: CrosswordWord[],
+    gridSize: number
+  ): boolean => {
+    // Check bounds
+    if (direction === 'across') {
+      if (startRow < 0 || startRow >= gridSize || startCol < 0 || startCol + word.length > gridSize) {
+        return false;
+      }
+    } else {
+      if (startCol < 0 || startCol >= gridSize || startRow < 0 || startRow + word.length > gridSize) {
+        return false;
+      }
+    }
+
+    // Check for conflicts with existing words
+    const newPositions = new Set<string>();
+    for (let i = 0; i < word.length; i++) {
+      const row = direction === 'across' ? startRow : startRow + i;
+      const col = direction === 'across' ? startCol + i : startCol;
+      newPositions.add(`${row}-${col}`);
+    }
+
+    // Check each existing word for conflicts
+    for (const existingWord of existingWords) {
+      for (let i = 0; i < existingWord.word.length; i++) {
+        const existingRow = existingWord.direction === 'across' ? existingWord.startRow : existingWord.startRow + i;
+        const existingCol = existingWord.direction === 'across' ? existingWord.startCol + i : existingWord.startCol;
+        const existingPos = `${existingRow}-${existingCol}`;
+        
+        if (newPositions.has(existingPos)) {
+          // Position overlap - check if letters match
+          const newIndex = direction === 'across' ? existingCol - startCol : existingRow - startRow;
+          if (newIndex >= 0 && newIndex < word.length) {
+            if (word[newIndex] !== existingWord.word[i]) {
+              return false; // Letters don't match
+            }
+          }
+        }
+      }
+    }
+
+    return true;
+  };
+
+  // Load flashcards and create crossword
   useEffect(() => {
+    if (data?.getSingleDeck?.flashcards) {
+      const flashcards: Flashcard[] = data.getSingleDeck.flashcards;
+      const crosswordWords = createCrosswordFromFlashcards(flashcards);
+      setWords(crosswordWords);
+    }
+  }, [data, createCrosswordFromFlashcards]);
+
+  // Initialize grid when words are set
+  useEffect(() => {
+    if (words.length === 0) return;
+
     const newGrid: CrosswordCell[][] = Array(gridSize).fill(null).map(() =>
       Array(gridSize).fill(null).map(() => ({
         letter: '',
@@ -73,7 +243,11 @@ const Crossword: React.FC = () => {
         const row = word.direction === 'across' ? word.startRow : word.startRow + i;
         const col = word.direction === 'across' ? word.startCol + i : word.startCol;
         
-        if (row < gridSize && col < gridSize) {
+        if (row >= 0 && row < gridSize && col >= 0 && col < gridSize) {
+          if (newGrid[row][col].blocked) {
+            totalCells++;
+          }
+          
           newGrid[row][col] = {
             letter: word.word[i],
             userLetter: newGrid[row][col].userLetter || '',
@@ -81,13 +255,12 @@ const Crossword: React.FC = () => {
             number: (i === 0) ? word.number : newGrid[row][col].number,
             wordIds: [...(newGrid[row][col].wordIds || []), word.id]
           };
-          totalCells++;
         }
       }
     });
 
     setGrid(newGrid);
-    setGameStats(prev => ({ ...prev, totalCells: totalCells / 2 })); // Divide by 2 because intersecting cells are counted twice
+    setGameStats(prev => ({ ...prev, totalCells }));
   }, [words]);
 
   // Timer effect
@@ -299,6 +472,98 @@ const Crossword: React.FC = () => {
     setTimer(0);
   };
 
+  // Loading and error states
+  if (loading) {
+    return (
+      <div className="crossword-container">
+        <div className="ui segment">
+          <div className="ui active dimmer">
+            <div className="ui indeterminate text loader">Loading crossword puzzle...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="crossword-container">
+        <div className="ui negative message">
+          <div className="header">Error Loading Crossword</div>
+          <p>{error.message}</p>
+          <button 
+            className="ui button" 
+            onClick={() => navigate('/game/flashCards/Decks')}
+          >
+            Back to Decks
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data?.getSingleDeck) {
+    return (
+      <div className="crossword-container">
+        <div className="ui warning message">
+          <div className="header">Deck Not Found</div>
+          <p>The requested deck could not be found.</p>
+          <button 
+            className="ui button" 
+            onClick={() => navigate('/game/flashCards/Decks')}
+          >
+            Back to Decks
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data.getSingleDeck.flashcards || data.getSingleDeck.flashcards.length < 3) {
+    return (
+      <div className="crossword-container">
+        <div className="ui placeholder segment">
+          <div className="ui icon header">
+            <i className="puzzle piece icon"></i>
+            Not enough cards for crossword
+          </div>
+          <p>This deck needs at least 3 flashcards to generate a crossword puzzle.</p>
+          <div className="inline">
+            <button 
+              className="ui primary button"
+              onClick={() => navigate(`/deck/${id}/new-card`)}
+            >
+              Add More Cards
+            </button>
+            <button 
+              className="ui button"
+              onClick={() => navigate('/game/flashCards/Decks')}
+            >
+              Back to Decks
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (words.length === 0) {
+    return (
+      <div className="crossword-container">
+        <div className="ui warning message">
+          <div className="header">Cannot Generate Crossword</div>
+          <p>Unable to create a crossword from the available flashcards. Please ensure your flashcard terms contain only letters and are 3-12 characters long.</p>
+          <button 
+            className="ui button" 
+            onClick={() => navigate('/game/flashCards/Decks')}
+          >
+            Back to Decks
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   const highlightedCells = getHighlightedCells();
   const completedWords = words.filter(isWordCompleted);
   const progress = gameStats.totalCells > 0 ? (gameStats.correctCells / gameStats.totalCells) * 100 : 0;
@@ -307,7 +572,10 @@ const Crossword: React.FC = () => {
     <div className="crossword-container">
       <div className="crossword-header">
         <h1 className="crossword-title">Crossword Puzzle</h1>
-        <p className="crossword-subtitle">Click on a cell and start typing to fill in the answers</p>
+        <p className="crossword-subtitle">
+          Playing with deck: <strong>{data.getSingleDeck.title}</strong>
+        </p>
+        <p>Click on a cell and start typing to fill in the answers</p>
       </div>
 
       <div className="crossword-main">
@@ -359,6 +627,12 @@ const Crossword: React.FC = () => {
             </button>
             <button onClick={resetGame} className="control-button btn-success">
               New Game
+            </button>
+            <button 
+              onClick={() => navigate(`/deck/${id}`)} 
+              className="control-button btn-secondary"
+            >
+              Back to Deck
             </button>
           </div>
 

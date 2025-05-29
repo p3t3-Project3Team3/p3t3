@@ -30,7 +30,7 @@ export const authenticateToken = async ({
     try {
       token = token.split(' ').pop()?.trim() || '';
       const decoded: any = jwt.verify(token, process.env.JWT_SECRET_KEY || '', {
-        maxAge: '2h',
+        maxAge: '4h',
       });
       user = decoded.data; // this should match your payload
     } catch (err) {

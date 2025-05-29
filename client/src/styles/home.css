@@ -18,3 +18,39 @@
    margin: 5px;
    padding: 5px;
 }
+
+@media (max-width: 575px) {
+  .gameContainer, .deckContainer {
+    flex-direction: column;
+    padding: 0 10px;
+  }
+  
+  .gameContainer h2, .deckContainer h2 {
+    font-size: 24px;
+  }
+  
+  .gameContainer p, .deckContainer p {
+    font-size: 16px;
+  }
+  
+  .homeFlashcard, .homeMatching, .homeCrossword, .decks {
+    margin: 10px 0;
+    padding: 15px;
+  }
+  
+  .card-term {
+    font-size: 16px;
+  }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .gameContainer, .deckContainer {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .homeFlashcard, .homeMatching, .homeCrossword, .decks {
+    flex: 1 1 300px;
+    max-width: 400px;
+  }
+}

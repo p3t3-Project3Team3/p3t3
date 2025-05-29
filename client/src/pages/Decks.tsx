@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "semantic-ui-react";
 import "../styles/deck.css";
 import { div } from "framer-motion/client";
+import FlashcardEdit from "../components/Deck/editCard";
 
 interface Flashcard {
   _id: string;
@@ -45,10 +46,7 @@ const Decks: React.FC = () => {
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [selectedCard, setSelectedCard] = useState<Flashcard | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const [editTerm, setEditTerm] = useState("");
-  const [editDefinition, setEditDefinition] = useState("");
-  const [editExample, setEditExample] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
+
 
   const handleDeckClick = (deckId: string) => {
     navigate(`/deck/${deckId}`);
@@ -59,47 +57,17 @@ const Decks: React.FC = () => {
     setExpandedCardId((prev) => (prev === cardId ? null : cardId));
   };
 
-  const handleMemoryGameClick = (deckId: string, event: React.MouseEvent) => {
-    event.stopPropagation();
-    navigate(`/matching/${deckId}`);
-  };
+  // const handleMemoryGameClick = (deckId: string, event: React.MouseEvent) => {
+  //   event.stopPropagation();
+  //   navigate(`/matching/${deckId}`);
+  // };
 
-  const handleStudyClick = (deckId: string, event: React.MouseEvent) => {
-    event.stopPropagation(); // Prevent deck click from firing
-    navigate(`/flashcard/${deckId}`);
-  };
+  // const handleStudyClick = (deckId: string, event: React.MouseEvent) => {
+  //   event.stopPropagation(); // Prevent deck click from firing
+  //   navigate(`/flashcard/${deckId}`);
+  // };
 
-  const handleEdit = async (card: Flashcard) => {
-    setSelectedCard(card);
-    setEditTerm(card.term);
-    setEditDefinition(card.definition);
-    setEditExample(card.example || "");
-    setIsEditing(false);
-    setModalOpen(true);
-  };
 
-  const handleEditSubmit = async (updatedData: {term: string; definition: string; example: string}) => {
-    if (!selectedCard) {
-      console.error("No card selected for editing.");
-      return;
-    }
-    try {
-      await updateFlashcard({
-        variables: {
-          id: selectedCard._id,
-          input: {
-            term: updatedData.term,
-            definition: updatedData.definition,
-            example: updatedData.example,
-            isFavorite: selectedCard.isFavorite || false,
-          },
-        },
-      });
-      setModalOpen(false);
-    } catch (err) {
-      console.error("Error updating flashcard:", err);
-    }
-  };
 
   const handleDelete = async (cardId: string) => {
     const confirmDelete = window.confirm(
@@ -201,42 +169,6 @@ const Decks: React.FC = () => {
                 <p>{deck.description}</p>
               </div>
 
-              <div className="small ui buttons">
-                <button
-                  onClick={(e) => handleStudyClick(deck._id, e)}
-                  className="ui violet button"
-                  disabled={deck.flashcards.length === 0}
-                >
-                  📚 FlashCard
-                </button>
-                <button
-                  onClick={(e) => handleMemoryGameClick(deck._id, e)}
-                  className="ui teal button"
-                  disabled={deck.flashcards.length < 2}
-                >
-                  🎮 Memory Game
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/crossword/${deck._id}`);
-                  }}
-                  className="ui orange button"
-                  disabled={deck.flashcards.length < 2}
-                >
-                  📝 Crossword Game
-                </button>
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    navigate(`/deck/${deck._id}/new-card`);
-                  }}
-                  className="ui pink button"
-                >
-                  📝 Add Cards
-                 Deck</button>
-              </div>
-
               {deck.flashcards.length > 0 && (
                 <div className="ui cards">
                   {flashcardsToShow.map((card) => (
@@ -287,9 +219,10 @@ const Decks: React.FC = () => {
                             </div>
                             <div
                               className="ui basic blue button"
-                              onClick={(e) => {
+                               onClick={(e) => {
                                 e.stopPropagation();
-                               handleEdit(card);
+                                setSelectedCard(card);
+                                setModalOpen(true);
                               }}
                             >
                               <i className="pencil alternate icon"></i>Edit
@@ -355,73 +288,24 @@ const Decks: React.FC = () => {
             <em>Created by: {selectedCard?.createdByUsername?.username}</em>
           </p>
         </Modal.Content>
-        <Modal.Actions>
-  {!isEditing ? (
-    <>
-      <Button color="green" basic>
-        {selectedCard?.isFavorite ? "★ Favorite" : "☆ Add to Favorites"}
-      </Button>
-      <Button color="blue" basic onClick={() => setIsEditing(true)}>
-        <i className="pencil alternate icon"></i> Edit
-      </Button>
-      <Button
-        color="red"
-        basic
-        onClick={() => handleDelete(selectedCard._id)}
-      >
-        <i className="trash alternate icon"></i> Delete
-      </Button>
-    </>
-  ) : (
-    <>
-      <div className="ui form" style={{ width: "100%", marginBottom: "1em" }}>
-        <div className="field">
-          <label>Term</label>
-          <input
-            type="text"
-            value={editTerm}
-            onChange={(e) => setEditTerm(e.target.value)}
-          />
-        </div>
-        <div className="field">
-          <label>Definition</label>
-          <textarea
-            value={editDefinition}
-            onChange={(e) => setEditDefinition(e.target.value)}
-          />
-        </div>
-        <div className="field">
-          <label>Example</label>
-          <textarea
-            value={editExample}
-            onChange={(e) => setEditExample(e.target.value)}
-          />
-        </div>
-      </div>
-      <Button
-        color="blue"
-        onClick={() => {
-          handleEditSubmit({
-            term: editTerm,
-            definition: editDefinition,
-            example: editExample,
-          });
-          setIsEditing(false);
-        }}
-      >
-        ✅ Save Edit
-      </Button>
-      <Button basic onClick={() => setIsEditing(false)}>
-        Cancel
-      </Button>
-    </>
-  )}
-  <Button onClick={() => setModalOpen(false)}>Close</Button>
-</Modal.Actions>
+        </Modal>
+        {selectedCard && (
+        <FlashcardEdit
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          selectedCard={selectedCard}
+          deckId={selectedCard._id}
+          refetch={() => {
+            setModalOpen(false);
+            setExpandedCardId(null);
+          }
+          }
+        /> 
+        )}
 
-      </Modal>
-    </main>
+    
+       </main>  
   );
-};
+}; 
 
 export default Decks;

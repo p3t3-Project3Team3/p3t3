@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
     <footer>
       <div>
         {location.pathname !== '/' && (
-          <button
+          <button className='go-back-button'
             onClick={handleGoBack}
           >
             &larr; Go Back
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
         <div className="social-icons">
           <p><i className="instagram icon"></i></p>
           <p><i className="facebook icon"></i></p>
-          <p><i className="twitter icon"></i></p>
+          {/* <p><i className="twitter icon"></i></p> */}
           <p><i className="youtube icon"></i></p>
            <p onClick={handleLoginClick} className="login-link">Login</p>
         </div>

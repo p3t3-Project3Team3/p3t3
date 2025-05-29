@@ -25,3 +25,25 @@
     background-color: azure;
     width: 100%;
 }
+
+@media (max-width: 575px) {
+  .deck-select-modal {
+    width: 95%;
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .deck-select-modal h1 {
+    font-size: 1.25rem;
+  }
+  
+  .deck-select-modal div {
+    padding: 1rem;
+    margin: 0.75rem 0;
+  }
+  
+  .deck-select-modal button {
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+  }
+}

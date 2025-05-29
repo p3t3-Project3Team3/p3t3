@@ -13,6 +13,7 @@ const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
   const [redirectToSignup, setRedirectToSignup] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   // const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Login = () => {
     console.log("Login response:", data); // ✅ Confirm token and profile exist
 
     Auth.login(data.login.token); // Save token
+    setIsSuccess(true); // only if login works
     navigate("/Home"); // ✅ Redirect immediately
   } catch (e) {
     console.error("Login failed:", e);
@@ -55,10 +57,10 @@ const Login = () => {
           <div className="ui two column very relaxed grid">
             <div className="column">
               <h4>Login</h4>
-              <form onSubmit={handleFormSubmit} className="ui form">
+              <form onSubmit={handleFormSubmit} className="ui form succes">
                 <div className="field">
                   <label>Email</label>
-                  <div className="ui left icon input">
+                  <div className="ui mini left icon input">
                     <input
                       placeholder="email"
                       name="email"
@@ -71,7 +73,7 @@ const Login = () => {
                 </div>
                 <div className="field">
                   <label>Password</label>
-                  <div className="ui left icon input">
+                  <div className="ui mini left icon input">
                     <input
                       placeholder="******"
                       name="password"
@@ -82,6 +84,12 @@ const Login = () => {
                     <i className="lock icon"></i>
                   </div>
                 </div>
+                {isSuccess && (
+  <div className="ui success message">
+    <div className="header">Form Completed</div>
+    <p>Thank you for coming back!</p>
+  </div>
+)}
                 <button type="submit" className="ui purple submit button">
                   Login
                 </button>

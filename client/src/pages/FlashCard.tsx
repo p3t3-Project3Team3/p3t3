@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
-import { QUERY_SINGLE_DECK } from '../utils/queries'; // Fixed import
+import { QUERY_SINGLE_DECK } from '../utils/queries';
+import { StatsManager } from '../utils/StatsManager';
 import '../styles/FlashcardGame.css';
 
 interface Flashcard {
@@ -17,6 +18,13 @@ interface StudyStats {
   total: number;
   currentStreak: number;
   bestStreak: number;
+}
+
+interface SessionTracker {
+  startTime: number;
+  cardsStudied: Set<string>;
+  answers: { correct: number; total: number };
+  streak: number;
 }
 
 const FlashCard = () => {
@@ -43,6 +51,14 @@ const FlashCard = () => {
   const [studyCards, setStudyCards] = useState<Flashcard[]>([]);
   const [isStudyComplete, setIsStudyComplete] = useState(false);
 
+  // Session tracking for stats
+  const [sessionTracker, setSessionTracker] = useState<SessionTracker>({
+    startTime: Date.now(),
+    cardsStudied: new Set(),
+    answers: { correct: 0, total: 0 },
+    streak: 0
+  });
+
   // Initialize study cards when data loads
   useEffect(() => {
     if (data?.getSingleDeck?.flashcards) {
@@ -55,7 +71,6 @@ const FlashCard = () => {
         }
       } else if (studyMode === 'incorrect' && incorrectCards.length > 0) {
         setStudyCards(incorrectCards);
-        // Reset flip state when changing modes
         setIsFlipped(false);
         setShowAnswer(false);
         return;
@@ -83,6 +98,15 @@ const FlashCard = () => {
   const handleFlip = () => {
     setIsFlipped(!isFlipped);
     setShowAnswer(true);
+    
+    // Track card as studied
+    const currentCard = studyCards[currentCardIndex];
+    if (currentCard) {
+      setSessionTracker(prev => ({
+        ...prev,
+        cardsStudied: new Set([...prev.cardsStudied, currentCard._id])
+      }));
+    }
   };
 
   const handleAnswer = (isCorrect: boolean) => {
@@ -90,6 +114,16 @@ const FlashCard = () => {
 
     const newStats = { ...studyStats };
     newStats.total += 1;
+    
+    // Update session tracker
+    setSessionTracker(prev => ({
+      ...prev,
+      answers: {
+        correct: prev.answers.correct + (isCorrect ? 1 : 0),
+        total: prev.answers.total + 1
+      },
+      streak: isCorrect ? prev.streak + 1 : 0
+    }));
     
     if (isCorrect) {
       newStats.correct += 1;
@@ -116,6 +150,8 @@ const FlashCard = () => {
       setShowAnswer(false);
     } else {
       setIsStudyComplete(true);
+      // Save session stats when study is complete
+      saveSessionStats();
     }
   };
 
@@ -127,7 +163,24 @@ const FlashCard = () => {
     }
   };
 
+  const saveSessionStats = () => {
+    const timeSpent = Math.floor((Date.now() - sessionTracker.startTime) / 1000);
+    
+    StatsManager.updateFlashcardStats({
+      cardsStudied: sessionTracker.cardsStudied.size,
+      correct: sessionTracker.answers.correct,
+      totalAnswered: sessionTracker.answers.total,
+      streak: Math.max(sessionTracker.streak, studyStats.bestStreak),
+      timeSpent: timeSpent
+    });
+  };
+
   const restartStudy = () => {
+    // Save current session before restarting
+    if (sessionTracker.answers.total > 0) {
+      saveSessionStats();
+    }
+    
     setCurrentCardIndex(0);
     setIsFlipped(false);
     setShowAnswer(false);
@@ -138,6 +191,14 @@ const FlashCard = () => {
       total: 0,
       currentStreak: 0,
       bestStreak: 0
+    });
+    
+    // Reset session tracker
+    setSessionTracker({
+      startTime: Date.now(),
+      cardsStudied: new Set(),
+      answers: { correct: 0, total: 0 },
+      streak: 0
     });
   };
 
@@ -150,7 +211,16 @@ const FlashCard = () => {
     restartStudy();
   };
 
- if (loading) {
+  // Save stats when component unmounts or user navigates away
+  useEffect(() => {
+    return () => {
+      if (sessionTracker.answers.total > 0) {
+        saveSessionStats();
+      }
+    };
+  }, []);
+
+  if (loading) {
     return (
       <div className="loading-container">
         <div className="ui segment">
@@ -199,7 +269,7 @@ const FlashCard = () => {
 
   const deck = data.getSingleDeck;
 
- if (!deck.flashcards || deck.flashcards.length === 0) {
+  if (!deck.flashcards || deck.flashcards.length === 0) {
     return (
       <div className="no-cards-container">
         <div className="ui placeholder segment">
@@ -229,12 +299,15 @@ const FlashCard = () => {
   const currentCard = studyCards[currentCardIndex];
 
   if (isStudyComplete) {
+    const sessionTime = Math.floor((Date.now() - sessionTracker.startTime) / 1000);
+    const accuracy = studyStats.total > 0 ? (studyStats.correct / studyStats.total) * 100 : 0;
+
     return (
       <div className="study-complete-container">
         <h1 className="complete-title">Study Complete! 🎉</h1>
         
         <div className="results-card">
-          <h2 className="results-title">Final Results</h2>
+          <h2 className="results-title">Session Results</h2>
           <div className="results-grid">
             <div className="stat-card stat-card-green">
               <div className="stat-number stat-number-green">{studyStats.correct}</div>
@@ -245,16 +318,49 @@ const FlashCard = () => {
               <div className="stat-label stat-label-red">Incorrect</div>
             </div>
             <div className="stat-card stat-card-blue">
-              <div className="stat-number stat-number-blue">
-                {studyStats.total > 0 ? Math.round((studyStats.correct / studyStats.total) * 100) : 0}%
-              </div>
+              <div className="stat-number stat-number-blue">{accuracy.toFixed(1)}%</div>
               <div className="stat-label stat-label-blue">Accuracy</div>
             </div>
             <div className="stat-card stat-card-purple">
               <div className="stat-number stat-number-purple">{studyStats.bestStreak}</div>
               <div className="stat-label stat-label-purple">Best Streak</div>
             </div>
+            <div className="stat-card stat-card-orange">
+              <div className="stat-number stat-number-orange">{sessionTracker.cardsStudied.size}</div>
+              <div className="stat-label stat-label-orange">Cards Studied</div>
+            </div>
+            <div className="stat-card stat-card-indigo">
+              <div className="stat-number stat-number-indigo">
+                {Math.floor(sessionTime / 60)}:{(sessionTime % 60).toString().padStart(2, '0')}
+              </div>
+              <div className="stat-label stat-label-indigo">Time Spent</div>
+            </div>
           </div>
+        </div>
+
+        {/* Performance feedback */}
+        <div className="performance-feedback">
+          {accuracy >= 90 ? (
+            <div className="feedback feedback-excellent">
+              <span className="feedback-icon">🌟</span>
+              <span className="feedback-text">Outstanding performance! You're mastering this material!</span>
+            </div>
+          ) : accuracy >= 75 ? (
+            <div className="feedback feedback-good">
+              <span className="feedback-icon">👍</span>
+              <span className="feedback-text">Great job! Keep up the good work!</span>
+            </div>
+          ) : accuracy >= 60 ? (
+            <div className="feedback feedback-okay">
+              <span className="feedback-icon">📚</span>
+              <span className="feedback-text">Good effort! Consider reviewing the incorrect cards.</span>
+            </div>
+          ) : (
+            <div className="feedback feedback-needs-work">
+              <span className="feedback-icon">💪</span>
+              <span className="feedback-text">Keep practicing! Review the material and try again.</span>
+            </div>
+          )}
         </div>
 
         <div className="button-group">
@@ -270,6 +376,10 @@ const FlashCard = () => {
           
           <button onClick={() => navigate(`/deck/${id}`)} className="btn-tertiary">
             Back to Deck
+          </button>
+          
+          <button onClick={() => navigate('/stats')} className="btn-stats">
+            View All Stats
           </button>
         </div>
       </div>
@@ -293,6 +403,7 @@ const FlashCard = () => {
             <span className="stat-correct">✓ {studyStats.correct}</span>
             <span className="stat-incorrect">✗ {studyStats.incorrect}</span>
             <span className="stat-streak">🔥 {studyStats.currentStreak}</span>
+            <span className="stat-cards">📚 {sessionTracker.cardsStudied.size} studied</span>
           </div>
         </div>
       </div>

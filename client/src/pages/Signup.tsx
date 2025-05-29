@@ -48,20 +48,14 @@ const Signup = () => {
             <div className="column">
           <h4>Sign Up</h4>
           <div >
-            {data ? (
-              <p>
-                Success! You may now head{' '}
-                <Link to="/Home">Head to the homepage.</Link>
-              </p>
-            ) : (
-                  <form onSubmit={handleFormSubmit} className="ui form">
+                  <form onSubmit={handleFormSubmit} className="ui form success">
                    <div className="field">
                      <label>Name</label>
                     <div className="ui left icon input">
                     <input
                       placeholder="name"
                       name="name"
-                      type="name"
+                      type="text"
                       value={formState.name}
                       onChange={handleChange}
                       />
@@ -74,7 +68,7 @@ const Signup = () => {
                     <input
                       placeholder="username"
                       name="username"
-                      type="username"
+                      type="text"
                       value={formState.username}
                       onChange={handleChange}
                       />
@@ -107,21 +101,22 @@ const Signup = () => {
                     <i className="lock icon"></i>
                     </div>
                       </div>
-                    <button
-                      style={{ cursor: 'pointer' }}
-                      type="submit"
-                      className="ui purple submit button"
-                    >
-                      Submit
-                    </button>
-                  </form>
-            )}
 
-            {error && (
-              <div>
-                {error.message}
-              </div>
-            )}
+                      {error && (
+    <div className="ui negative message">
+      <div className="header">Signup failed</div>
+      <p>{error.message}</p>
+    </div>
+  )}
+
+  <button
+    style={{ cursor: 'pointer' }}
+    type="submit"
+    className="ui purple submit button"
+  >
+    Submit
+  </button>
+</form>
           </div>
         </div>
     </>

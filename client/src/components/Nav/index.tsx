@@ -31,7 +31,7 @@ if (!isAuthenticated) {
             <Nav.Link as={NavLink} to="/AboutUs">
               About Us
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/Stats">
+            <Nav.Link as={NavLink} to="/stats">
               Stats
             </Nav.Link>
             <Nav.Link onClick={logout}>

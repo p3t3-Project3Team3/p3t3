@@ -26,7 +26,7 @@ const Header = () => {
       <button onClick={toggleDarkMode}>
           <i className={`${darkMode ? 'moon icon' : 'sun icon'}`}></i>
         </button>
-      <h1> Study Games</h1>
+      <h1>StudyQuest</h1>
     
     </header>
   );

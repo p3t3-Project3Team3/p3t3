@@ -555,3 +555,58 @@
   color: white !important;
   font-style: italic !important;
 }
+
+
+@media (max-width: 575px) {
+  .study-container {
+    padding: 1rem 0.5rem;
+  }
+  
+  .card-wrapper {
+    width: 90vw;
+    max-width: 300px;
+    height: 200px;
+  }
+  
+  .card-text {
+    font-size: 1rem !important;
+  }
+  
+  .card-label {
+    font-size: 0.7rem !important;
+  }
+  
+  .answer-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .answer-button {
+    padding: 1rem;
+    justify-content: center;
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-button {
+    width: 100%;
+    padding: 0.75rem;
+  }
+  
+  .mode-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .mode-button {
+    width: 100%;
+  }
+}

@@ -23,13 +23,14 @@ import About from "./pages/AboutUs";
 import FlashCards from "./pages/FlashCard";
 import Matching from "./pages/Matching";
 import Crossword from "./pages/Crossword";
+import LinkUp from "./pages/LinkUp";
 import Game from "./pages/Game";
 import Decks from "./pages/Decks";
 import NewCard from "./components/NewCard/index";
 import LandingPage from "./pages/LandingPage";
 import CreateDeck from "./pages/createDeck";
 import ViewDeck from "./pages/ViewADeck.js";
-import Stats from "./pages/Stats";
+import Stats from "./pages/Stats"; 
 import "./index.css";
 
 const handleAddCard = (newFlashcard: { term: string; definition: string }) => {
@@ -79,6 +80,10 @@ const router = createBrowserRouter([
         element: <Crossword />,
       },
       {
+        path: "/linkup/:id",
+        element: <LinkUp />
+      },
+      {
         path:'/game/flashCards/Decks',
         element: <Decks/>
       },
@@ -103,7 +108,11 @@ const router = createBrowserRouter([
         element: <CreateDeck />
       },
       {
-        path:"stats/:gameType",
+        path:"/stats/:gameType",
+        element: <Stats />
+      },
+      {
+        path: "/stats",
         element: <Stats />
       }
     ],

@@ -15,11 +15,14 @@ const Game = () => {
 
   return (
   <main>
-      <div>
+      <div className='game-container'>
         <h1>Select a Game!</h1>
-        <button className='ui violet button' onClick={() => setSelectedGame("flashcard")}>Flashcard Game</button><br/>
-        <button className='ui violet button' onClick={() => setSelectedGame("matching")}>Matching Game</button><br/>
-        <button className='ui violet button' onClick={() => setSelectedGame("crossword")}>Crossword Game</button>
+        <div className='gameoptions'>
+        <button className='gamebutton' onClick={() => setSelectedGame("flashcard")}>Flashcard Game</button><br/>
+        <button className='gamebutton' onClick={() => setSelectedGame("matching")}>Matching Game</button><br/>
+        <button className='gamebutton' onClick={() => setSelectedGame("crossword")}>Crossword Game</button><br/>
+        <button className='gamebutton' onClick={() => setSelectedGame("linkup")}>Link Up Game</button>
+      </div>
       </div>
   </main>
   );

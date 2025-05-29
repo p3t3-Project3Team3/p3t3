@@ -4,27 +4,64 @@ import { useParams } from 'react-router-dom';
 import { QUERY_SINGLE_DECK, QUERY_FLASHCARDS_BY_DECK } from '../utils/queries';
 import { useNavigate } from 'react-router-dom';
 import { DELETE_DECK } from '../utils/mutations';
+import FlashcardEdit from '../components/Deck/editCard';
+import EditDeck from '../components/Deck/editdeck'
 
 interface Flashcard {
   _id: string;
   term: string;
   definition: string;
   example?: string;
+  createdByUsername?: {
+    username: string;
+  };
+  isFavorite?: boolean;
 }
 
 interface Deck {
   _id: string;
   title: string;
   description: string;
+  createdByUsername?: {
+    username: string;
+  };
 }
+
+// interface EditDeckProps {
+//   modalOpen: boolean;
+//   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+//   deck: Deck;
+//   refetch: () => void;
+// }
 
 const DeckDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [expandedCardId, setExpandedCardId] = React.useState<string | null>(null);
+const handleCardClick = (cardId: string, e: React.MouseEvent) => {
+  setExpandedCardId(expandedCardId === cardId ? null : cardId);
+};
 
-  const { data: deckData, loading: deckLoading, error: deckError } = useQuery(QUERY_SINGLE_DECK, {
-    variables: { id },
-  });
+// const handleEdit = (card: Flashcard) => {
+//   navigate(`/edit-card/${card._id}`);
+// };
+
+const handleDelete = (cardId: string) => {
+  if (window.confirm("Are you sure you want to delete this flashcard?")) {
+    // add mutation logic here
+    console.log(`Deleting flashcard with ID: ${cardId}`);
+
+  }
+};
+
+const [selectedCard, setSelectedCard] = React.useState<Flashcard | null>(null);
+const [modalOpen, setModalOpen] = React.useState(false);
+const [deckModalOpen, setDeckModalOpen] = React.useState(false);
+// const deckId = id; // Assuming id is the deck ID
+const [selectedDeck, setSelectedDeck] = React.useState<Deck | null>(null);
+  const { data: deckData, loading: deckLoading, error: deckError, refetch: refetchDeck } = useQuery(QUERY_SINGLE_DECK, {
+  variables: { id },
+});
 
   const { data: cardsData, loading: cardsLoading, refetch: refetchCards } = useQuery(QUERY_FLASHCARDS_BY_DECK, {
     variables: { deckId: id },
@@ -63,27 +100,102 @@ const handleDeleteDeck = () => {
       <p>{deck.description}</p>
 
       <h3>Flashcards</h3>
-      <ul>
-        {flashcards.length === 0 && <p>No flashcards yet.</p>}
-        {flashcards.map((card) => (
-          <li key={card._id}>
-            <strong>{card.term}</strong>: {card.definition}
-            {card.example && <em> (Example: {card.example})</em>}
-          </li>
-        ))}
-      </ul>
-     <button
-        onClick={handleAddNewCardClick}
-        className="ui blue button"
-      >Add New Flashcard</button>
-       <button
-        onClick={handleDeleteDeck}
-        className="ui red button"
-        disabled={deleting}
-      >
-        {deleting ? 'Deleting...' : 'Delete Deck'}
-        {deleteError && <p style={{ color: 'red' }}>Error deleting deck: {deleteError.message}</p>}
+      {flashcards.length === 0 ? (
+        <p>No flashcards yet.</p>
+      ) : (
+        <div className="ui cards">
+          {flashcards.map((card) => (
+            <div
+              className={`card ${expandedCardId === card._id ? "expanded-card" : ""}`}
+              key={card._id}
+              onClick={(e) => handleCardClick(card._id, e)}
+            >
+              <div className="content">
+                <div className="header">
+                  {card.term}
+                  <button
+                    className="mini ui right floated basic grey button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedCard(card);
+                      setModalOpen(true);
+                    }}
+                  >
+                    Expand
+                  </button>
+                </div>
+                <div className="description">
+                  <p><strong>Definition:</strong> {card.definition}</p>
+                  {expandedCardId === card._id && (
+                    <p><strong>Example:</strong> {card.example || "No example provided."}</p>
+                  )}
+                </div>
+                <div className="meta">
+                  Created By: {card.createdByUsername?.username || "Unknown"}
+                </div>
+              </div>
+
+              {expandedCardId === card._id && (
+                <div className="extra content">
+                  <div className="ui three buttons">
+                    <div className="ui basic green button">
+                      {card.isFavorite ? "★ Favorite" : "☆ Add to Favorites"}
+                    </div>
+                    <div
+                      className="ui basic blue button"
+                       onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedCard(card);
+                          setModalOpen(true);
+                        }}
+                      >
+                      <i className="pencil alternate icon"></i> Edit
+                    </div>
+                    <div
+                      className="ui basic red button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(card._id);
+                      }}
+                    >
+                      <i className="trash alternate icon"></i> Delete
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      {selectedCard && (
+        <FlashcardEdit
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          selectedCard={selectedCard}
+          deckId={deck._id}
+          refetch={refetchCards}
+        />
+      )}  
+      {deckModalOpen && (
+        <EditDeck
+        modalOpen={deckModalOpen}
+        setModalOpen={setDeckModalOpen}
+        selectedDeck={deck || undefined}
+        deckId= {deck._id}
+        refetch={refetchDeck}
+      />
+      )}
+
+      <button onClick={handleAddNewCardClick} className="ui blue button">
+        Add New Flashcard
       </button>
+      <button onClick={handleDeleteDeck} className="ui red button" disabled={deleting}>
+        {deleting ? 'Deleting...' : 'Delete Deck'}
+      </button>
+      {deleteError && <p style={{ color: 'red' }}>Error deleting deck: {deleteError.message}</p>}
+        <button onClick={() => setDeckModalOpen(true)} className="ui pink button">
+  Edit Deck
+</button>
     </div>
   );
 };

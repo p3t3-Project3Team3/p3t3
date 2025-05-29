@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
-import { useParams } from 'react-router-dom';
-// ✅ FIXED: Use QUERY_SINGLE_DECK instead of QUERY_ALL_DECKS
+import { useParams, useNavigate } from 'react-router-dom';
 import { QUERY_SINGLE_DECK } from '../utils/queries';
+import { StatsManager } from '../utils/StatsManager';
 import '../styles/MatchingGame.css';
+import { updateGameStats } from '../utils/statsUtils';
 
 interface Flashcard {
   _id: string;
@@ -34,11 +35,11 @@ type Difficulty = 'easy' | 'medium' | 'hard';
 
 const Matching: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   
-  // ✅ FIXED: Use correct query and variables
   const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {
     variables: { id: id },
-    skip: !id, // Don't run query if no ID
+    skip: !id,
   });
 
   // Game state
@@ -83,7 +84,6 @@ const Matching: React.FC = () => {
 
   // Initialize game when data loads or difficulty changes
   useEffect(() => {
-    // ✅ FIXED: Use correct data path
     if (data?.getSingleDeck?.flashcards && data.getSingleDeck.flashcards.length > 0) {
       initializeGame();
     }
@@ -99,7 +99,6 @@ const Matching: React.FC = () => {
 
   // Initialize or restart the game
   const initializeGame = useCallback(() => {
-    // ✅ FIXED: Use correct data path
     if (!data?.getSingleDeck?.flashcards) return;
 
     const flashcards: Flashcard[] = data.getSingleDeck.flashcards;
@@ -155,6 +154,7 @@ const Matching: React.FC = () => {
   // Handle card click
   const handleCardClick = useCallback((clickedCard: MemoryCard) => {
     if (
+      
       clickedCard.isFlipped || 
       clickedCard.isMatched || 
       flippedCards.length >= 2 || 
@@ -210,11 +210,14 @@ const Matching: React.FC = () => {
         }));
         
         // Check if game is complete
+        
         const totalPairs = difficultySettings[difficulty].pairs;
         if (gameStats.matches + 1 === totalPairs) {
           setTimeout(() => {
             setGameStats(prev => ({ ...prev, gameCompleted: true }));
             setShowComplete(true);
+            // Save stats when game completes
+            saveGameStats(true, gameStats.moves + 1, gameStats.timeElapsed);
           }, 500);
         }
       } else {
@@ -241,7 +244,38 @@ const Matching: React.FC = () => {
       setFlippedCards([]);
       setIsProcessing(false);
     }, 600);
-  }, [flippedCards, gameStats.matches, difficulty]);
+  }, [flippedCards, gameStats.matches, gameStats.timeElapsed, difficulty]);
+
+  // Save game statistics
+  const saveGameStats = (completed: boolean, finalMoves?: number, finalTime?: number) => {
+    const moves = finalMoves || gameStats.moves;
+    const timeElapsed = finalTime || gameStats.timeElapsed;
+    const totalPairs = difficultySettings[difficulty].pairs;
+    const score = calculateScore(moves, timeElapsed);
+    const perfect = completed && moves === totalPairs; // Perfect = minimum possible moves
+
+    StatsManager.updateMatchingStats({
+      difficulty,
+      completed,
+      timeElapsed,
+      moves,
+      score,
+      perfect
+    });
+  };
+
+  // Calculate score based on moves and time
+  const calculateScore = (moves?: number, time?: number): number => {
+    const finalMoves = moves || gameStats.moves;
+    const finalTime = time || gameStats.timeElapsed;
+    const timeBonus = difficultySettings[difficulty].timeBonus;
+    const baseScore = 1000;
+    const movePenalty = finalMoves * 10;
+    const timePenalty = finalTime * 2;
+    const difficultyBonus = difficulty === 'hard' ? 500 : difficulty === 'medium' ? 250 : 0;
+    
+    return Math.max(0, Math.floor((baseScore - movePenalty - timePenalty + difficultyBonus) * timeBonus));
+  };
 
   // Format time display
   const formatTime = (seconds: number): string => {
@@ -250,24 +284,21 @@ const Matching: React.FC = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Calculate score based on moves and time
-  const calculateScore = (): number => {
-    const timeBonus = difficultySettings[difficulty].timeBonus;
-    const baseScore = 1000;
-    const movePenalty = gameStats.moves * 10;
-    const timePenalty = gameStats.timeElapsed * 2;
-    const difficultyBonus = difficulty === 'hard' ? 500 : difficulty === 'medium' ? 250 : 0;
-    
-    return Math.max(0, Math.floor((baseScore - movePenalty - timePenalty + difficultyBonus) * timeBonus));
-  };
-
   // Reset game
   const resetGame = () => {
+    // Save incomplete game stats if game was started
+    if (gameStats.gameStarted && !gameStats.gameCompleted) {
+      saveGameStats(false);
+    }
     initializeGame();
   };
 
   // Change difficulty
   const changeDifficulty = (newDifficulty: Difficulty) => {
+    // Save current game stats if switching mid-game
+    if (gameStats.gameStarted && !gameStats.gameCompleted) {
+      saveGameStats(false);
+    }
     setDifficulty(newDifficulty);
   };
 
@@ -307,10 +338,18 @@ const Matching: React.FC = () => {
     }
   };
 
+  // Save stats when component unmounts
+  useEffect(() => {
+    return () => {
+      if (gameStats.gameStarted && !gameStats.gameCompleted) {
+        saveGameStats(false);
+      }
+    };
+  }, [gameStats.gameStarted, gameStats.gameCompleted]);
+
   if (loading) return <div className="loading-cards">Loading flashcards...</div>;
   if (error) return <div className="loading-cards">Error: {error.message}</div>;
   
- 
   if (!data?.getSingleDeck?.flashcards || data.getSingleDeck.flashcards.length === 0) {
     return (
       <div className="memory-game-container">
@@ -322,6 +361,7 @@ const Matching: React.FC = () => {
       </div>
     );
   }
+  
 
   const totalPairs = difficultySettings[difficulty].pairs;
   const progress = totalPairs > 0 ? (gameStats.matches / totalPairs) * 100 : 0;
@@ -335,7 +375,6 @@ const Matching: React.FC = () => {
         </p>
       </div>
 
-      {/* Rest of the component remains the same... */}
       {/* Difficulty Selector */}
       <div className="difficulty-selector">
         {(Object.keys(difficultySettings) as Difficulty[]).map(level => (
@@ -368,6 +407,10 @@ const Matching: React.FC = () => {
           <div className="stat-value">{Math.round(progress)}%</div>
           <div className="stat-label">Complete</div>
         </div>
+        <div className="stat-item">
+          <div className="stat-value">{calculateScore()}</div>
+          <div className="stat-label">Score</div>
+        </div>
       </div>
 
       {/* Progress Bar */}
@@ -395,34 +438,34 @@ const Matching: React.FC = () => {
       </div>
 
       {/* Game Board */}
-      <div className={`memory-game-board board-${difficulty}`}>
-        {cards.map((card) => (
-          <div
-            key={card.id}
-            className={`memory-card ${card.isFlipped ? 'flipped' : ''} ${
-              card.isMatched ? 'matched' : ''
-            } ${card.isMismatch ? 'mismatch' : ''} ${
-              isProcessing && flippedCards.some(fc => fc.id === card.id) ? 'disabled' : ''
-            }`}
-            onClick={() => handleCardClick(card)}
-          >
-            <div className="card-inner">
-              {/* Card Back */}
-              <div className="card-face card-back">
-                <div className="card-back-content">?</div>
-              </div>
-              
-              {/* Card Front */}
-              <div className={`card-face card-front ${card.type}`}>
-                <div className="card-content">
-                  <div className="card-type">{card.type}</div>
-                  <div className="card-text">{card.content}</div>
-                </div>
-              </div>
-            </div>
+<div className={`memory-game-board board-${difficulty}`}>
+  {cards.map((card) => (
+    <div
+      key={card.id}
+      className={`memory-card ${card.isFlipped ? 'flipped' : ''} ${
+        card.isMatched ? 'matched' : ''
+      } ${card.isMismatch ? 'mismatch' : ''} ${
+        isProcessing && flippedCards.some(fc => fc.id === card.id) ? 'disabled' : ''
+      }`}
+      onClick={() => handleCardClick(card)}
+    >
+      <div className="card-inner">
+        {/* Card Back - should show when NOT flipped */}
+        <div className="card-face card-back">
+          <div className="card-back-content">?</div>
+        </div>
+        
+        {/* Card Front - should show when flipped */}
+        <div className={`card-face card-front ${card.type}`}>
+          <div className="card-content">
+            <div className="card-type">{card.type}</div>
+            <div className="card-text">{card.content}</div>
           </div>
-        ))}
+        </div>
       </div>
+    </div>
+  ))}
+</div>
 
       {/* Game Complete Modal */}
       {showComplete && (
@@ -451,9 +494,14 @@ const Matching: React.FC = () => {
             </div>
 
             <div className="modal-performance">
-              {gameStats.moves <= totalPairs * 1.5 && gameStats.timeElapsed <= 60 ? (
+              {gameStats.moves <= totalPairs && gameStats.timeElapsed <= 60 ? (
                 <div className="performance-excellent">
                   <span className="performance-icon">⭐</span>
+                  <span>Perfect Game! Minimum moves achieved!</span>
+                </div>
+              ) : gameStats.moves <= totalPairs * 1.5 && gameStats.timeElapsed <= 60 ? (
+                <div className="performance-excellent">
+                  <span className="performance-icon">🌟</span>
                   <span>Excellent Performance!</span>
                 </div>
               ) : gameStats.moves <= totalPairs * 2 && gameStats.timeElapsed <= 120 ? (
@@ -480,8 +528,14 @@ const Matching: React.FC = () => {
                 Play Again
               </button>
               <button 
-                onClick={() => setShowComplete(false)} 
+                onClick={() => navigate('/stats')} 
                 className="modal-button btn-secondary"
+              >
+                View Stats
+              </button>
+              <button 
+                onClick={() => setShowComplete(false)} 
+                className="modal-button btn-tertiary"
               >
                 Close
               </button>

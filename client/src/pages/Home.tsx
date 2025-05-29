@@ -3,8 +3,9 @@ import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import '../styles/Home.css';
-
+import SelectDeck from '../components/SelectDeck';  
 import { QUERY_PROFILES, QUERY_ALL_DECKS } from '../utils/queries';
+import { useState } from 'react';
 
 interface Profile {
   _id: string;
@@ -44,38 +45,44 @@ const Home: React.FC = () => {
   const availableDecks = decks.filter(deck => deck.flashcards.length > 0);
   const memoryGameDecks = decks.filter(deck => deck.flashcards.length >= 2);
   const crosswordGameDecks = decks.filter(deck => deck.flashcards.length >= 6);
+  const [selectedGame, setSelectedGame] = useState<string | null>(null);
 
-  const handleGameNavigation = (gameType: string) => {
-    if (gameType === 'flashcard') {
-      if (availableDecks.length === 0) {
-        alert('No decks available! Create a deck first.');
-        navigate('/game/flashCards/Decks');
-      } else if (availableDecks.length === 1) {
+  if (selectedGame) {
+    return <SelectDeck gamePath={selectedGame} />
+  }
+
+  // const handleGameNavigation = (gameType: string) => {
+  //   if (gameType === 'flashcard') {
+  //     if (availableDecks.length === 0) {
+  //       alert('No decks available! Create a deck first.');
+  //       navigate('/flashCards/id:');
+  //     } else if (availableDecks.length === 1) {
         
-        navigate(`/flashcard/${availableDecks[0]._id}`);
-      } else {
-        navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
-      }
-    } else if (gameType === 'memory') {
-      if (memoryGameDecks.length === 0) {
-        alert('Need at least one deck with 2 or more cards for the memory game!');
-        navigate('/game/flashCards/Decks');
-      } else if (memoryGameDecks.length === 1) {
-        navigate(`/matching/${memoryGameDecks[0]._id}`);
-      } else {
-        navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
-      }
-    } else if (gameType === 'crossword') {
-      if (crosswordGameDecks.length === 0) {
-        alert('Need at least one deck with 6 or more cards for crosswords!');
-        navigate('/game/flashCards/Decks');
-      } else if (crosswordGameDecks.length === 1) {
-        navigate(`/crossword/${crosswordGameDecks[0]._id}`);
-      } else {
-        navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
-      }
-    }
-  };
+  //       navigate(`/flashcard/${availableDecks[0]._id}`);
+  //     } else {
+  //       navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
+  //     }
+  //   } else if (gameType === 'memory') {
+  //     if (memoryGameDecks.length === 0) {
+  //       alert('Need at least one deck with 2 or more cards for the memory game!');
+  //       navigate('/matching/id:');
+  //     } else if (memoryGameDecks.length === 1) {
+  //       navigate(`/matching/${memoryGameDecks[0]._id}`);
+  //     } else {
+  //       navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
+  //     }
+  //   } else if (gameType === 'crossword') {
+  //     if (crosswordGameDecks.length === 0) {
+  //       alert('Need at least one deck with 6 or more cards for crosswords!');
+  //       navigate('/crossword/id:');
+  //     } else if (crosswordGameDecks.length === 1) {
+  //       navigate(`/crossword/${crosswordGameDecks[0]._id}`);
+  //     } else {
+  //       navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
+  //     }
+  //   }
+  //  }
+
 
   if (loading) {
     return (
@@ -116,7 +123,7 @@ const Home: React.FC = () => {
 
       {/* Quick Actions */}
       <div className="quick-actions">
-        <h3>Quick Start</h3>
+        
         <div className="action-buttons">
           <button 
             className="ui large primary button"
@@ -124,13 +131,6 @@ const Home: React.FC = () => {
           >
             <i className="clone outline icon"></i>
             View All Decks
-          </button>
-          <button 
-            className="ui large secondary button"
-            onClick={() => navigate('/decks/createNewDeck')}
-          >
-            <i className="plus icon"></i>
-            Create New Deck
           </button>
         </div>
       </div>
@@ -150,7 +150,7 @@ const Home: React.FC = () => {
             </div>
             <button 
               className="ui violet button game-button"
-              onClick={() => handleGameNavigation('flashcard')}
+              onClick={() => setSelectedGame('flashcard')}
               disabled={availableDecks.length === 0}
             >
               {availableDecks.length === 0 ? 'No Decks Available' : 'Start Studying'}
@@ -168,14 +168,14 @@ const Home: React.FC = () => {
             </div>
             <button 
               className="ui violet button game-button"
-              onClick={() => handleGameNavigation('memory')}
+              onClick={() => setSelectedGame('memory')}
               disabled={memoryGameDecks.length === 0}
             >
               {memoryGameDecks.length === 0 ? 'Need 2+ Cards' : 'Play Memory Game'}
             </button>
           </div>
 
-          <div className="game-card homeCrossword">
+           <div className="game-card homeCrossword">
             <div className="game-icon">📝</div>
             <h3>Crossword Puzzle</h3>
             <p>Challenge yourself with crossword puzzles based on your flashcards!</p>
@@ -186,10 +186,10 @@ const Home: React.FC = () => {
             </div>
             <button 
               className="ui violet button game-button"
-              onClick={() => handleGameNavigation('crossword')}
+              onClick={() => setSelectedGame('crossword')}
               disabled={crosswordGameDecks.length === 0}
             >
-              {crosswordGameDecks.length === 0 ? 'Need 6+ Cards' : 'Play Crosswords'}
+              {crosswordGameDecks.length === 0 ? 'Need 3+ Cards' : 'Play Crosswords'}
             </button>
           </div>
         </div>
