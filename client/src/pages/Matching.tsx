@@ -117,7 +117,7 @@ const Matching: React.FC = () => {
         content: flashcard.term,
         type: 'term',
         flashcardId: flashcard._id,
-        isFlipped: false,
+        isFlipped: true,
         isMatched: false,
         isMismatch: false
       });
@@ -128,7 +128,7 @@ const Matching: React.FC = () => {
         content: flashcard.definition,
         type: 'definition',
         flashcardId: flashcard._id,
-        isFlipped: false,
+        isFlipped: true,
         isMatched: false,
         isMismatch: false
       });
