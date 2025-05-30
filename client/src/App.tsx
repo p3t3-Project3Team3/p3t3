@@ -24,7 +24,7 @@ import { AuthProvider } from './utils/authContext';
 
 
 const httpLink = createHttpLink({
-   uri: import.meta.env.VITE_GRAPHQL_URI || '/graphql',
+   uri: (import.meta as any).env.VITE_GRAPHQL_URI || '/graphql',
 });
 
 // Construct request middleware that will attach the JWT token to every request as an `authorization` header

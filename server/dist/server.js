@@ -20,10 +20,7 @@ const startApolloServer = async () => {
     await db();
     const PORT = process.env.PORT || 3001;
     const app = express();
-    app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
-  credentials: true
-}));
+    app.use(cors());
     app.use(bodyParser.json());
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());

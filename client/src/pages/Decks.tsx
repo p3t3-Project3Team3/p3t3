@@ -1,5 +1,5 @@
 // export default Decks;
-import React, { useState } from "react";
+import React, { useState, Key, ReactNode } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ALL_DECKS, QUERY_SINGLE_DECK } from "../utils/queries";
 import { UPDATE_FLASHCARD, DELETE_FLASHCARD } from "../utils/mutations";
