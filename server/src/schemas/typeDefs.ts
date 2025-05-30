@@ -63,14 +63,20 @@ input FlashcardInput {
     getFlashcardsByDeck(deckId: ID!): [Flashcard!]!
   }
 
+  input DeckInput {
+    title: String!
+    description: String!
+    isPublic: Boolean
+  }
+
   type Mutation {
     addProfile(input: ProfileInput!): Auth
     login(email: String!, password: String!): Auth
     removeProfile: Profile
 
     createDeck(title: String!, description: String): Deck
-    updateDeck(id: ID!, title: String, description: String): Deck!
-    deleteDeck(id: ID!): Boolean!
+    updateDeck(id: ID!, input: DeckInput!): Deck
+    deleteDeck(id: ID!): Boolean
 
     createFlashcard(input: FlashcardInput!): Flashcard!
     updateFlashcard(id: ID!, input: FlashcardInput!): Flashcard

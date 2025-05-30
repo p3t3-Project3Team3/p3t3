@@ -187,29 +187,32 @@ const resolvers = {
       return deck;
     },
 
-    updateDeck: async (
-      _parent: unknown,
-      { id, title, description }: { id: string; title?: string; description?: string },
-      context: Context
-    ): Promise<IDeck> => {
-      if (!context.user) throw new AuthenticationError('Unauthorized');
+   updateDeck: async (
+  _parent: unknown,
+  { id, input }: { id: string; input: { title?: string; description?: string } },
+  context: Context
+): Promise<IDeck> => {
+  if (!context.user) throw new AuthenticationError('Unauthorized');
 
-      const deck = await Deck.findById(id);
-      if (!deck) throw new Error('Deck not found.');
-      if (deck.createdByUsername.toString() !== context.user._id)
-        throw new AuthenticationError('You can only update your own decks');
+  const deck = await Deck.findById(id);
+  if (!deck) throw new Error('Deck not found.');
+  if (deck.createdByUsername.toString() !== context.user._id)
+    throw new AuthenticationError('You can only update your own decks');
 
-      const updateFields: any = {};
-      if (title !== undefined) updateFields.title = title;
-      if (description !== undefined) updateFields.description = description;
+  // Use the input object for updates
+  const updateFields: any = {};
+  if (input.title !== undefined) updateFields.title = input.title;
+  if (input.description !== undefined) updateFields.description = input.description;
 
-      const updated = await Deck.findByIdAndUpdate(
-        id,
-        { $set: updateFields },
-        { new: true, runValidators: true }
-      );
-      return updated!;
-    },
+  const updated = await Deck.findByIdAndUpdate(
+    id,
+    { $set: updateFields },
+    { new: true, runValidators: true }
+  );
+
+  return updated!;
+},
+
 
     deleteDeck: async (_parent: unknown, { id }: { id: string }, context: Context): Promise<boolean> => {
       const userId = context.user?._id;

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
@@ -50,34 +51,38 @@ const EditDeck: React.FC<EditDeckProps> = ({
   const actualDeckId = deckId || selectedDeck?._id;
 
   const [updateDeck] = useMutation(UPDATE_DECK, {
+    // FIXED: Remove variables from refetchQueries to refetch all
     refetchQueries: [
-      { query: QUERY_SINGLE_DECK, variables: { id: actualDeckId } },
-      { query: QUERY_ALL_DECKS }
+      { query: QUERY_ALL_DECKS },
+      ...(actualDeckId ? [{ query: QUERY_SINGLE_DECK, variables: { id: actualDeckId } }] : [])
     ],
     onCompleted: (data) => {
-      console.log("Deck update completed:", data);
+      console.log("✅ Deck update completed:", data);
       if (refetch) {
         refetch();
       }
+      setShowSuccess(true);
+      setIsEditing(false);
+      setIsLoading(false);
     },
     onError: (error) => {
-      console.error("Mutation error:", error);
+      console.error("❌ Update mutation error:", error);
+      console.error("Error details:", error.graphQLErrors);
+      console.error("Network error:", error.networkError);
       setError(`Failed to update deck: ${error.message}`);
       setIsLoading(false);
     }
   });
 
   const [deleteDeck] = useMutation(DELETE_DECK, {
-    refetchQueries: [
-      { query: QUERY_ALL_DECKS }
-    ],
+    refetchQueries: [{ query: QUERY_ALL_DECKS }],
     onCompleted: () => {
-      console.log("Deck deleted successfully");
-      // Fixed navigation path
+      console.log("✅ Deck deleted successfully");
       navigate("/game/flashCards/Decks");
+      setModalOpen(false);
     },
     onError: (error) => {
-      console.error("Delete error:", error);
+      console.error("❌ Delete error:", error);
       setError(`Failed to delete deck: ${error.message}`);
       setIsLoading(false);
     }
@@ -86,7 +91,7 @@ const EditDeck: React.FC<EditDeckProps> = ({
   // Initialize form when selectedDeck changes or modal opens
   useEffect(() => {
     if (modalOpen && selectedDeck) {
-      console.log("Initializing form with deck:", selectedDeck);
+      console.log("🔄 Initializing form with deck:", selectedDeck);
       setEditTitle(selectedDeck.title || "");
       setEditDescription(selectedDeck.description || "");
       setIsEditing(false);
@@ -118,16 +123,20 @@ const EditDeck: React.FC<EditDeckProps> = ({
   const handleSubmitDeckEdit = async (e?: React.FormEvent) => {
     e?.preventDefault();
     
-    console.log("Attempting to save deck update...");
-    console.log("Current values:", { editTitle, editDescription });
-    console.log("Deck ID:", actualDeckId);
+    console.log("🚀 Attempting to save deck update...");
+    console.log("📝 Current values:", { 
+      editTitle: editTitle.trim(), 
+      editDescription: editDescription.trim() 
+    });
+    console.log("🆔 Deck ID:", actualDeckId);
     
     if (!validateForm()) {
-      console.log("Form validation failed");
+      console.log("❌ Form validation failed");
       return;
     }
 
     if (!actualDeckId) {
+      console.log("❌ No deck ID found");
       setError("No deck ID found. Cannot update deck.");
       return;
     }
@@ -136,7 +145,14 @@ const EditDeck: React.FC<EditDeckProps> = ({
     setError(null);
 
     try {
-      console.log("Calling updateDeck mutation...");
+      console.log("📤 Calling updateDeck mutation with variables:", {
+        id: actualDeckId,
+        input: {
+          title: editTitle.trim(),
+          description: editDescription.trim(),
+        }
+      });
+
       const result = await updateDeck({
         variables: {
           id: actualDeckId,
@@ -147,21 +163,17 @@ const EditDeck: React.FC<EditDeckProps> = ({
         },
       });
       
-      console.log("Update result:", result);
+      console.log("📥 Update result:", result);
       
-      setShowSuccess(true);
-      setIsEditing(false);
-      
-      // Auto-close after success
+      // Success handling is now in onCompleted
       setTimeout(() => {
         setShowSuccess(false);
         setModalOpen(false);
       }, 2000);
       
     } catch (err: any) {
-      console.error("Error updating deck:", err);
+      console.error("💥 Error in handleSubmitDeckEdit:", err);
       setError(err.message || "Failed to update deck. Please try again.");
-    } finally {
       setIsLoading(false);
     }
   };
@@ -176,27 +188,29 @@ const EditDeck: React.FC<EditDeckProps> = ({
     setError(null);
     
     try {
-      console.log("Deleting deck with ID:", actualDeckId);
+      console.log("🗑️ Deleting deck with ID:", actualDeckId);
+      // FIXED: Use 'id' instead of 'deckId' to match the mutation
       await deleteDeck({ 
         variables: { 
-          deckId: actualDeckId 
+          id: actualDeckId 
         } 
       });
-      setModalOpen(false);
     } catch (err: any) {
-      console.error("Error deleting deck:", err);
+      console.error("💥 Error deleting deck:", err);
       setError(err.message || "Failed to delete deck. Please try again.");
       setIsLoading(false);
     }
   };
 
   const handleStartEdit = () => {
+    console.log("✏️ Starting edit mode");
     setIsEditing(true);
     setError(null);
     setFormErrors({});
   };
 
   const handleCancelEdit = () => {
+    console.log("❌ Canceling edit");
     setIsEditing(false);
     setFormErrors({});
     setError(null);
@@ -209,25 +223,31 @@ const EditDeck: React.FC<EditDeckProps> = ({
 
   const handleCloseModal = () => {
     if (!isLoading) {
+      console.log("🚪 Closing modal");
       setModalOpen(false);
     }
   };
 
   // Debug logging
   useEffect(() => {
-    console.log("EditDeck component state:", {
-      selectedDeck,
+    console.log("🔍 EditDeck component state:", {
+      selectedDeck: selectedDeck ? {
+        _id: selectedDeck._id,
+        title: selectedDeck.title,
+        description: selectedDeck.description
+      } : null,
       modalOpen,
       deckId,
       actualDeckId,
       editTitle,
       editDescription,
-      isEditing
+      isEditing,
+      isLoading
     });
-  }, [selectedDeck, modalOpen, deckId, actualDeckId, editTitle, editDescription, isEditing]);
+  }, [selectedDeck, modalOpen, deckId, actualDeckId, editTitle, editDescription, isEditing, isLoading]);
 
   if (!selectedDeck) {
-    console.log("No selectedDeck provided");
+    console.log("⚠️ No selectedDeck provided");
     return null;
   }
 

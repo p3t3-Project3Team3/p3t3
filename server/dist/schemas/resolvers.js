@@ -122,7 +122,7 @@ const resolvers = {
             await deck.save();
             return deck;
         },
-        updateDeck: async (_parent, { id, title, description }, context) => {
+        updateDeck: async (_parent, { id, input }, context) => {
             if (!context.user)
                 throw new AuthenticationError('Unauthorized');
             const deck = await Deck.findById(id);
@@ -130,11 +130,12 @@ const resolvers = {
                 throw new Error('Deck not found.');
             if (deck.createdByUsername.toString() !== context.user._id)
                 throw new AuthenticationError('You can only update your own decks');
+            // Use the input object for updates
             const updateFields = {};
-            if (title !== undefined)
-                updateFields.title = title;
-            if (description !== undefined)
-                updateFields.description = description;
+            if (input.title !== undefined)
+                updateFields.title = input.title;
+            if (input.description !== undefined)
+                updateFields.description = input.description;
             const updated = await Deck.findByIdAndUpdate(id, { $set: updateFields }, { new: true, runValidators: true });
             return updated;
         },

@@ -88,23 +88,22 @@ export const CREATE_DECK = gql`
 }
 `;
 export const UPDATE_DECK = gql`
-  mutation updateDeck($id: ID!, $input: DeckUpdateInput!) {
+  mutation updateDeck($id: ID!, $input: DeckInput!) {
     updateDeck(id: $id, input: $input) {
       _id
       title
       description
-       createdByUsername {
-    _id
-    username
-    email
-    # any other fields you need from Profile
-  }
+      createdByUsername {
+        _id
+        username
+        email
+      }
       isPublic
-
       flashcards {
         _id
         term
         definition
+        example
         deck
         isFavorite
         createdAt
@@ -115,7 +114,7 @@ export const UPDATE_DECK = gql`
 `;
 
 export const DELETE_DECK = gql`
- mutation deleteDeck($id: ID!) {
+  mutation deleteDeck($id: ID!) {
     deleteDeck(id: $id)
   }
 `;

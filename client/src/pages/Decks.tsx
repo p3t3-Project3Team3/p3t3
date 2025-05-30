@@ -57,16 +57,6 @@ const Decks: React.FC = () => {
     setExpandedCardId((prev) => (prev === cardId ? null : cardId));
   };
 
-  // const handleMemoryGameClick = (deckId: string, event: React.MouseEvent) => {
-  //   event.stopPropagation();
-  //   navigate(`/matching/${deckId}`);
-  // };
-
-  // const handleStudyClick = (deckId: string, event: React.MouseEvent) => {
-  //   event.stopPropagation(); // Prevent deck click from firing
-  //   navigate(`/flashcard/${deckId}`);
-  // };
-
 
 
   const handleDelete = async (cardId: string) => {
@@ -153,7 +143,7 @@ const Decks: React.FC = () => {
               onClick={() => handleDeckClick(deck._id)}
             >
               <div className="deck-header">
-                <h3 className="deck-title">{deck.title}</h3>
+                <button className=" fluid ui  yellow button deck-title">{deck.title}</button>
                 <div className="deck-meta">
                   <span className="card-count">
                     {deck.flashcards.length}{" "}
@@ -248,7 +238,7 @@ const Decks: React.FC = () => {
               {deck.flashcards.length > 3 && (
                 <div style={{ marginTop: "1em" }}>
                   <button
-                    className="ui button"
+                    className="ui grey button"
                     onClick={(e) => {
                       e.stopPropagation();
                       setExpandedDeckId((prevId) =>
@@ -265,7 +255,7 @@ const Decks: React.FC = () => {
                   <p>This deck is empty. Add some flashcards to get started!</p>
                 </div>
               )}
-            </div>
+            </div> 
           );
         })}
       </div>

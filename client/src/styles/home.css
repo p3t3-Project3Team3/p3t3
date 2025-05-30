@@ -1,6 +1,109 @@
+:root{
+  --primary-color: #2D7DD2;
+  --secondary-color: #EEB902;
+  --text-color: #CCDDE2;
+  --dark-bg-color: #474647;
+  --dark-text-color: #A5CBC3;}
+ *{
+  margin: auto;
+}
+
+/*HEADER AREA*/
+.main-title{
+  text-align: center;
+  font-size: 60px;
+  color: white;
+  margin-top: 30px;
+  padding-top: 5px;
+  margin-bottom: 0px;
+  /* font-family: 'concert one', cursive; */
+}
+
+.hero-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  text-align: center; 
+  padding: 5px;
+}
+
+.hero-subtitle{
+  text-align: center;
+  font-size: 30px;
+  color: white;
+  margin-top: 10px;
+  padding-top: 5px;
+  font-family: 'Concert One', cursive;
+  display: inline-block;
+  padding-bottom: 20px;
+}
+
+@keyframes wave {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.hero-subtitle span {
+  display: inline-block;
+  text-align: center;
+  font-family: 'Concert One', cursive;
+  /* animation is set inline via JS */
+}
+
+
+
+/*STATS*/
+.stats-container{
+  display: flex;
+  justify-content: space-around;
+  border-radius: 10px;
+  align-items: center;
+  padding: 20px;
+  background-color: #eebb02bb;
+  color: var(--dark-text-color);
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+  margin: 0 50px;
+}
+
+.stat-item:hover {
+  transform: scale(1.05);
+  color: var(--secondary-color);
+  transition: transform 0.3s ease;
+}
+
+/*View decks button*/
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+
+/* GAME */
+.games-section .section-title {
+  text-align: center;
+  font-size: 40px;
+  color: white;
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
 .gameContainer{
     display: flex;
     justify-content: space-around;
+
     h2{
        color: black;
        font-size: 35px;
@@ -12,12 +115,44 @@
          text-align: center;
       }
    }
+
+  .game-card{
+    background-color: #459fffaa;
+  }
+
+  .game-card:hover {
+    background-color: #eebb02a1;
+  } 
+
+  .game-card h3 {
+    color: black;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .game-icon {
+    font-size: 20px;
+  }
+
 .homeFlashcard, .homeMatching, .homeCrossword{
    border: 2px solid black;
    border-radius: 15px;
    margin: 5px;
    padding: 5px;
 }
+
+.game-button {
+  border: none;
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 5px;
+  color: white;
+  background-color: #05376d;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
 
 @media (max-width: 575px) {
   .gameContainer, .deckContainer {

@@ -5,7 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import '../styles/Home.css';
 import SelectDeck from '../components/SelectDeck';  
 import { QUERY_PROFILES, QUERY_ALL_DECKS } from '../utils/queries';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface Profile {
   _id: string;
@@ -46,42 +46,37 @@ const Home: React.FC = () => {
   const memoryGameDecks = decks.filter(deck => deck.flashcards.length >= 2);
   const crosswordGameDecks = decks.filter(deck => deck.flashcards.length >= 6);
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
+    const waveRef = useRef<HTMLParagraphElement>(null);
 
+  useEffect(() => {
+    const waveText = waveRef.current;
+    if (!waveText) return;
+
+    const text = waveText.textContent || "";
+    waveText.textContent = ""; // clear existing text
+
+    const words = text.split(" ");
+
+    words.forEach((word, index) => {
+      const span = document.createElement("span");
+      span.textContent = word;
+      span.style.display = "inline-block";
+      span.style.animation = `wave 0.5s ease forwards`;
+      span.style.animationDelay = `${index * 0.1}s`;
+
+      waveText.appendChild(span);
+
+      if (index < words.length - 1) {
+        waveText.appendChild(document.createTextNode(" "));
+      }
+    });
+  }, []);
+  
   if (selectedGame) {
     return <SelectDeck gamePath={selectedGame} />
   }
 
-  // const handleGameNavigation = (gameType: string) => {
-  //   if (gameType === 'flashcard') {
-  //     if (availableDecks.length === 0) {
-  //       alert('No decks available! Create a deck first.');
-  //       navigate('/flashCards/id:');
-  //     } else if (availableDecks.length === 1) {
-        
-  //       navigate(`/flashcard/${availableDecks[0]._id}`);
-  //     } else {
-  //       navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
-  //     }
-  //   } else if (gameType === 'memory') {
-  //     if (memoryGameDecks.length === 0) {
-  //       alert('Need at least one deck with 2 or more cards for the memory game!');
-  //       navigate('/matching/id:');
-  //     } else if (memoryGameDecks.length === 1) {
-  //       navigate(`/matching/${memoryGameDecks[0]._id}`);
-  //     } else {
-  //       navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
-  //     }
-  //   } else if (gameType === 'crossword') {
-  //     if (crosswordGameDecks.length === 0) {
-  //       alert('Need at least one deck with 6 or more cards for crosswords!');
-  //       navigate('/crossword/id:');
-  //     } else if (crosswordGameDecks.length === 1) {
-  //       navigate(`/crossword/${crosswordGameDecks[0]._id}`);
-  //     } else {
-  //       navigate('/game/flashCards/Decks'); // Let user choose from multiple decks
-  //     }
-  //   }
-  //  }
+  
 
 
   if (loading) {
@@ -99,11 +94,12 @@ const Home: React.FC = () => {
   return (
     <main className="home-container">
       <div className="hero-section">
-        <h1 className="main-title">Welcome to Brain Games</h1>
-        <p className="hero-subtitle">
+        <div className="hero-header">
+        <h1 className="main-title">Welcome to StudyQuest</h1>
+        <p ref={waveRef}  className="hero-subtitle">
           Challenge your mind with interactive learning games and flashcards!
         </p>
-        
+        </div>
         {/* Quick Stats Dashboard */}
         <div className="stats-container">
           <div className="stat-item">
@@ -149,7 +145,7 @@ const Home: React.FC = () => {
               </span>
             </div>
             <button 
-              className="ui violet button game-button"
+              className="game-button"
               onClick={() => setSelectedGame('flashcard')}
               disabled={availableDecks.length === 0}
             >
@@ -167,7 +163,7 @@ const Home: React.FC = () => {
               </span>
             </div>
             <button 
-              className="ui violet button game-button"
+              className="game-button"
               onClick={() => setSelectedGame('memory')}
               disabled={memoryGameDecks.length === 0}
             >
@@ -185,7 +181,7 @@ const Home: React.FC = () => {
               </span>
             </div>
             <button 
-              className="ui violet button game-button"
+              className="game-button"
               onClick={() => setSelectedGame('crossword')}
               disabled={crosswordGameDecks.length === 0}
             >

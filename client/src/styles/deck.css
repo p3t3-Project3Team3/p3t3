@@ -26,6 +26,29 @@
     width: 100%;
 }
 
+.deck-card{
+  padding: 2px;
+}
+.created-by{
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--dark-bg-color);
+    text-align: center;
+}
+
+.card-count{
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--dark-bg-color);
+    text-align: center;
+}
+.deck-description{
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--dark-bg-color);
+    
+}
+
 @media (max-width: 575px) {
   .deck-select-modal {
     width: 95%;

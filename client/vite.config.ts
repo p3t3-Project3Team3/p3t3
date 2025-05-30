@@ -9,10 +9,22 @@ export default defineConfig({
     open: true,
     proxy: {
       '/graphql': {
-        target: 'http://localhost:3001',
+        target: process.env.VITE_SERVER_URL ||'http://localhost:3001',
         changeOrigin: true,
         secure: false,
       },
     },
   },
+   build: {
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          apollo: ['@apollo/client'],
+          ui: ['semantic-ui-react', 'semantic-ui-css']
+        }
+      }
+    }
+  }
 });
