@@ -110,14 +110,14 @@ const Matching: React.FC = () => {
     // Create pairs of cards (term + definition)
     const gameCards: MemoryCard[] = [];
     
-    selectedFlashcards.forEach((flashcard, index) => {
+    selectedFlashcards.forEach((flashcard) => {
       // Term card
       gameCards.push({
         id: `${flashcard._id}-term`,
         content: flashcard.term,
         type: 'term',
         flashcardId: flashcard._id,
-        isFlipped: true,
+        isFlipped: false,
         isMatched: false,
         isMismatch: false
       });
@@ -128,7 +128,7 @@ const Matching: React.FC = () => {
         content: flashcard.definition,
         type: 'definition',
         flashcardId: flashcard._id,
-        isFlipped: true,
+        isFlipped: false,
         isMatched: false,
         isMismatch: false
       });

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import "../styles/games.css"; // Adjust the path if needed
-import SelectDeck from '../components/SelectDeck/index'; // Adjust the path if needed
+import "../styles/games.css"; 
+import SelectDeck from '../components/SelectDeck/index'; 
 
 
 

@@ -1,11 +1,18 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
+import { 
+  QUERY_PROFILES,
+  QUERY_ALL_DECKS 
+} from '../utils/queries';
+import { 
+  useState, 
+  useEffect,
+  useRef 
+} from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import '../styles/Home.css';
 import SelectDeck from '../components/SelectDeck';  
-import { QUERY_PROFILES, QUERY_ALL_DECKS } from '../utils/queries';
-import { useState, useEffect, useRef } from 'react';
 
 interface Profile {
   _id: string;

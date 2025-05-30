@@ -11,10 +11,12 @@
     background-color: white;
   }
   .navbar-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 0.5rem;
   }
   button {
     background-color: #5ecfff;
@@ -25,8 +27,12 @@
     margin-top: 8px;
     margin-left: 8px;
   }
+  .navbar-toggler {
+    border: none;
+  }
 }
  
+
 
 
 .dark {

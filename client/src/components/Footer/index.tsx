@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import '../../styles/Footer.css';
-import Login from "../../pages/Login";
+
 
 const Footer: React.FC = () => {
   const location = useLocation();

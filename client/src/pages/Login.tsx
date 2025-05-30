@@ -12,7 +12,7 @@ import Auth from "../utils/auth";
 const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error, data }] = useMutation(LOGIN_USER);
-  const [redirectToSignup, setRedirectToSignup] = useState(false);
+  // const [redirectToSignup, setRedirectToSignup] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   // const [shouldRedirect, setShouldRedirect] = useState(false);
 
@@ -43,9 +43,9 @@ const Login = () => {
   setFormState({ email: "", password: "" });
 };
 
-  if (redirectToSignup) {
-    return <Navigate to="/signup" />;
-  }
+  // if (redirectToSignup) {
+  //   return <Navigate to="/signup" />;
+  // }
 // if (shouldRedirect) {
 //     return <Navigate to="/Home" />;
 //   }
@@ -53,14 +53,14 @@ const Login = () => {
   return (
     <>
 
-        <div className="ui segment">
-          <div className="ui two column very relaxed grid">
+        <div className="ui yellow inverted segment">
+          <div className="ui two column very relaxed stackable grid">
             <div className="column">
               <h4>Login</h4>
               <form onSubmit={handleFormSubmit} className="ui form succes">
                 <div className="field">
                   <label>Email</label>
-                  <div className="ui mini left icon input">
+                  <div className="ui left icon input">
                     <input
                       placeholder="email"
                       name="email"
@@ -73,7 +73,7 @@ const Login = () => {
                 </div>
                 <div className="field">
                   <label>Password</label>
-                  <div className="ui mini left icon input">
+                  <div className="ui left icon input">
                     <input
                       placeholder="******"
                       name="password"
@@ -90,7 +90,7 @@ const Login = () => {
     <p>Thank you for coming back!</p>
   </div>
 )}
-                <button type="submit" className="ui purple submit button">
+                <button type="submit" className="ui blue submit button">
                   Login
                 </button>
               </form>
@@ -104,9 +104,6 @@ const Login = () => {
             </div>
       <Signup />
           </div>
-            <div className="ui vertical divider">
-    or
-  </div>
         </div>
     </>
   );

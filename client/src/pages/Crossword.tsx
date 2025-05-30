@@ -62,6 +62,7 @@ const Crossword: React.FC = () => {
   const [timer, setTimer] = useState(0);
   const gridRef = useRef<HTMLDivElement>(null);
 
+ 
   // Create crossword words from flashcards
   const createCrosswordFromFlashcards = useCallback((flashcards: Flashcard[]): CrosswordWord[] => {
     if (!flashcards || flashcards.length === 0) return [];
@@ -72,26 +73,42 @@ const Crossword: React.FC = () => {
         ...card,
         cleanTerm: card.term.replace(/[^A-Za-z]/g, '').toUpperCase()
       }))
-      .filter(card => card.cleanTerm.length >= 3 && card.cleanTerm.length <= 12)
-      .slice(0, 12); // Limit to prevent overcrowding
+      .filter(card => card.cleanTerm.length >= 3 && card.cleanTerm.length <= 12);
 
     if (processedCards.length < 3) return []; // Need minimum words for crossword
+
+    // Shuffle the cards for randomization
+    const shuffledCards = [...processedCards].sort(() => Math.random() - 0.5);
+    
+    // Take up to 12 cards to prevent overcrowding
+    const selectedCards = shuffledCards.slice(0, Math.min(12, shuffledCards.length));
 
     const crosswordWords: CrosswordWord[] = [];
     const usedPositions = new Set<string>();
 
-    // Start with the longest word in the center
-    const sortedCards = [...processedCards].sort((a, b) => b.cleanTerm.length - a.cleanTerm.length);
+    // Sort by length but with some randomization
+    const sortedCards = [...selectedCards].sort((a, b) => {
+      const lengthDiff = b.cleanTerm.length - a.cleanTerm.length;
+      // Add small random factor while keeping longer words preferred
+      return lengthDiff + (Math.random() - 0.5) * 0.5;
+    });
     
-    // Place first word horizontally in center
+    // Place first word horizontally in center (word number 1 is odd, so across)
     const firstCard = sortedCards[0];
+    
+    // Add some randomization to starting position
+    const centerRow = Math.floor(gridSize / 2);
+    const centerCol = Math.floor((gridSize - firstCard.cleanTerm.length) / 2);
+    const rowOffset = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+    const colOffset = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+    
     const firstWord: CrosswordWord = {
       id: 1,
       word: firstCard.cleanTerm,
       clue: firstCard.definition,
-      direction: 'across',
-      startRow: Math.floor(gridSize / 2),
-      startCol: Math.floor((gridSize - firstCard.cleanTerm.length) / 2),
+      direction: 'across', // Word 1 (odd) goes across
+      startRow: Math.max(0, Math.min(gridSize - 1, centerRow + rowOffset)),
+      startCol: Math.max(0, Math.min(gridSize - firstCard.cleanTerm.length, centerCol + colOffset)),
       number: 1
     };
     
@@ -109,42 +126,61 @@ const Crossword: React.FC = () => {
       const card = sortedCards[cardIndex];
       const newWord = card.cleanTerm;
       
+      // Determine direction based on word number: odd = across, even = down
+      const targetDirection: 'across' | 'down' = wordNumber % 2 === 1 ? 'across' : 'down';
+      
       // Try to find intersection with existing words
       let placed = false;
       
-      for (const existingWord of crosswordWords) {
+      // Randomize the order of existing words to try intersections with
+      const shuffledExistingWords = [...crosswordWords].sort(() => Math.random() - 0.5);
+      
+      for (const existingWord of shuffledExistingWords) {
         if (placed) break;
         
-        // Try each letter in the new word
-        for (let newWordIndex = 0; newWordIndex < newWord.length && !placed; newWordIndex++) {
+        // Create arrays of indices and shuffle them for randomization
+        const newWordIndices = Array.from({length: newWord.length}, (_, i) => i).sort(() => Math.random() - 0.5);
+        const existingWordIndices = Array.from({length: existingWord.word.length}, (_, i) => i).sort(() => Math.random() - 0.5);
+        
+        // Try each letter in the new word (in random order)
+        for (const newWordIndex of newWordIndices) {
+          if (placed) break;
           const newLetter = newWord[newWordIndex];
           
-          // Try each letter in existing word
-          for (let existingIndex = 0; existingIndex < existingWord.word.length && !placed; existingIndex++) {
+          // Try each letter in existing word (in random order)
+          for (const existingIndex of existingWordIndices) {
+            if (placed) break;
             const existingLetter = existingWord.word[existingIndex];
             
             if (newLetter === existingLetter) {
-              // Calculate position for intersection
+              // Calculate position for intersection based on target direction
               let newStartRow: number, newStartCol: number;
-              const newDirection: 'across' | 'down' = existingWord.direction === 'across' ? 'down' : 'across';
               
-              if (existingWord.direction === 'across') {
-                // Place new word vertically
-                newStartRow = existingWord.startRow - newWordIndex;
-                newStartCol = existingWord.startCol + existingIndex;
-              } else {
+              if (targetDirection === 'across') {
                 // Place new word horizontally
-                newStartRow = existingWord.startRow + existingIndex;
-                newStartCol = existingWord.startCol - newWordIndex;
+                newStartRow = existingWord.direction === 'across' 
+                  ? existingWord.startRow 
+                  : existingWord.startRow + existingIndex;
+                newStartCol = existingWord.direction === 'across' 
+                  ? existingWord.startCol + existingIndex - newWordIndex
+                  : existingWord.startCol - newWordIndex;
+              } else {
+                // Place new word vertically
+                newStartRow = existingWord.direction === 'across' 
+                  ? existingWord.startRow - newWordIndex
+                  : existingWord.startRow + existingIndex - newWordIndex;
+                newStartCol = existingWord.direction === 'across' 
+                  ? existingWord.startCol + existingIndex
+                  : existingWord.startCol;
               }
               
               // Check if placement is valid
-              if (isValidPlacement(newWord, newStartRow, newStartCol, newDirection, crosswordWords, gridSize)) {
+              if (isValidPlacement(newWord, newStartRow, newStartCol, targetDirection, crosswordWords, gridSize)) {
                 const intersectingWord: CrosswordWord = {
                   id: wordNumber,
                   word: newWord,
                   clue: card.definition,
-                  direction: newDirection,
+                  direction: targetDirection,
                   startRow: newStartRow,
                   startCol: newStartCol,
                   number: wordNumber
@@ -626,7 +662,7 @@ const Crossword: React.FC = () => {
               Clear Grid
             </button>
             <button onClick={resetGame} className="control-button btn-success">
-              New Game
+              Reset Game
             </button>
             <button 
               onClick={() => navigate(`/deck/${id}`)} 

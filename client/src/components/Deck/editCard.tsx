@@ -215,7 +215,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
               basic 
               onClick={() => setIsEditing(true)}
             >
-              <i className="pencil alternate icon"></i> Edit
+              <i className="edit outline icon"></i> Edit
             </Button>
             <Button
               color="red"

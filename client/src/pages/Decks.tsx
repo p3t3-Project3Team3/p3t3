@@ -1,13 +1,13 @@
 // export default Decks;
-import React, { useState, Key, ReactNode } from "react";
+import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
-import { QUERY_ALL_DECKS, QUERY_SINGLE_DECK } from "../utils/queries";
+import { QUERY_ALL_DECKS } from "../utils/queries";
 import { UPDATE_FLASHCARD, DELETE_FLASHCARD } from "../utils/mutations";
 import { useNavigate } from "react-router-dom";
-import { Modal, Button } from "semantic-ui-react";
-import "../styles/deck.css";
-import { div } from "framer-motion/client";
+import { Modal, } from "semantic-ui-react";
 import FlashcardEdit from "../components/Deck/editCard";
+import "../styles/deck.css";
+
 
 interface Flashcard {
   _id: string;

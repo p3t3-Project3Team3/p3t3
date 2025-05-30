@@ -10,23 +10,28 @@ const { isAuthenticated, username, logout } = useAuth();
 if (!isAuthenticated) {
     return null; 
   }
+
  return (
     <>
-      <Navbar expand="lg" className="bg-body-tertiary">
+      <Navbar expand="lg" className="navbar">
       <Container>
+        {/* Hamburger Toggle Button */}
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+        {/* Collapsible Navbar */}
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="navbar-nav">
             <Nav.Link as={NavLink} to="/Home">
               Home
             </Nav.Link>
             <Nav.Link as={NavLink} to="/decks/createNewDeck">
-            Create Deck
+              Create Deck
             </Nav.Link>
             <Nav.Link as={NavLink} to="/game/flashCards/Decks">
               View Decks
-            </Nav.Link> 
+            </Nav.Link>
             <Nav.Link as={NavLink} to="/game">
-            Games
+              Games
             </Nav.Link>
             <Nav.Link as={NavLink} to="/AboutUs">
               About Us

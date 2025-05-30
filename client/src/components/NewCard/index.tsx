@@ -6,6 +6,7 @@ import { QUERY_SINGLE_DECK } from '../../utils/queries';  // Fixed import
 import { CREATE_FLASHCARD } from '../../utils/mutations';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import '../../styles/AddFlashcard.css';  // Assuming you have a CSS file for styles
 
 interface Flashcard {
   _id: string;
@@ -114,25 +115,26 @@ const handleCreate = async () => {
   const deck: Deck = data.getSingleDeck;  // Fixed data access
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="bigform-container">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">Add Flashcards to "{deck.title}"</h1>
-        <p className="text-sm text-gray-500 mt-1">
+      <div className="form-header">
+        <h1 className="form-title">Add Flashcards to "{deck.title}"</h1>
+        <p className="form-subtitle">
           Current cards in deck: {deck.flashcards.length}
         </p>
       </div>
 
       {/* New Card Form */}
-      <form className="ui form">
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h3 className="text-lg font-semibold mb-4">Create New Flashcard</h3>
+      <form className="form">
+        <div className="form-fields">
+          <h3 className="form-create">Create New Flashcard:</h3>
           
-          <div className="field">
+          <div className="form-field">
             {/* Term Input */}
-            <div>
-              <label>Term or Question: </label>
+            <div className="field">
+              <label className="label">Term or Question: </label>
               <textarea
+                className="form-textarea"
                 name="term"
                 value={term}
                 onChange={(e) => setTerm(e.target.value)}
@@ -144,10 +146,11 @@ const handleCreate = async () => {
             
             {/* Definition Input */}
             <div className="field">
-              <label>
+              <label className='label'>
                 Definition or Answer: 
               </label>
               <textarea
+                className="form-textarea"
                 name="definition"
                 value={definition}
                 onChange={(e) => setDefinition(e.target.value)}
@@ -159,10 +162,11 @@ const handleCreate = async () => {
   
             {/* Example Input */}
             <div className="field">
-              <label>
+              <label className='label'>
                 Example: 
               </label>
               <textarea
+                className="form-textarea"
                 name="example"
                 value={example}
                 onChange={(e) => setExample(e.target.value)}
@@ -237,30 +241,33 @@ const handleCreate = async () => {
 
       {/* Existing Cards List */}
       <div className="bg-white rounded-lg shadow-md p-6">
-        <h3 className="text-lg font-semibold mb-4">
+        <h3 className="form-create">
           Cards in "{deck.title}" ({deck.flashcards.length})
         </h3>
         
         {deck.flashcards.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center">
             <p>No cards in this deck yet. Add your first card above!</p>
           </div>
         ) : (
           <div className="space-y-3">
             {deck.flashcards.map((card: Flashcard) => (
-              <div key={card._id} className="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">Term</label>
-                    <p className="text-sm bg-blue-50 p-2 rounded border">{card.term}</p>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-gray-600 mb-1">Definition</label>
-                    <p className="text-sm bg-green-50 p-2 rounded border">{card.definition}</p>
-                  </div>
+             <div
+              key={card._id}
+              className="flashcard-item"
+            >
+              <div className="flashcard-header">
+                <div>
+                  <label className="flashcard-label">Term</label>
+                  <p className="flashcard-text">{card.term}</p>
+                </div>
+                <div>
+                  <label className="flashcard-label">Definition</label>
+                  <p className="flashcard-text">{card.definition}</p>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
           </div>
         )}
       </div>
