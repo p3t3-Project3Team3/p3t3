@@ -119,7 +119,7 @@ const Decks: React.FC = () => {
         <h1>Welcome to your deck of FlashCards</h1>
         <button
           onClick={() => navigate("/decks/createNewDeck")}
-          className="ui inverted yellow button"
+          className="large ui inverted yellow button"
         >
           Create New Deck
         </button>
@@ -127,7 +127,7 @@ const Decks: React.FC = () => {
 
       <div className="decks-grid">
         <h2 className="section-title">
-          All Decks ({allDecksData?.getAllDecks.length})
+         Deck Count ({allDecksData?.getAllDecks.length})
         </h2>
 
         {allDecksData?.getAllDecks.map((deck) => {
@@ -143,7 +143,7 @@ const Decks: React.FC = () => {
               onClick={() => handleDeckClick(deck._id)}
             >
               <div className="deck-header">
-                <button className=" fluid ui  yellow button deck-title">{deck.title}</button>
+                <button className=" fluid massive inverted ui yellow button ">{deck.title}</button>
                 <div className="deck-meta">
                   <span className="card-count">
                     {deck.flashcards.length}{" "}

@@ -25,29 +25,44 @@
     background-color: azure;
     width: 100%;
 }
-
+.decks-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--light-bg-color);
+    border-bottom: 1px solid var(--dark-bg-color);
+    text-shadow:1px 1px 2px black;
+}
+.section-title{
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow:1px 1px 2px black;
+    text-align: center;
+}
 .deck-card{
   padding: 2px;
 }
 .created-by{
     font-size: 15px;
     font-weight: bold;
-    color: var(--dark-bg-color);
+   text-shadow:1px 1px 2px black;
     text-align: center;
 }
 
 .card-count{
     font-size: 15px;
     font-weight: bold;
-    color: var(--dark-bg-color);
+    text-shadow:1px 1px 2px black;
     text-align: center;
 }
 .deck-description{
     font-size: 10px;
     font-weight: bold;
-    color: var(--dark-bg-color);
+    
     
 }
+
 
 @media (max-width: 575px) {
   .deck-select-modal {
@@ -69,4 +84,5 @@
     padding: 0.75rem 1.5rem;
     width: 100%;
   }
+
 }
