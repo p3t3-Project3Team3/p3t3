@@ -1,56 +1,46 @@
-import { Schema, model, Document, ObjectId, Types } from 'mongoose';
-// import  { IFlashcard } from "./flashcard.js";
+import mongoose, { Document, Schema } from 'mongoose';
 
-
-// Define an interface for the Profile document
+// Define the TypeScript interface
 export interface IDeck extends Document {
   _id: string;
   title: string;
   description?: string;
-  createdByUsername: ObjectId;
+  createdByUsername: mongoose.Types.ObjectId | any; // Can be ObjectId or populated Profile
   isPublic: boolean;
-  flashcards: Types.ObjectId[];
+  flashcards: mongoose.Types.ObjectId[] | any[]; // Can be ObjectIds or populated Flashcards
+  createdAt: Date;
   updatedAt: Date;
 }
 
-// Define the schema for the Profile document
-const deckSchema = new Schema<IDeck>(
-  {
-    title: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
-    },
-    description: {
-      type: String,
-      trim: true,
-    },
-    createdByUsername: {
-      type: Schema.Types.ObjectId,
-      required: true,
-      ref: "Profile",
-    },
-    isPublic: {
-      type: Boolean,
-      default: false,
-    },
-    flashcards:[
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Flashcard"
-      }
-    ]
+// Define the schema
+const deckSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+    unique: true
   },
-  {
-    timestamps: true,
-    toJSON: { getters: true },
-    toObject: { getters: true },
-  }
-);
+  description: {
+    type: String,
+    default: ''
+  },
+  createdByUsername: {
+    type: Schema.Types.ObjectId,
+    ref: 'Profile', // Make sure this matches your Profile model name
+    required: true
+  },
+  isPublic: {
+    type: Boolean,
+    default: false
+  },
+  flashcards: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Flashcard'
+  }]
+}, {
+  timestamps: true
+});
 
-
-
-const Deck = model<IDeck>('Deck', deckSchema);
+// Create and export the model
+const Deck = mongoose.model<IDeck>('Deck', deckSchema);
 
 export default Deck;

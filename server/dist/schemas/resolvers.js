@@ -112,15 +112,36 @@ const resolvers = {
             if (!title || title.trim() === '') {
                 throw new Error('Title is required');
             }
-            const deck = new Deck({
-                title,
-                description,
-                createdByUsername: context.user._id,
-                isPublic: false,
-                flashcards: [],
-            });
-            await deck.save();
-            return deck;
+            try {
+                // Find user by email instead of ID (temporary fix)
+                const user = await Profile.findOne({ email: context.user.email });
+                if (!user) {
+                    throw new Error('User not found in database');
+                }
+                console.log('Using user from database:', user._id.toString());
+                // Create the deck using the correct user ID from database
+                const deck = await Deck.create({
+                    title: title.trim(),
+                    description: description?.trim() || '',
+                    createdByUsername: user._id, // Use the correct ID from database
+                    isPublic: false,
+                    flashcards: [],
+                });
+                // Return populated deck
+                const populatedDeck = await Deck.findById(deck._id)
+                    .populate('createdByUsername')
+                    .populate('flashcards');
+                if (!populatedDeck) {
+                    throw new Error('Failed to retrieve created deck');
+                }
+                return populatedDeck;
+            }
+            catch (error) {
+                if (error.code === 11000 && error.keyPattern?.title) {
+                    throw new Error(`A deck with the title "${title.trim()}" already exists. Please choose a different title.`);
+                }
+                throw error;
+            }
         },
         updateDeck: async (_parent, { id, input }, context) => {
             if (!context.user)

@@ -1,35 +1,31 @@
-import { Schema, model } from 'mongoose';
-// Define the schema for the Profile document
+import mongoose, { Schema } from 'mongoose';
+// Define the schema
 const deckSchema = new Schema({
     title: {
         type: String,
         required: true,
-        unique: true,
-        trim: true,
+        unique: true
     },
     description: {
         type: String,
-        trim: true,
+        default: ''
     },
     createdByUsername: {
         type: Schema.Types.ObjectId,
-        required: true,
-        ref: "Profile",
+        ref: 'Profile', // Make sure this matches your Profile model name
+        required: true
     },
     isPublic: {
         type: Boolean,
-        default: false,
+        default: false
     },
-    flashcards: [
-        {
+    flashcards: [{
             type: Schema.Types.ObjectId,
-            ref: "Flashcard"
-        }
-    ]
+            ref: 'Flashcard'
+        }]
 }, {
-    timestamps: true,
-    toJSON: { getters: true },
-    toObject: { getters: true },
+    timestamps: true
 });
-const Deck = model('Deck', deckSchema);
+// Create and export the model
+const Deck = mongoose.model('Deck', deckSchema);
 export default Deck;

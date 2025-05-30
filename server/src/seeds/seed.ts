@@ -7,7 +7,7 @@ import deckSeeds from './deckData.json' with { type: "json" };
 import flashcardSeeds from './flashcardData.json' with { type: "json" };
 import cleanDB from './cleanDB.js';
 import { IProfile } from '../models/Profile';
-import { IDeck } from '../models/Deck';
+import  { IDeck } from '../models/Deck';
 import { IFlashcard } from '../models/flashcard';
 import { toObjectId } from '../utils/objectId.js';
 // import bcrypt from 'bcrypt';

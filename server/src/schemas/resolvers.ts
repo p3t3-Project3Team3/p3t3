@@ -1,9 +1,7 @@
 import FlashcardModel from '../models/flashcard.js';
-import Deck from '../models/Deck.js';
-import { IFlashcard } from '../models/flashcard';
-import { IDeck } from '../models/Deck';
+import Deck, { IDeck } from '../models/Deck.js';
+import { IFlashcard } from '../models/flashcard.js';
 import { Profile } from '../models/index.js';
-
 import { signToken, AuthenticationError } from '../utils/auth.js';
 
 interface ProfileType {
@@ -25,12 +23,6 @@ interface AddProfileArgs {
     password: string;
   };
 }
-
-// interface CreateDeckArgs {
-//   title: string;
-//   description?: string;
-// }
-
 
 interface Context {
   user?: ProfileType;
@@ -162,30 +154,55 @@ const resolvers = {
       return card;
     },
 
-    createDeck: async (
-      _parent: any,
-      { title, description }: { title: string; description?: string },
-      context: Context
-    ): Promise<IDeck> => {
-      if (!context.user) {
-        throw new AuthenticationError('You must be logged in to create a deck');
-      }
+  createDeck: async (
+  _parent: any,
+  { title, description }: { title: string; description?: string },
+  context: Context
+): Promise<IDeck> => {
+  if (!context.user) {
+    throw new AuthenticationError('You must be logged in to create a deck');
+  }
 
-      if (!title || title.trim() === '') {
-        throw new Error('Title is required');
-      }
+  if (!title || title.trim() === '') {
+    throw new Error('Title is required');
+  }
 
-      const deck = new Deck({
-        title,
-        description,
-        createdByUsername: context.user._id,
-        isPublic: false,
-        flashcards: [],
-      });
+  try {
+    // Find user by email instead of ID (temporary fix)
+    const user = await Profile.findOne({ email: context.user.email });
+    
+    if (!user) {
+      throw new Error('User not found in database');
+    }
 
-      await deck.save();
-      return deck;
-    },
+    console.log('Using user from database:', user._id.toString());
+
+    // Create the deck using the correct user ID from database
+    const deck = await Deck.create({
+      title: title.trim(),
+      description: description?.trim() || '',
+      createdByUsername: user._id, // Use the correct ID from database
+      isPublic: false,
+      flashcards: [],
+    });
+
+    // Return populated deck
+    const populatedDeck = await Deck.findById(deck._id)
+      .populate('createdByUsername')
+      .populate('flashcards');
+
+    if (!populatedDeck) {
+      throw new Error('Failed to retrieve created deck');
+    }
+
+    return populatedDeck as IDeck;
+  } catch (error: any) {
+    if (error.code === 11000 && error.keyPattern?.title) {
+      throw new Error(`A deck with the title "${title.trim()}" already exists. Please choose a different title.`);
+    }
+    throw error;
+  }
+},
 
    updateDeck: async (
   _parent: unknown,

@@ -5,21 +5,31 @@ dotenv.config();
 export const authenticateToken = async ({ req, }) => {
     let token = req.body.token || req.query.token || req.headers.authorization || '';
     let user = null;
+    console.log('=== AUTH DEBUG ===');
+    console.log('Raw token:', token);
+    console.log('JWT_SECRET_KEY exists:', !!process.env.JWT_SECRET_KEY);
     if (!token) {
+        console.log('No token provided');
         return { user: null };
     }
     if (token) {
         try {
             token = token.split(' ').pop()?.trim() || '';
+            console.log('Cleaned token:', token.substring(0, 20) + '...');
             const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY || '', {
                 maxAge: '4h',
             });
-            user = decoded.data; // this should match your payload
+            console.log('Decoded JWT:', decoded);
+            console.log('Decoded data:', decoded.data);
+            user = decoded.data;
+            console.log('Final user object:', user);
         }
         catch (err) {
-            console.log('Invalid token');
+            console.log('Token verification failed:', err);
         }
     }
+    console.log('Returning user:', user);
+    console.log('=== AUTH DEBUG END ===');
     return { user };
 };
 export const signToken = (username, email, _id) => {
