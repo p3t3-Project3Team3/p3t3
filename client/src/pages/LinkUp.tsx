@@ -77,7 +77,7 @@ const LinkUp: React.FC = () => {
 
   // Timer effect
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     
     if (gameStats.gameStarted && !gameStats.gameCompleted) {
       interval = setInterval(() => {

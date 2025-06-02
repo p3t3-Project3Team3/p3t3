@@ -61,8 +61,8 @@ const Matching: React.FC = () => {
 
   // Timer effect
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    
+    let interval: ReturnType<typeof setInterval>;
+
     if (gameStats.gameStarted && !gameStats.gameCompleted) {
       interval = setInterval(() => {
         setGameStats(prev => ({
@@ -71,13 +71,13 @@ const Matching: React.FC = () => {
         }));
       }, 1000);
     }
-    
+
     return () => {
       if (interval) clearInterval(interval);
     };
   }, [gameStats.gameStarted, gameStats.gameCompleted]);
 
-  // Initialize game when data loads or difficulty changes
+
   useEffect(() => {
     if (data?.getSingleDeck?.flashcards && data.getSingleDeck.flashcards.length > 0) {
       initializeGame();
