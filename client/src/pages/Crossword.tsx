@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
 import { QUERY_SINGLE_DECK } from '../utils/queries';
+import { Flashcard } from '../interfaces/Flashcard';
 import '../styles/CrosswordGame.css';
 
 interface CrosswordWord {
@@ -29,11 +30,7 @@ interface GameStats {
   totalCells: number;
 }
 
-interface Flashcard {
-  _id: string;
-  term: string;
-  definition: string;
-}
+
 
 const Crossword: React.FC = () => {
   const { id } = useParams<{ id: string }>();

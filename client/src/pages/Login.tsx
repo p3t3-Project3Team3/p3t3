@@ -30,11 +30,11 @@ const Login = () => {
   try {
     const { data } = await login({ variables: { ...formState } });
 
-    console.log("Login response:", data); // ✅ Confirm token and profile exist
+    console.log("Login response:", data); 
 
     Auth.login(data.login.token); // Save token
     setIsSuccess(true); // only if login works
-    navigate("/Home"); // ✅ Redirect immediately
+    navigate("/Home"); 
   } catch (e) {
     console.error("Login failed:", e);
   }

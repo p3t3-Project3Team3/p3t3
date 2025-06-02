@@ -3,20 +3,9 @@ import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { QUERY_SINGLE_DECK, QUERY_FLASHCARDS_BY_DECK } from '../utils/queries';
 import { CREATE_FLASHCARD } from '../utils/mutations';
+import { Flashcard } from '../interfaces/Flashcard';
+import { Deck } from '../interfaces/Deck';
 import NewCard from '../components/NewCard';
-
-interface Flashcard {
-  _id: string;
-  term: string;
-  definition: string;
-  example?: string;
-}
-
-interface Deck {
-  _id: string;
-  title: string;
-  description: string;
-}
 
 const DeckDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

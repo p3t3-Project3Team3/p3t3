@@ -3,18 +3,7 @@ import { useMutation } from "@apollo/client";
 import { QUERY_ALL_DECKS, QUERY_SINGLE_DECK } from "../../utils/queries";
 import { UPDATE_FLASHCARD, DELETE_FLASHCARD } from "../../utils/mutations";
 import { Modal, Button } from "semantic-ui-react";
-
-interface Flashcard {
-  _id: string;
-  term: string;
-  definition: string;
-  example?: string;
-  createdByUsername?: {
-    username: string;
-  };
-  isFavorite?: boolean;
-}
-
+import { Flashcard } from "../../interfaces/Flashcard";
 interface FlashcardEditProps {
     selectedCard: Flashcard;
     deckId: string;

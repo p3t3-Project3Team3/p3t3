@@ -3,12 +3,9 @@ import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
 import { QUERY_SINGLE_DECK } from '../utils/queries';
 import { StatsManager } from '../utils/StatsManager';
+import { Flashcard } from '../interfaces/Flashcard';
 import '../styles/MatchingGame.css';
-interface Flashcard {
-  _id: string;
-  term: string;
-  definition: string;
-}
+
 
 interface MemoryCard {
   id: string;

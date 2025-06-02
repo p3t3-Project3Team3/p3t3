@@ -4,19 +4,11 @@ import { useParams } from 'react-router-dom';
 import { QUERY_SINGLE_DECK, QUERY_FLASHCARDS_BY_DECK } from '../utils/queries';
 import { useNavigate } from 'react-router-dom';
 import { DELETE_DECK } from '../utils/mutations';
+import { Flashcard } from '../interfaces/Flashcard';
 import FlashcardEdit from '../components/Deck/editCard';
 import EditDeck from '../components/Deck/editdeck'
 
-interface Flashcard {
-  _id: string;
-  term: string;
-  definition: string;
-  example?: string;
-  createdByUsername?: {
-    username: string;
-  };
-  isFavorite?: boolean;
-}
+
 
 interface Deck {
   _id: string;

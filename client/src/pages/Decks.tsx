@@ -1,33 +1,13 @@
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ALL_DECKS } from "../utils/queries";
-import { UPDATE_FLASHCARD, DELETE_FLASHCARD } from "../utils/mutations";
+import { DELETE_FLASHCARD } from "../utils/mutations";
 import { useNavigate } from "react-router-dom";
 import { Modal, } from "semantic-ui-react";
 import FlashcardEdit from "../components/Deck/editCard";
+import { Flashcard } from "../interfaces/Flashcard";
+import { Deck } from "../interfaces/Deck";
 import "../styles/deck.css";
-
-
-interface Flashcard {
-  _id: string;
-  term: string;
-  definition: string;
-  example?: string;
-  createdByUsername: {
-    username: string;
-  };
-  isFavorite?: boolean;
-}
-
-interface Deck {
-  _id: string;
-  title: string;
-  description: string;
-  createdByUsername: {
-    username: string;
-  };
-  flashcards: Flashcard[];
-}
 
 interface DecksData {
   getAllDecks: Deck[];
@@ -36,10 +16,7 @@ interface DecksData {
 const Decks: React.FC = () => {
   const navigate = useNavigate();
   const { loading, error, data: allDecksData } = useQuery<DecksData>(QUERY_ALL_DECKS);
- const [updateFlashcard, { error: updateError }] = useMutation(UPDATE_FLASHCARD, {
-  refetchQueries: [{ query: QUERY_ALL_DECKS }],
-  awaitRefetchQueries: true,
-});
+
   const [deleteFlashcard] = useMutation(DELETE_FLASHCARD);
   const [expandedDeckId, setExpandedDeckId] = useState<string | null>(null);
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
@@ -74,7 +51,7 @@ const Decks: React.FC = () => {
 
       const updatedDecks = existingData.getAllDecks.map(deck => ({
         ...deck,
-        flashcards: deck.flashcards.filter(card => card._id !== cardId),
+        flashcards: deck.flashcards.filter((card: { _id: string; }) => card._id !== cardId),
       }));
 
       cache.writeQuery({
@@ -139,7 +116,7 @@ const Decks: React.FC = () => {
             <div
               key={deck._id}
               className="deck-card"
-              onClick={() => handleDeckClick(deck._id)}
+              onClick={() => deck._id && handleDeckClick(deck._id as string)}
             >
               <div className="deck-header">
                 <button className=" fluid massive inverted ui yellow button ">{deck.title}</button>
@@ -149,7 +126,7 @@ const Decks: React.FC = () => {
                     {deck.flashcards.length === 1 ? "card" : "cards"}
                   </span>
                   <span className="created-by">
-                    by {deck.createdByUsername.username}
+                    by {deck.createdByUsername?.username}
                   </span>
                 </div>
               </div>
@@ -160,7 +137,7 @@ const Decks: React.FC = () => {
 
               {deck.flashcards.length > 0 && (
                 <div className="ui cards">
-                  {flashcardsToShow.map((card) => (
+                  {flashcardsToShow.map((card: Flashcard) => (
                     <div
                       className={`card ${
                         expandedCardId === card._id ? "expanded-card" : ""
@@ -194,7 +171,7 @@ const Decks: React.FC = () => {
                           )}
                         </div>
                         <div className="meta">
-                          Created By: {card.createdByUsername.username}
+                          Created By: {card.createdByUsername?.username ?? "Unknown"}
                         </div>
                       </div>
 
@@ -241,7 +218,7 @@ const Decks: React.FC = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                       setExpandedDeckId((prevId) =>
-                        prevId === deck._id ? null : deck._id
+                        prevId === deck._id ? null : (deck._id as string)
                       );
                     }}
                   >

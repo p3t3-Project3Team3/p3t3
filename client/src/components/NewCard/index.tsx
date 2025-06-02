@@ -6,20 +6,11 @@ import { QUERY_SINGLE_DECK } from '../../utils/queries';  // Fixed import
 import { CREATE_FLASHCARD } from '../../utils/mutations';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { Flashcard } from '../../interfaces/Flashcard';
+import { Deck } from '../../interfaces/Deck';
 import '../../styles/AddFlashcard.css';  // Assuming you have a CSS file for styles
 
-interface Flashcard {
-  _id: string;
-  term: string;
-  definition: string;
-  example: string;
-}
 
-interface Deck {
-  _id: string;
-  title: string;
-  flashcards: Flashcard[];
-}
 
 interface NewCardProps {
   onAdd: (newFlashcard: { term: string; definition: string }) => void;
