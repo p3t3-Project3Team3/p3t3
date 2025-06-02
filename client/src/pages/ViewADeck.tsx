@@ -25,7 +25,7 @@ const DeckDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [expandedCardId, setExpandedCardId] = React.useState<string | null>(null);
-const handleCardClick = (cardId: string, e: React.MouseEvent) => {
+const handleCardClick = (cardId: string) => {
   setExpandedCardId(expandedCardId === cardId ? null : cardId);
 };
 
@@ -92,7 +92,7 @@ const handleDeleteDeck = () => {
             <div
               className={`card ${expandedCardId === card._id ? "expanded-card" : ""}`}
               key={card._id}
-              onClick={(e) => handleCardClick(card._id, e)}
+              onClick={() => handleCardClick(card._id)}
             >
               <div className="content">
                 <div className="header">

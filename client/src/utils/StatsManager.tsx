@@ -164,7 +164,7 @@ export class StatsManager {
       
       // Update best scores
       const scoreField = `bestScore${gameData.difficulty.charAt(0).toUpperCase() + gameData.difficulty.slice(1)}` as keyof typeof stats.matching;
-      stats.matching[scoreField] = Math.max(stats.matching[scoreField] as number, gameData.score);
+      (stats.matching as any)[scoreField] = Math.max((stats.matching as any)[scoreField] as number, gameData.score);
       
       // Calculate average moves
       const completedGames = stats.matching.gamesCompleted;
