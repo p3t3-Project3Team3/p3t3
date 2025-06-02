@@ -238,7 +238,7 @@ const Decks: React.FC = () => {
               {deck.flashcards.length > 3 && (
                 <div style={{ marginTop: "1em" }}>
                   <button
-                    className="ui grey button"
+                    className="ui violet button"
                     onClick={(e) => {
                       e.stopPropagation();
                       setExpandedDeckId((prevId) =>

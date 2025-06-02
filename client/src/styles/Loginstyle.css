@@ -21,7 +21,11 @@
     }
 }
 .dark{
-.ui.inverted.yellow.segment{
+.ui.inverted.blue.segment{
     background-color: rgb(72, 72, 71) !important;
     }
+.ui.violet.button {
+   background-color: yellow;
+   color:black;
+}
 }

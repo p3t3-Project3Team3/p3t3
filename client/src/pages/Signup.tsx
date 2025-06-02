@@ -112,7 +112,7 @@ const Signup = () => {
   <button
     style={{ cursor: 'pointer' }}
     type="submit"
-    className="ui blue submit button"
+    className="ui violet submit button"
   >
     Submit
   </button>

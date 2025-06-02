@@ -48,46 +48,48 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow">
-      <h1 className="title">Create a New Deck</h1>
-      <form onSubmit={handleSubmit} className="form">
-         <div className="form-field">
-      <label className="form-label">Deck Title</label>
-      <input
-        className="form-input"
-        name="deckTitle"
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Enter a title"
-        maxLength={100}
-      />
-    </div>
-
-        <div className="form-field">
-  <label className="form-label">Description</label>
-  <textarea
-    className="form-textarea"
-    name="deckDescription"
-    value={description}
-    onChange={(e) => setDescription(e.target.value)}
-    placeholder="Enter a brief description (optional)"
-    rows={4}
-    maxLength={500}
-  />
-</div>
-
-        {errorMessage && <p className="text-red-600 text-sm">{errorMessage}</p>}
-
-        <div className="buttonfield">
-          <button type="submit" className="create-button" disabled={loading}>
-            {loading ? 'Creating...' : 'Create Deck'}
-          </button>
-          <button type="button" className='cancel-button' onClick={() => navigate('/home')} disabled={loading}>
-            Cancel
-          </button>
-        </div>
-      </form>
+    <div className="create-deck">
+      <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow">
+        <form onSubmit={handleSubmit} className=" form">
+        <h1 className="title">Create a New Deck</h1>
+           <div className="form-field">
+        <label className="form-label">Deck Title</label>
+        <input
+          className="form-input"
+          name="deckTitle"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Enter a title"
+          maxLength={100}
+        />
+      </div>
+  
+          <div className="form-field">
+    <label className="form-label">Description</label>
+    <textarea
+      className="form-textarea"
+      name="deckDescription"
+      value={description}
+      onChange={(e) => setDescription(e.target.value)}
+      placeholder="Enter a brief description (optional)"
+      rows={4}
+      maxLength={500}
+    />
+  </div>
+  
+          {errorMessage && <p className="text-red-600 text-sm">{errorMessage}</p>}
+  
+          <div className="buttonfield">
+            <button type="submit" className="ui yellow button" disabled={loading}>
+              {loading ? 'Creating...' : 'Create Deck'}
+            </button>
+            <button type="button" className='ui red button' onClick={() => navigate('/home')} disabled={loading}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

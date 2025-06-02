@@ -1,16 +1,16 @@
-.navbar {
+.custom-navbar {
   background-color: var(--secondary-color, #fef7ed);
   margin: 0;
   padding-left: 13px;
   box-shadow: 1px 1px 2px var(--dark--bg-color, #0f172a);
   a {
-    color: var(--dark-color, #0f172a);
+    color: black;
   }
   a:hover {
     color: var(--primary-color, #5ecfff);
     background-color: white;
   }
-  .navbar-nav {
+.navbar-nav {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -37,9 +37,9 @@
 
 .dark {
   .navbar {
-    background-color: var(--dark-bg-color,#0f172a);
+    background-color:#9b02eeb0;
     a {
-      color:var(--dark-color, #fef7ed);
+      color:black;
     }
   }
 }
