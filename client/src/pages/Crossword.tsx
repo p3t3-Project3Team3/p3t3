@@ -498,12 +498,30 @@ const Crossword: React.FC = () => {
 
   // Reset game
   const resetGame = () => {
-    clearGrid();
-    setGameStats({ startTime: Date.now(), completed: false, correctCells: 0, totalCells: gameStats.totalCells });
-    setSelectedCell(null);
-    setSelectedWord(null);
-    setTimer(0);
-  };
+  if (data?.getSingleDeck?.flashcards) {
+    // Generate a completely new crossword layout
+    const flashcards: Flashcard[] = data.getSingleDeck.flashcards;
+    const newCrosswordWords = createCrosswordFromFlashcards(flashcards);
+    setWords(newCrosswordWords);
+  }
+  
+  // Reset game stats
+  setGameStats({ 
+    startTime: Date.now(), 
+    completed: false, 
+    correctCells: 0, 
+    totalCells: 0 // Will be recalculated when grid is rebuilt
+  });
+  
+  // Reset selection states
+  setSelectedCell(null);
+  setSelectedWord(null);
+  setTimer(0);
+  
+  // Hide any open hint
+  setShowHint(false);
+  setCurrentHint('');
+};
 
   // Loading and error states
   if (loading) {
