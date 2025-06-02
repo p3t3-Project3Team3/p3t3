@@ -1,4 +1,4 @@
-// import './App.css';
+
 import {
   ApolloClient,
   InMemoryCache,
@@ -7,15 +7,10 @@ import {
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import Header from './components/Header';
 import NavigationBar from './components/Nav/index';
 import Footer from './components/Footer';
-import { useContext } from 'react';
 import { AuthProvider } from './utils/authContext';
-// import LandingPage from './pages/LandingPage';
-// import Home from './pages/Home';
 
 
 

@@ -1,5 +1,4 @@
-import { useState, useEffect, type FormEvent, type ChangeEvent } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useState, type FormEvent, type ChangeEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import "semantic-ui-css/semantic.min.css";
@@ -11,7 +10,7 @@ import Auth from "../utils/auth";
 
 const Login = () => {
   const [formState, setFormState] = useState({ email: "", password: "" });
-  const [login, { error, data }] = useMutation(LOGIN_USER);
+  const [login, { error,}] = useMutation(LOGIN_USER);
   // const [redirectToSignup, setRedirectToSignup] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   // const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -43,12 +42,6 @@ const Login = () => {
   setFormState({ email: "", password: "" });
 };
 
-  // if (redirectToSignup) {
-  //   return <Navigate to="/signup" />;
-  // }
-// if (shouldRedirect) {
-//     return <Navigate to="/Home" />;
-//   }
 
   return (
     <>

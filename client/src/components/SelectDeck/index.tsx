@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-// Make sure the path below is correct based on your project structure
 import { QUERY_ALL_DECKS } from "../../utils/queries";
 import { useNavigate } from "react-router-dom"; 
 

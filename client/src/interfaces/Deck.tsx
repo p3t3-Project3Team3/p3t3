@@ -1,3 +1,4 @@
+import { Key, ReactNode } from 'react';
 import Flashcard from './Flashcard';
 
 interface Deck {

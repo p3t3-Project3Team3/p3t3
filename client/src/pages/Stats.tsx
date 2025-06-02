@@ -14,16 +14,7 @@ const Stats: React.FC = () => {
 
   const Profile = JSON.parse(localStorage.getItem('profile') || '{}');
   
-  // if (!Profile || !Profile.username) {
-  //   return (
-  //     <div className="loading-container">
-  //       <div className="loading-content">
-  //         <div className="loading-spinner"></div>
-  //         <p className="loading-text">Loading...</p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  
 
   if (!stats) {
     return (

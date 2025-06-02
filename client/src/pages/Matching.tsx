@@ -4,8 +4,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { QUERY_SINGLE_DECK } from '../utils/queries';
 import { StatsManager } from '../utils/StatsManager';
 import '../styles/MatchingGame.css';
-import { updateGameStats } from '../utils/statsUtils';
-
 interface Flashcard {
   _id: string;
   term: string;

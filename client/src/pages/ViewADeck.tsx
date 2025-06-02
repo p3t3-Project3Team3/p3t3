@@ -27,12 +27,7 @@ interface Deck {
   };
 }
 
-// interface EditDeckProps {
-//   modalOpen: boolean;
-//   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-//   deck: Deck;
-//   refetch: () => void;
-// }
+
 
 const DeckDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -42,9 +37,7 @@ const handleCardClick = (cardId: string, e: React.MouseEvent) => {
   setExpandedCardId(expandedCardId === cardId ? null : cardId);
 };
 
-// const handleEdit = (card: Flashcard) => {
-//   navigate(`/edit-card/${card._id}`);
-// };
+
 
 const handleDelete = (cardId: string) => {
   if (window.confirm("Are you sure you want to delete this flashcard?")) {
@@ -58,10 +51,9 @@ const [selectedCard, setSelectedCard] = React.useState<Flashcard | null>(null);
 const [modalOpen, setModalOpen] = React.useState(false);
 const [deckModalOpen, setDeckModalOpen] = React.useState(false);
 // const deckId = id; // Assuming id is the deck ID
-const [selectedDeck, setSelectedDeck] = React.useState<Deck | null>(null);
-  const { data: deckData, loading: deckLoading, error: deckError, refetch: refetchDeck } = useQuery(QUERY_SINGLE_DECK, {
-  variables: { id },
-});
+const { data: deckData, loading: deckLoading, error: deckError, refetch: refetchDeck } = useQuery(QUERY_SINGLE_DECK, {
+    variables: { id },
+  });
 
   const { data: cardsData, loading: cardsLoading, refetch: refetchCards } = useQuery(QUERY_FLASHCARDS_BY_DECK, {
     variables: { deckId: id },

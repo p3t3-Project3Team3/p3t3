@@ -1,5 +1,5 @@
 import React from 'react';
-import { QUERY_SINGLE_DECK } from '../../utils/queries'; // Fixed: Use correct query name
+import { QUERY_SINGLE_DECK } from '../../utils/queries'; 
 import { useParams, useNavigate } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import '../../styles/DeckComponent.css';

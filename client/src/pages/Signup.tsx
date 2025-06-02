@@ -1,5 +1,4 @@
 import { useState, type FormEvent, type ChangeEvent } from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { ADD_PROFILE } from '../utils/mutations';
@@ -14,7 +13,7 @@ const Signup = () => {
     email: '',
     password: '',
   });
-  const [addProfile, { error, data }] = useMutation(ADD_PROFILE);
+  const [addProfile, {error}] = useMutation(ADD_PROFILE);
 
   // update state based on form input changes
   const handleChange = (event: ChangeEvent) => {

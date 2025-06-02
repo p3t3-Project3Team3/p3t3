@@ -1,5 +1,3 @@
-// utils/statsUtils.ts
-
 interface GameStats {
   matchingBestTime: number | null;
   crosswordBestTime: number | null;

@@ -1,4 +1,3 @@
-
 export interface GameStats {
   // Flashcard stats
   flashcards: {

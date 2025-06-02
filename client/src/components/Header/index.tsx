@@ -1,6 +1,4 @@
-// import { Link } from 'react-router-dom';
 import { useState } from 'react';
-
 import "../../styles/Header.css"
 import 'semantic-ui-css/semantic.min.css';
 

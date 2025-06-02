@@ -1,4 +1,3 @@
-// export default Decks;
 import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { QUERY_ALL_DECKS } from "../utils/queries";
