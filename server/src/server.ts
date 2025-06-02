@@ -4,11 +4,20 @@ import { expressMiddleware } from '@apollo/server/express4';
 import cors from 'cors';
 import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './utils/auth.js';
+
 import db from './config/connection.js';
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+const port = process.env.PORT || 4000;
+// Initialize Apollo Server with type definitions and resolvers
+app.get('/', (_req, res) => {
+  res.send('Hello World!')
+})
 
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
 const server = new ApolloServer({
   typeDefs,
   resolvers,
