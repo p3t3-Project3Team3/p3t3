@@ -1,6 +1,6 @@
 interface Flashcard {
-  id: string;
-  front: string;
-  back: string;
+  _id: string;
+  term: string;
+  definition: string;
 }
 export default Flashcard;

@@ -8,10 +8,3 @@ router.put("/:id", updateFlashcard);
 router.post("/deck/:deckId", createFlashcardForDeck);
 router.get("/deck/:deckId", getFlashcardsByDeck);
 export default router;
-// Method	Route	Description
-// GET	/	Get all flashcards
-// GET	/:id	Get a flashcard by ID
-// GET	/deck/:deckId	Get flashcards for a deck
-// POST	/	Create a new flashcard
-// PUT	/:id	Update a flashcard
-// DELETE	/:id	Delete a flashcard
