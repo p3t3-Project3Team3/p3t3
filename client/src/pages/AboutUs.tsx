@@ -30,7 +30,7 @@ const About =() => {
         <div className="profile">
           <div className="image-and-network">
             <h3>Christopher Lin</h3>
-            <img src= '' alt="Christopher Lin" className="profile-image"/>
+            <img src= 'https://ca.slack-edge.com/T080710S2SD-U0851CBST88-5ee7a9cf7865-512' alt="Christopher Lin" className="profile-image"/>
             <a href="https://github.com/christophermlin"><i className="github icon"></i></a>
           </div>
           <div className="bio">
