@@ -129,7 +129,7 @@ const Home: React.FC = () => {
         
         <div className="action-buttons">
           <button 
-            className="ui large primary button"
+            className="ui large yellow button"
             onClick={() => navigate('/game/flashCards/Decks')} 
           >
             <i className="clone outline icon"></i>
@@ -152,7 +152,7 @@ const Home: React.FC = () => {
               </span>
             </div>
             <button 
-              className="game-button"
+              className="ui violet button"
               onClick={() => setSelectedGame('flashcard')}
               disabled={availableDecks.length === 0}
             >
@@ -170,7 +170,7 @@ const Home: React.FC = () => {
               </span>
             </div>
             <button 
-              className="game-button"
+              className="ui violet button"
               onClick={() => setSelectedGame('memory')}
               disabled={memoryGameDecks.length === 0}
             >
@@ -188,7 +188,7 @@ const Home: React.FC = () => {
               </span>
             </div>
             <button 
-              className="game-button"
+              className="ui violet button"
               onClick={() => setSelectedGame('crossword')}
               disabled={crosswordGameDecks.length === 0}
             >

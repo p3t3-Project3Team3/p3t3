@@ -1,7 +1,7 @@
 .title {
 text-align: center;
   font-size: 60px;
-  color: white;
+  color: black;
   margin-top: 30px;
   padding-top: 5px;
   margin-bottom: 0px;
@@ -23,6 +23,10 @@ text-align: center;
   margin-bottom: 30px;
 }
 
+.bigform-container{
+  background-color: rgb(63, 213, 247);
+}
+
 .form-field {
   margin-bottom: 20px;
   margin-left: 10px;
@@ -33,7 +37,7 @@ text-align: center;
   display: block;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #fffefe;
+  color: black;
   margin-bottom: 8px;
 }
 
@@ -70,44 +74,26 @@ text-align: center;
   box-shadow: 0 0 8px rgba(238, 185, 2, 0.3);
 }
 
-
 .buttonfield {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  padding-bottom: 10px;
 }
 
-.create-button {
-  background-color: var(--secondary-color);
-  color: white;
-  padding: 12px 20px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-right: 10px;;
-}
+.dark{
+  .title {
+    color: black;
+  }
+  
+  .form-title {
+    color:black;
+  }
+  
+  .bigform-container{
+    background-color: rgb(72, 72, 71);
+  }
 
-.cancel-button {
-  background-color: #f44336; /* Red color for cancel button */
-  color: white;
-  padding: 12px 20px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.create-button:hover{
-    background-color: #eebb0274;
-     transform: translateY(-2px);
-}
-
-.cancel-button:hover {
-    background-color: #f443365e;
-  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {

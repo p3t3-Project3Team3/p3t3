@@ -63,6 +63,14 @@
     
 }
 
+.ui.cards>.card{
+  background-color: rgba(20, 200, 255, 0.597);
+  box-shadow: -5px 8px 8px rgb(0, 67, 87);
+}
+.ui.cards>.card{
+  background-color: rgba(20, 200, 255, 0.597);
+  box-shadow: -5px 8px 8px rgb(0, 67, 87);
+}
 
 @media (max-width: 575px) {
   .deck-select-modal {
@@ -84,5 +92,12 @@
     padding: 0.75rem 1.5rem;
     width: 100%;
   }
-
+  
+}
+  
+.dark{
+  .ui.cards>.card{
+      background-color: rgba(141, 20, 255, 0.597);
+      box-shadow: -5px 8px 8px rgb(71, 0, 138);
+    }
 }

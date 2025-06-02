@@ -13,7 +13,7 @@ if (!isAuthenticated) {
 
  return (
     <>
-      <Navbar expand="lg" className="navbar">
+      <Navbar expand="lg" className="custom-navbar">
       <Container>
         {/* Hamburger Toggle Button */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -12,7 +12,7 @@
 .main-title{
   text-align: center;
   font-size: 60px;
-  color: white;
+  color: black;
   margin-top: 30px;
   padding-top: 5px;
   margin-bottom: 0px;
@@ -30,7 +30,7 @@
 .hero-subtitle{
   text-align: center;
   font-size: 30px;
-  color: white;
+  color: black;
   margin-top: 10px;
   padding-top: 5px;
   font-family: 'Concert One', cursive;
@@ -66,11 +66,13 @@
   border-radius: 10px;
   align-items: center;
   padding: 20px;
-  background-color: #eebb02bb;
+  background-color:#9b02eeb0;
   color: var(--dark-text-color);
 }
 
 .stat-item {
+  background-color: #459fff;
+  color: white;
   text-align: center;
   flex: 1;
   margin: 0 50px;
@@ -80,6 +82,10 @@
   transform: scale(1.05);
   color: var(--secondary-color);
   transition: transform 0.3s ease;
+}
+
+.stat-label {
+  color:rgb(50, 50, 50);
 }
 
 /*View decks button*/
@@ -95,63 +101,134 @@
 .games-section .section-title {
   text-align: center;
   font-size: 40px;
-  color: white;
+  color: black;
   margin-top: 20px;
   padding-bottom: 10px;
 }
 
 .gameContainer{
-    display: flex;
-    justify-content: space-around;
-
-    h2{
-       color: black;
-       font-size: 35px;
-       text-align: center;
-      }
-      p{
-         color: black;
-         font-size: 20px;
-         text-align: center;
-      }
-   }
-
-  .game-card{
-    background-color: #459fffaa;
-  }
-
-  .game-card:hover {
-    background-color: #eebb02a1;
-  } 
-
-  .game-card h3 {
+  display: flex;
+  justify-content: space-around;
+  
+  h2{
     color: black;
+    font-size: 35px;
+    text-align: center;
+  }
+  p{
+    color: black;
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+.game-card{
+  background-color: #459fffaa;
+}
+
+.game-card:hover {
+  background-color: rgba(11, 127, 252, 0.822);
+} 
+
+.game-card h3 {
+  color: black;
     font-size: 30px;
     text-align: center;
   }
-
+  
   .game-icon {
     font-size: 20px;
   }
+  
+  .homeFlashcard, .homeMatching, .homeCrossword{
+    border: 2px solid black;
+    border-radius: 15px;
+    margin: 5px;
+    padding: 5px;
+  }
+  
+  .ui.violet.button {
+    font-weight: bold;
+  }
+  
+  .dark{
+    /*HEADER AREA*/
+    .main-title{
+      color: white;
+    }
+    
+    .hero-subtitle{
+      color: white;
+    }
+        
+    /*STATS*/
+    .stats-container{
+      background-color:#f1f823d0;
+      color:black;
+    }
+    
+    .stat-item{
+          background-color: rgb(27, 27, 27);
+          color:white;
+    }
 
-.homeFlashcard, .homeMatching, .homeCrossword{
-   border: 2px solid black;
-   border-radius: 15px;
-   margin: 5px;
-   padding: 5px;
+    .stat-label {
+    color:white;
 }
 
-.game-button {
-  border: none;
-  padding: 10px 20px;
-  font-size: 15px;
-  border-radius: 5px;
-  color: white;
-  background-color: #05376d;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
+    .stat-item:hover {
+      transform: scale(1.05);
+      color: #a600ff;
+      transition: transform 0.3s ease;
+    }
+
+    .ui.yellow.button{
+      background-color: purple;
+    }
+    /* GAME */
+    .games-section .section-title {
+      color: white;
+    }
+    
+    .gameContainer{
+
+      h2{
+        color: White;
+      }
+      p{
+        color: white;
+      }
+    }
+    
+    .game-card{
+      background-color:  rgb(27, 27, 27);
+    }
+    
+    .game-card:hover {
+      background-color:  rgb(54, 54, 54);
+    } 
+    
+    .game-card h3 {
+      color: black;
+        font-size: 30px;
+        text-align: center;
+      }
+      
+      .game-icon {
+        font-size: 20px;
+      }
+      
+      .homeFlashcard, .homeMatching, .homeCrossword{
+        border: 2px solid black;
+        border-radius: 15px;
+        margin: 5px;
+        padding: 5px;
+      }
+      
+      .ui.violet.button {
+        font-weight: bold;
+      }
+  }
 
 
 @media (max-width: 575px) {

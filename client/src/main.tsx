@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Suppress findDOMNode warning from Semantic UI React
 const originalError = console.error;

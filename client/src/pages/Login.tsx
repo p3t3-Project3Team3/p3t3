@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <>
 
-        <div className="ui yellow inverted segment">
+        <div className="ui blue inverted segment">
           <div className="ui two column very relaxed stackable grid">
             <div className="column">
               <h4>Login</h4>
@@ -83,7 +83,7 @@ const Login = () => {
     <p>Thank you for coming back!</p>
   </div>
 )}
-                <button type="submit" className="ui blue submit button">
+                <button type="submit" className="ui violet submit button">
                   Login
                 </button>
               </form>
