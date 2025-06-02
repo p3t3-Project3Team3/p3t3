@@ -1,4 +1,15 @@
 /* Global Reset */
+
+:root{
+  --primary-color: #2D7DD2;
+  --secondary-color: #EEB902;
+  --text-color: #CCDDE2;
+  --dark-bg-color: #474647;
+  --dark-text-color: #A5CBC3;}
+ *{
+  margin: auto;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -29,7 +40,7 @@ section {
 /* Hero Section */
 .hero h1 {
   font-size: 2.5rem;
-  color: #6b21a8;
+  color: var(--secondary-color);
   margin-bottom: 1rem;
 }
 
@@ -40,7 +51,7 @@ section {
 }
 
 .hero-buttons button {
-  background-color: #7c3aed;
+  background-color: var(--secondary-color);
   font-family: "Concert One", sans-serif;
   color: white;
   border: none;
@@ -53,7 +64,7 @@ section {
 }
 
 .hero-buttons button:hover {
-  background-color: #5b21b6;
+  background-color: #846701;
 }
 
 /* Features */
@@ -84,7 +95,7 @@ section {
 }
 
 .feature h2 {
-  color: #6b21a8;
+  color: var(--secondary-color);
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
@@ -93,7 +104,7 @@ section {
 .testimonials h2,
 .secure h2 {
   font-size: 1.8rem;
-  color: #6b21a8;
+  color: var(--secondary-color);
   margin-bottom: 1rem;
 }
 
