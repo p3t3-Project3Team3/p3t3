@@ -1,15 +1,42 @@
+:root{
+  --primary-color: #2D7DD2;
+  --secondary-color: #611bd0;
+  --light-accent-color: #84E296;
+  --light-color: #D4ADCF;
+  --text-color: #CCDDE2;
+  --light-blue: #A5D8FF;
+  --dark-bg-color: #474647;
+  --dark-text-color: #A5CBC3;
+  --dark-accent-color:#F76F8E;
+  --dark-color:#CEFF1A;
+  --secondary-color-dark:#003E38;
+}
+ *{
+  margin: auto;
+}
+
 .custom-navbar {
   background-color: var(--secondary-color, #fef7ed);
   margin: 0;
   padding-left: 13px;
   box-shadow: 1px 1px 2px var(--dark--bg-color, #0f172a);
   a {
-    color: black;
+    color: white;
   }
   a:hover {
-    color: var(--primary-color, #5ecfff);
-    background-color: white;
+    color: var(--primary-color);
+    background-color:  var(--light-color);
+    border-radius: 5%;
   }
+  a:active {
+    color: #84E296;
+  }
+
+  .navbar-nav .nav-link.active {
+    color: var(--light-accent-color);
+    text-decoration: underline;
+  }
+
 .navbar-nav {
   display: flex;
   flex-wrap: wrap;
@@ -17,15 +44,6 @@
   width: 100%;
   justify-content: flex-start;
   gap: 0.5rem;
-  }
-  button {
-    background-color: #5ecfff;
-    color: #fef7ed;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    margin-top: 8px;
-    margin-left: 8px;
   }
   .navbar-toggler {
     border: none;
@@ -37,11 +55,24 @@
 
 .dark {
   .navbar {
-    background-color:#9b02eeb0;
+    background-color: var(--secondary-color-dark);
     a {
-      color:black;
+      color: white;
+    };
+    a:hover {
+      background-color: none;
     }
   }
+
+  
+
+ .navbar-nav .nav-link.active {
+    color: var(--dark-color);
+    text-decoration: underline;
+  }
+  
+
+  
 }
 
 @media (max-width: 575px) {

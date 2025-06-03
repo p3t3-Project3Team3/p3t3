@@ -1,3 +1,20 @@
+:root{
+  --primary-color: #2D7DD2;
+  --secondary-color: #611bd0;
+  --light-accent-color: #84E296;
+  --light-color: #D4ADCF;
+  --text-color: #CCDDE2;
+  --light-blue: #A5D8FF;
+  --dark-bg-color: #474647;
+  --dark-text-color: #A5CBC3;
+  --dark-accent-color:#F76F8E;
+  --dark-color:#CEFF1A;
+  --secondary-color-dark:#003E38;
+}
+ *{
+  margin: auto;
+}
+
 .grid{
     padding: 5px;
     h4{
@@ -6,13 +23,23 @@
     }
 }
 
+.ui.inverted.violet.segment {
+    background-color: var(--light-accent-color) !important;
+}
+
 .ui.form .field>label{
-     font-size: 18px;
+    font-size: 18px;
 }
 .ui.form .field .ui.input input{
     font-size: 15px;
-    }
+}
 /* about page */
+.ui.violet.button:hover {
+    background-color: #611bd0;
+}
+.ui.form .field .ui.input input:focus {
+    background-color: #d4adcfc4;
+}
 .about{
     img{
         width: 50px;
@@ -21,11 +48,28 @@
     }
 }
 .dark{
-.ui.inverted.blue.segment{
-    background-color: rgb(72, 72, 71) !important;
+
+    .grid{
+        h4{
+            color:white;
+        }
+    }
+    .ui.inverted.blue.segment{
+        background-color: rgb(72, 72, 71) !important;
     }
 .ui.violet.button {
-   background-color: yellow;
+   background-color: var(--dark-color);
    color:black;
 }
+.ui.inverted.violet.segment {
+    background-color: var(--dark-bg-color) !important;
 }
+
+
+.ui.form .field .ui.input input:focus {
+    background-color: var(--dark-accent-color);
+
+}
+}
+
+

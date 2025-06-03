@@ -1,3 +1,20 @@
+:root{
+  --primary-color: #2D7DD2;
+  --secondary-color: #611bd0;
+  --light-accent-color: #84E296;
+  --light-color: #D4ADCF;
+  --text-color: #CCDDE2;
+  --light-blue: #A5D8FF;
+  --dark-bg-color: #474647;
+  --dark-text-color: #A5CBC3;
+  --dark-accent-color:#F76F8E;
+  --dark-color:#CEFF1A;
+  --secondary-color-dark:#003E38;
+}
+ *{
+  margin: auto;
+}
+
 /* Global Reset */
 * {
   box-sizing: border-box;
@@ -11,16 +28,6 @@
   font-style: normal;
 }
 
-
-.landing-page {
-  background: #377b8eb1;
-  color: #333;
-  padding: 2rem;
-  max-width: 1200px;
-  margin: auto;
-  border-radius: 10px;
-}
-
 section {
   margin-bottom: 4rem;
   text-align: center;
@@ -29,7 +36,7 @@ section {
 /* Hero Section */
 .hero h1 {
   font-size: 2.5rem;
-  color: #6b21a8;
+  color: var(--secondary-color);
   margin-bottom: 1rem;
 }
 
@@ -37,23 +44,6 @@ section {
   font-size: 1.2rem;
   margin-bottom: 2rem;
   color: white;
-}
-
-.hero-buttons button {
-  background-color: #7c3aed;
-  font-family: "Concert One", sans-serif;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  margin: 0 0.5rem;
-  border-radius: 10px;
-  font-size: 3rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.hero-buttons button:hover {
-  background-color: #5b21b6;
 }
 
 /* Features */
@@ -65,7 +55,8 @@ section {
 }
 
 .feature {
-  background-color: #a0daf3;
+  background-color: #d4adcfc4;
+  color: white;
   border-radius: 16px;
   padding: 2rem;
   width: 280px;
@@ -75,7 +66,8 @@ section {
 
 .feature:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.529);
+  background-color: #84e295a7;
 }
 
 .feature .icon {
@@ -115,15 +107,6 @@ section {
     font-style: normal;
   }
     
-  .landing-page {
-    background: #2c2d2e6e;
-    color: #333;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: auto;
-    border-radius: 10px;
-  }
-  
   section {
     margin-bottom: 4rem;
     text-align: center;
@@ -132,7 +115,7 @@ section {
   /* Hero Section */
   .hero h1 {
     font-size: 2.5rem;
-    color: #c3c314;
+    color: var(--dark-color);
     margin-bottom: 1rem;
   }
   
@@ -140,23 +123,6 @@ section {
     font-size: 1.2rem;
     margin-bottom: 2rem;
     color: white;
-  }
-  
-  .hero-buttons button {
-    background-color: #c3c314;
-    font-family: "Concert One", sans-serif;
-    color: black;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    margin: 0 0.5rem;
-    border-radius: 10px;
-    font-size: 3rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .hero-buttons button:hover {
-    background-color: #c3c314;
   }
   
   /* Features */
@@ -168,7 +134,7 @@ section {
   }
   
   .feature {
-    background-color: #565656;
+    background-color: #f76f8f93;
     border-radius: 16px;
     color: white;
     padding: 2rem;
@@ -178,8 +144,8 @@ section {
   }
   
   .feature:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.242);
+    background-color: #cdff1a47;
   }
   
   .feature .icon {
@@ -188,7 +154,7 @@ section {
   }
   
   .feature h2 {
-    color: #c3c314;
+    color: var(--dark-color);
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
   }
@@ -197,7 +163,7 @@ section {
   .testimonials h2,
   .secure h2 {
     font-size: 1.8rem;
-    color: #c3c314;
+    color: var(--dark-color);
     margin-bottom: 1rem;
   }
   

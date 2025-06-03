@@ -129,7 +129,7 @@ const Home: React.FC = () => {
         
         <div className="action-buttons">
           <button 
-            className="ui large yellow button"
+            className="ui large pink button"
             onClick={() => navigate('/game/flashCards/Decks')} 
           >
             <i className="clone outline icon"></i>
