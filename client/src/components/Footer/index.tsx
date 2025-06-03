@@ -1,9 +1,10 @@
 
+import React from 'react';
 import 'semantic-ui-css/semantic.min.css';
 import '../../styles/Footer.css';
 
 
-const Footer: React.FC = () => {
+const Footer = (): React.ReactElement => {
   // const location = useLocation();
 
 

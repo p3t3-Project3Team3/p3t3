@@ -7,29 +7,25 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "build:skip-tsc": "vite build"
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.14",
-    "@popperjs/core": "^2.11.8",
+    "@apollo/client": "^3.13.8",
     "bootstrap": "^5.3.6",
-    "bootstrap-icons": "^1.13.1",
-    "framer-motion": "^6.4.0",
+    "framer-motion": "^12.15.0",
     "graphql": "^16.6.0",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.8.0",
     "react-router-dom": "^6.23.1",
-    "semantic-ui-css": "^2.5.0",
-    "semantic-ui-react": "^2.1.5"
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.1.0"
   },
   "devDependencies": {
-    "@types/node": "^22.15.29",
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
+    "@types/react": "^18.3.23",
+    "@types/react-bootstrap": "^1.0.1",
+    "@types/react-dom": "^18.3.7",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",
