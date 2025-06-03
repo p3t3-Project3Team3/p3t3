@@ -6,7 +6,7 @@ import {
   QUERY_ALL_DECKS 
 } from '../utils/queries';
 import 'semantic-ui-css/semantic.min.css';
-import '../styles/home.css'; // Assuming you have a CSS file for styles
+import '../styles/Home.css'; // Assuming you have a CSS file for styles
 import SelectDeck from '../components/SelectDeck';  
 
 interface Profile {
