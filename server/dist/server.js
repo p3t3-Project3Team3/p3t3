@@ -7,6 +7,7 @@ import { authenticateToken } from './utils/auth.js';
 import db from './config/connection.js';
 const PORT = process.env.PORT || 3001;
 const app = express();
+// Initialize Apollo Server with type definitions and resolvers
 const server = new ApolloServer({
     typeDefs,
     resolvers,
