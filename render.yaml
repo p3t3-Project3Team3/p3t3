@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: your-app-name
-    env: node
-    buildCommand: cd server && rm -rf node_modules && npm install && cd ../client && rm -rf node_modules && npm install
-    startCommand: npm start
