@@ -48,7 +48,7 @@ const Home: React.FC = () => {
   
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
   const waveRef = useRef<HTMLParagraphElement>(null);
-  const animationTimeoutRef = useRef<NodeJS.Timeout[]>([]);
+  const animationTimeoutRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   const profiles = profilesData?.profiles || [];
   const decks = decksData?.getAllDecks || [];
@@ -78,7 +78,7 @@ const Home: React.FC = () => {
     waveText.textContent = ""; // clear existing text
 
     const words = text.split(" ");
-    const timeouts: NodeJS.Timeout[] = [];
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
 
     words.forEach((word: string, index: number) => {
       const span = document.createElement("span");
