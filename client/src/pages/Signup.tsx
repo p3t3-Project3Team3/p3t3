@@ -58,7 +58,7 @@ const Signup = () => {
                       value={formState.name}
                       onChange={handleChange}
                       />
-                    <i className="address card outline icon"></i>
+                    <i className="user secret icon"></i>
                     </div> 
                     </div>
                    <div className="field">

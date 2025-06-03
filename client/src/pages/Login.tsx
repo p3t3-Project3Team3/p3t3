@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <>
 
-        <div className="ui blue inverted segment">
+        <div className="ui violet inverted segment">
           <div className="ui two column very relaxed stackable grid">
             <div className="column">
               <h4>Login</h4>

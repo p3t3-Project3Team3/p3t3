@@ -16,9 +16,8 @@ export default function LandingPage() {
     <section className="hero">
       <h1>Master Anything, One Game at a Time</h1>
       <p>Transform study into play. Build flashcard decks, play interactive games, and boost your skills, all at once.</p>
-      <div className="hero-buttons">
-        <button onClick={routeLogin}>Get Started</button>
-      </div>
+      <button className="massive ui violet button"  onClick={routeLogin}>Get Started
+      </button>
     </section>
 
     {/* Key Features Section */}

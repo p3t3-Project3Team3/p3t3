@@ -95,7 +95,7 @@ const Decks: React.FC = () => {
         <h1>Welcome to your deck of FlashCards</h1>
         <button
           onClick={() => navigate("/decks/createNewDeck")}
-          className="large ui inverted yellow button"
+          className="large ui inverted green button"
         >
           Create New Deck
         </button>

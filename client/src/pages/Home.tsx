@@ -179,7 +179,7 @@ const Home: React.FC = () => {
       <div className="quick-actions">
         <div className="action-buttons">
           <button 
-            className="ui large yellow button"
+            className="ui large pink button"
             onClick={() => handleNavigation('/game/flashCards/Decks')} 
           >
             <i className="clone outline icon"></i>
