@@ -486,8 +486,10 @@ const FlashCard = () => {
               transform: 'rotateY(180deg)'
             }}>
               <div className="card-content">
+                <div className="card-instruction"></div>
                 <div className="card-label">Definition</div>
                 <div className="card-text">{currentCard.definition}</div>
+                <div className="card-instruction"></div>
               </div>
             </div>
           </motion.div>

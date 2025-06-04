@@ -1,42 +1,82 @@
-/* StudyPage.css */
+/* StudyPage.css - Optimized Version */
 
-/* Layout and Container Styles */
+/* CSS Custom Properties */
+:root {
+  /* Colors */
+  --primary-blue: #611BD0;
+  --secondary-blue: #A5D8FF;
+  --accent-purple: #D4ADCF;
+  --success-green: #16a34a;
+  --success-light: #84E296;
+  --error-red: #dc2626;
+  --warning-red: #b91c1c;
+  --text-dark: #1f2937;
+  --text-gray: #6b7280;
+  --text-light-gray: #9ca3af;
+  --text-medium-gray: #4b5563;
+  --background-gray: #e5e7eb;
+  --white: #ffffff;
+  
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+  --space-2xl: 2rem;
+  
+  /* Border radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  
+  /* Transitions */
+  --transition-fast: 0.2s;
+  --transition-medium: 0.3s;
+}
+
+/* Base Layout Components */
 .study-container {
   max-width: 64rem;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: var(--space-xl);
 }
 
 .study-complete-container {
   max-width: 32rem;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: var(--space-xl);
   text-align: center;
 }
 
-.loading-container, .error-container, .not-found-container, .no-cards-container {
+.centered-container {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  padding: var(--space-2xl);
 }
 
 .error-text {
-  color: #dc2626;
+  color: var(--error-red);
 }
 
-/* Header Styles */
+/* Header Section */
 .study-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-xl);
 }
 
 .study-title {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+  margin-bottom: var(--space-sm);
 }
 
 .study-info {
+  background-color: var(--secondary-blue);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -44,157 +84,105 @@
 }
 
 .card-counter {
-  color: #6b7280;
+  color: var(--text-gray);
 }
 
 .stats-display {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-lg);
   font-size: 0.875rem;
 }
 
-.stat-correct {
-  color: #16a34a;
-}
+.stat-correct { color: var(--success-green); }
+.stat-incorrect { color: var(--error-red); }
+.stat-streak { color: #9333ea; }
 
-.stat-incorrect {
-  color: #dc2626;
-}
-
-.stat-streak {
-  color: #9333ea;
-}
-
-/* Study Complete Styles */
+/* Study Complete Section */
 .complete-title {
   font-size: 1.875rem;
   font-weight: bold;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: var(--space-xl);
 }
 
 .results-card {
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  background-color: var(--white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
 }
 
 .results-title {
   font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-lg);
 }
 
 .results-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: var(--space-lg);
 }
 
-@media (min-width: 768px) {
-  .results-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
+/* Stat Cards */
 .stat-card {
-  padding: 1rem;
-  border-radius: 0.375rem;
+  padding: var(--space-lg);
+  border-radius: var(--radius-sm);
 }
 
-.stat-card-green {
-  background-color: #f0fdf4;
-}
-
-.stat-card-red {
-  background-color: #fef2f2;
-}
-
-.stat-card-blue {
-  background-color: #eff6ff;
-}
-
-.stat-card-purple {
-  background-color: #faf5ff;
-}
+.stat-card-green { background-color: #f0fdf4; }
+.stat-card-red { background-color: #fef2f2; }
+.stat-card-blue { background-color: #eff6ff; }
+.stat-card-purple { background-color: #faf5ff; }
 
 .stat-number {
   font-size: 1.5rem;
   font-weight: bold;
 }
 
-.stat-number-green {
-  color: #16a34a;
-}
-
-.stat-number-red {
-  color: #dc2626;
-}
-
-.stat-number-blue {
-  color: #2563eb;
-}
-
-.stat-number-purple {
-  color: #9333ea;
-}
+.stat-number-green { color: var(--success-green); }
+.stat-number-red { color: var(--error-red); }
+.stat-number-blue { color: #2563eb; }
+.stat-number-purple { color: #9333ea; }
 
 .stat-label {
   font-size: 0.875rem;
 }
 
-.stat-label-green {
-  color: #15803d;
-}
+.stat-label-green { color: #15803d; }
+.stat-label-red { color: var(--warning-red); }
+.stat-label-blue { color: #1d4ed8; }
+.stat-label-purple { color: #7c3aed; }
 
-.stat-label-red {
-  color: #b91c1c;
-}
-
-.stat-label-blue {
-  color: #1d4ed8;
-}
-
-.stat-label-purple {
-  color: #7c3aed;
-}
-
-.button-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-/* Study Mode Selector */
+/* Mode Selector */
 .mode-selector {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-xl);
 }
 
 .mode-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: var(--space-sm);
 }
 
 .mode-button {
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
   font-size: 0.875rem;
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-fast);
 }
 
 .mode-button-active {
-  background-color: #2563eb;
-  color: white;
+  background-color: var(--primary-blue);
+  color: var(--white);
 }
 
 .mode-button-inactive {
-  background-color: #e5e7eb;
+  background-color: var(--secondary-blue);
   color: #374151;
 }
 
@@ -203,41 +191,43 @@
 }
 
 .mode-button-disabled {
-  background-color: #f3f4f6;
-  color: #9ca3af;
+  background-color: var(--secondary-blue);
+  color: var(--text-light-gray);
   cursor: not-allowed;
 }
 
 /* Progress Bar */
 .progress-container {
-  margin-bottom: 1.5rem;
+  margin-bottom: var(--space-xl);
 }
 
 .progress-bar {
-  background-color: #e5e7eb;
-  border-radius: 9999px;
-  height: 0.5rem;
+  background-color: var(--background-gray);
+  border-radius: var(--radius-full);
+  height: var(--space-sm);
 }
 
 .progress-fill {
-  background-color: #2563eb;
-  height: 0.5rem;
-  border-radius: 9999px;
-  transition: width 0.3s;
+  background-color: var(--accent-purple);
+  height: var(--space-sm);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-medium);
 }
 
-/* Flashcard Styles */
+/* Flashcard Styles - Playing Card Proportions */
 .card-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-2xl);
+  perspective: 1000px;
+  perspective-origin: center center;
 }
 
 .card-wrapper {
   position: relative;
-  width: 24rem;
-  height: 16rem;
-  perspective: 1000px;
+  width: 12rem;      
+  height: 17rem;     
+  transform-style: preserve-3d;
 }
 
 .card {
@@ -250,91 +240,114 @@
 }
 
 .card-face {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
- 
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: var(--space-lg);
+  box-sizing: border-box;
 }
 
 .card-front {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  background: linear-gradient(145deg, #3b82f6, #A5D8FF) !important;
+  transform: rotateY(0deg) !important;
+  z-index: 2;
 }
 
 .card-back {
-  background: linear-gradient(135deg, #10b981, #059669);
-  transform: rotateY(180deg);
+  background: linear-gradient(90deg, #0b7c56, #84E296) !important;
+  transform: rotateY(180deg) !important;
+  z-index: 1;
 }
 
 .card-content {
+  background-color: var(--primary-blue);
   text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--white);
+  border-radius: var(--radius-sm);
 }
 
 .card-label {
-  color: white;
-  font-size: 0.75rem;
+  color: var(--white);
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 1rem;
-  opacity: 0.75;
+  margin-bottom: var(--space-md);
+  opacity: 0.9;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .card-text {
-  color: white;
-  font-size: 1.25rem;
+  color: var(--white);
+  padding: var(--space-md);
+  font-size: 1.1rem;
   font-weight: 500;
-  line-height: 1.25;
-  margin-bottom: 1rem;
+  line-height: 1.3;
+  margin: var(--space-xl) 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
 .card-instruction {
-  color: white;
-  font-size: 0.875rem;
-  opacity: 0.75;
+  color: var(--white);
+  font-size: 0.8rem;
+  opacity: 0.8;
+  font-weight: 400;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-top: var(--space-md);
 }
 
 /* Answer Buttons */
 .answer-buttons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
 }
 
 .answer-button {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-sm);
   border: none;
-  color: white;
+  color: var(--white);
   cursor: pointer;
   font-weight: 500;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-fast);
 }
 
 .answer-incorrect {
-  background-color: #dc2626;
+  background-color: var(--error-red);
 }
 
 .answer-incorrect:hover {
-  background-color: #b91c1c;
+  background-color: var(--accent-purple);
 }
 
 .answer-correct {
-  background-color: #16a34a;
+  background-color: #15803d;
 }
 
 .answer-correct:hover {
-  background-color: #15803d;
+  background-color: var(--success-light);
 }
 
 /* Navigation */
@@ -345,21 +358,21 @@
 }
 
 .nav-button {
-  padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
   border: none;
-  color: white;
+  color: var(--white);
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-fast);
 }
 
 .nav-button:disabled {
-  background-color: #9ca3af;
+  background-color: var(--text-light-gray);
   cursor: not-allowed;
 }
 
 .nav-button-gray {
-  background-color: #4b5563;
+  background-color: var(--text-medium-gray);
 }
 
 .nav-button-gray:hover:not(:disabled) {
@@ -367,243 +380,97 @@
 }
 
 .nav-button-light-gray {
-  background-color: #6b7280;
+  background-color: var(--text-gray);
 }
 
 .nav-button-light-gray:hover {
-  background-color: #4b5563;
+  background-color: var(--text-medium-gray);
 }
 
-/* Primary Buttons */
-.btn-primary {
-  background-color: #2563eb;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
+/* Button Components */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.btn {
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-sm);
   border: none;
   cursor: pointer;
   width: 100%;
   font-weight: 500;
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-fast);
 }
 
 .btn-primary:hover {
-  background-color: #1d4ed8;
-}
-
-.btn-secondary {
-  background-color: #dc2626;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  font-weight: 500;
-  transition: background-color 0.2s;
+  background-color: var(--secondary-blue);
 }
 
 .btn-secondary:hover {
-  background-color: #b91c1c;
-}
-
-.btn-tertiary {
-  background-color: #4b5563;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.375rem;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  font-weight: 500;
-  transition: background-color 0.2s;
+  background-color: var(--accent-purple);
 }
 
 .btn-tertiary:hover {
   background-color: #374151;
 }
 
-/* Additional CSS to fix flashcard display issues */
-/* Add this to your FlashcardGame.css file */
-
-/* Ensure proper 3D transform context */
-.card-container {
-  perspective: 1000px;
-  perspective-origin: center center;
+/* Responsive Design */
+@media (min-width: 768px) {
+  .results-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
-
-.card-wrapper {
-  transform-style: preserve-3d;
-}
-
-.card {
-  transform-style: preserve-3d;
-  position: relative;
-}
-
-/* Force proper positioning and visibility */
-.card-face {
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  backface-visibility: hidden !important;
-  -webkit-backface-visibility: hidden !important;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 1.5rem;
-  box-sizing: border-box;
-}
-
-/* Ensure front face is visible by default */
-.card-front {
-  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
-  transform: rotateY(0deg) !important;
-  z-index: 2;
-}
-
-/* Ensure back face is hidden by default */
-.card-back {
-  background: linear-gradient(135deg, #10b981, #059669) !important;
-  transform: rotateY(180deg) !important;
-  z-index: 1;
-}
-
-/* Ensure text content is visible and properly styled */
-.card-content {
-  text-align: center !important;
-  z-index: 10 !important;
-  position: relative !important;
-  width: 100% !important;
-  height: auto !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-}
-
-.card-text {
-  color: white !important;
-  font-size: 1.25rem !important;
-  font-weight: 500 !important;
-  line-height: 1.25 !important;
-  margin: 1rem 0 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
-  word-wrap: break-word !important;
-  max-width: 100% !important;
-  display: block !important;
-}
-
-.card-label {
-  color: white !important;
-  font-size: 0.75rem !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
-  margin-bottom: 1rem !important;
-  opacity: 0.9 !important;
-  font-weight: 600 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
-  display: block !important;
-}
-
-.card-instruction {
-  color: white !important;
-  font-size: 0.875rem !important;
-  opacity: 0.8 !important;
-  font-weight: 400 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
-  margin-top: 1rem !important;
-  display: block !important;
-}
-
-/* Ensure proper contrast and visibility */
-.card-face * {
-  color: white !important;
-}
-
-/* Remove any conflicting styles */
-.card-face .card-content * {
-  background: none !important;
-  border: none !important;
-}
-
-/* Debug styles - REMOVE these once text is visible */
-.card-face {
-  border: 3px solid red !important; /* Temporary - remove once working */
-}
-
-.card-front {
-  border-color: blue !important; /* Temporary - remove once working */
-}
-
-.card-back {
-  border-color: green !important; /* Temporary - remove once working */
-}
-
-.card-text {
-  border: 1px solid yellow !important; /* Temporary - remove once working */
-  background: rgba(255, 255, 255, 0.1) !important; /* Temporary - remove once working */
-}
-
-/* Fallback for any missing text */
-.card-text:empty::before {
-  content: "No text available" !important;
-  color: white !important;
-  font-style: italic !important;
-}
-
 
 @media (max-width: 575px) {
   .study-container {
-    padding: 1rem 0.5rem;
+    padding: var(--space-lg) var(--space-sm);
   }
   
   .card-wrapper {
-    width: 90vw;
-    max-width: 300px;
-    height: 200px;
+    width: 75vw;
+    max-width: 240px;
+    height: calc(75vw * 1.42); /* Maintain playing card aspect ratio */
+    max-height: 340px;
   }
   
   .card-text {
-    font-size: 1rem !important;
+    font-size: 0.9rem;
   }
   
   .card-label {
-    font-size: 0.7rem !important;
+    font-size: 0.65rem;
   }
   
   .answer-buttons {
     flex-direction: column;
-    gap: 0.75rem;
+    gap: var(--space-md);
   }
   
   .answer-button {
-    padding: 1rem;
+    padding: var(--space-lg);
     justify-content: center;
   }
   
   .results-grid {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    gap: var(--space-md);
   }
   
   .navigation {
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--space-lg);
   }
   
   .nav-button {
     width: 100%;
-    padding: 0.75rem;
+    padding: var(--space-md);
   }
   
   .mode-buttons {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--space-sm);
   }
   
   .mode-button {
