@@ -32,7 +32,8 @@ import LandingPage from "./pages/LandingPage";
 import CreateDeck from "./pages/createDeck";
 import ViewDeck from "./pages/ViewADeck.js";
 import Stats from "./pages/Stats"; 
-import "./index.css";
+import "./styles/Globals.css";
+import "./styles/Components.css";
 
 const handleAddCard = (newFlashcard: { term: string; definition: string }) => {
   console.log('Card added:', newFlashcard);

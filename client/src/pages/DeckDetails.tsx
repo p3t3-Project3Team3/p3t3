@@ -5,7 +5,7 @@ import { QUERY_SINGLE_DECK, QUERY_FLASHCARDS_BY_DECK } from '../utils/queries';
 import { CREATE_FLASHCARD } from '../utils/mutations';
 import { Flashcard } from '../interfaces/Flashcard';
 import { Deck } from '../interfaces/Deck';
-import NewCard from '../components/NewCard';
+// import NewCard from '../components/NewCard';
 
 const DeckDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();

@@ -7,7 +7,7 @@ import { Modal, } from "semantic-ui-react";
 import FlashcardEdit from "../components/Deck/editCard";
 import { Flashcard } from "../interfaces/Flashcard";
 import { Deck } from "../interfaces/Deck";
-import "../styles/deck.css";
+// import "../styles/deck.css";
 
 interface DecksData {
   getAllDecks: Deck[];

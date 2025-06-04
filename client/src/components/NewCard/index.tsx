@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Flashcard } from '../../interfaces/Flashcard';
 import { Deck } from '../../interfaces/Deck';
-import '../../styles/AddFlashcard.css';  // Assuming you have a CSS file for styles
+// import '../../styles/AddFlashcard.css';  // Assuming you have a CSS file for styles
 
 
 

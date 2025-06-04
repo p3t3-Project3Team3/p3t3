@@ -2,10 +2,9 @@ import { useState, type FormEvent, type ChangeEvent } from "react";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import "semantic-ui-css/semantic.min.css";
-import "../styles/Loginstyle.css";
+// import "../styles/Loginstyle.css";
 import Signup from "./Signup";
 import { useNavigate } from "react-router-dom";
-
 import Auth from "../utils/auth";
 
 const Login = () => {
