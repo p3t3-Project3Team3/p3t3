@@ -49,7 +49,7 @@ const Deck: React.FC = () => {
     );
   }
 
-  // Fixed: Use correct data path
+  
   const deck: DeckData = data?.getSingleDeck;
 
   if (!deck) {

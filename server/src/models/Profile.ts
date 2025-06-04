@@ -1,7 +1,7 @@
 import { Schema, model, Document, Types } from 'mongoose';
 // import { IDeck } from './Deck.js';
-import bcrypt from 'bcrypt';
 
+import bcrypt from 'bcryptjs';
 // Define an interface for the Profile document
 export interface IProfile extends Document {
   _id: string;

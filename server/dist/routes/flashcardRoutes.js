@@ -4,7 +4,6 @@ import { createFlashcard, updateFlashcard, createFlashcardForDeck, getFlashcards
 const router = express.Router();
 router.post("/", createFlashcard);
 router.put("/:id", updateFlashcard);
-// ✳️ New routes:
 router.post("/deck/:deckId", createFlashcardForDeck);
 router.get("/deck/:deckId", getFlashcardsByDeck);
 export default router;

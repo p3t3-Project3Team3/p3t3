@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 // import { IDeck } from './Deck.js';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 // Define the schema for the Profile document
 const profileSchema = new Schema({
     name: {

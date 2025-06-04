@@ -1,37 +1,38 @@
 import express from 'express';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import db from './config/connection.js';
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
-import cors from 'cors';
 import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './utils/auth.js';
-import db from './config/connection.js';
-const PORT = process.env.PORT || 3001;
-const app = express();
-// Initialize Apollo Server with type definitions and resolvers
-// Initialize Apollo Server with type definitions and resolvers
-app.use(express.static('../client/dist'));
+// ES modules __dirname replacement
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const server = new ApolloServer({
     typeDefs,
-    resolvers,
+    resolvers
 });
 const startApolloServer = async () => {
-    try {
-        // Start Apollo Server
-        await server.start();
-        // Wait for database connection
-        await db();
-        // Apply middleware
-        app.use('/graphql', cors(), express.json(), expressMiddleware(server, {
-            context: authenticateToken,
-        }));
-        // Start Express server
-        app.listen(PORT, () => {
-            console.log(`🚀 Server ready at http://localhost:${PORT}/graphql`);
+    await server.start();
+    await db();
+    const PORT = Number(process.env.PORT) || 3001;
+    const app = express();
+    app.use(express.urlencoded({ extended: false }));
+    app.use(express.json());
+    app.use('/graphql', expressMiddleware(server, {
+        context: authenticateToken
+    }));
+    if (process.env.NODE_ENV === 'production') {
+        app.use(express.static(path.join(__dirname, '../client/dist')));
+        app.get('*', (_req, res) => {
+            res.sendFile(path.join(__dirname, '../client/dist/index.html'));
         });
     }
-    catch (error) {
-        console.error('Failed to start server:', error);
-        process.exit(1);
-    }
+    // Bind to 0.0.0.0 for Render deployment
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`API server running on port ${PORT}!`);
+        console.log(`Use GraphQL at http://localhost:${PORT}/graphql`);
+    });
 };
 startApolloServer();
