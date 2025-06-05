@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/index.css'
 import App from "./App.jsx";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
@@ -19,7 +18,11 @@ import NewCard from "./components/NewCard/index";
 import LandingPage from "./pages/LandingPage";
 import CreateDeck from "./pages/createDeck";
 import ViewDeck from "./pages/ViewADeck.js";
-import Stats from "./pages/Stats"; 
+import Stats from "./pages/Stats";
+import'./styles/global.css'
+import './styles/Components.css';
+
+
 // Suppress findDOMNode warning from Semantic UI React
 const originalError = console.error;
 console.error = (...args) => {

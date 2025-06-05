@@ -1,21 +1,3 @@
-:root{
-  --primary-color: #2D7DD2;
-  --secondary-color: #611bd0;
-  --light-accent-color: #84E296;
-  --light-color: #D4ADCF;
-  --text-color: #CCDDE2;
-  --light-blue: #A5D8FF;
-  --dark-bg-color: #474647;
-  --dark-text-color: #A5CBC3;
-  --dark-accent-color:#F76F8E;
-  --dark-color:#CEFF1A;
-  --secondary-color-dark:#003E38;
-}
- *{
-  margin: auto;
-}
-
-
 /*HEADER AREA*/
 .main-title{
   text-align: center;
@@ -155,10 +137,6 @@
     border-radius: 15px;
     margin: 5px;
     padding: 5px;
-  }
-  
-  .ui.violet.button {
-    font-weight: bold;
   }
   
 .dark{

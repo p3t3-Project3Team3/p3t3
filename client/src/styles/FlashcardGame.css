@@ -1,43 +1,4 @@
-/* StudyPage.css - Optimized Version */
 
-/* CSS Custom Properties */
-:root {
-  /* Colors */
-  --primary-blue: #611BD0;
-  --secondary-blue: #A5D8FF;
-  --accent-purple: #D4ADCF;
-  --success-green: #16a34a;
-  --success-light: #84E296;
-  --error-red: #dc2626;
-  --warning-red: #b91c1c;
-  --text-dark: #1f2937;
-  --text-gray: #6b7280;
-  --text-light-gray: #9ca3af;
-  --text-medium-gray: #4b5563;
-  --background-gray: #e5e7eb;
-  --white: #ffffff;
-  
-  /* Spacing */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 0.75rem;
-  --space-lg: 1rem;
-  --space-xl: 1.5rem;
-  --space-2xl: 2rem;
-  
-  /* Border radius */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-full: 9999px;
-  
-  /* Shadows */
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  
-  /* Transitions */
-  --transition-fast: 0.2s;
-  --transition-medium: 0.3s;
-}
 
 /* Base Layout Components */
 .study-container {
