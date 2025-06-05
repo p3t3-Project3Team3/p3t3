@@ -144,6 +144,7 @@
 /* Card Back (shown by default) */
 .memory-card .card-back {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: solid 2px var(--color-bg-tertiary);
   color: var(--color-text-inverse);
   transform: rotateY(0deg);
 }

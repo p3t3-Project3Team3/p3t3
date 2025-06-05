@@ -819,3 +819,31 @@
 .font-medium {
   font-weight: 500;
 }
+
+.stats-tab-button.active.indigo {
+  background-color: #4f46e5;
+}
+
+.stat-card.gradient-indigo {
+  background: linear-gradient(135deg, #4f46e5, #3730a3);
+  color: white;
+}
+
+/* Additional color values for LinkUp stats */
+.stat-value.indigo { color: #4f46e5; }
+.stat-label.indigo { color: #3730a3; }
+
+.insight-value.indigo { color: #4f46e5; }
+
+.score-card.indigo-bg {
+  background-color: #eef2ff;
+}
+
+.score-difficulty.indigo { color: #3730a3; }
+.score-value.indigo { color: #4f46e5; }
+
+.mastery-item.indigo-bg {
+  background-color: #eef2ff;
+}
+
+.mastery-value.indigo { color: #4f46e5; }

@@ -430,6 +430,9 @@ const Matching: React.FC = () => {
         >
           Show Hint
         </button>
+        <button onClick={() => navigate(`/deck/${id}`)} className="btn-primary">
+          Back to Deck
+        </button>
       </div>
 
       {/* Game Board */}

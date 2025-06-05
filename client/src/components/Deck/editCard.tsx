@@ -104,24 +104,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
     setIsEditing(false);
   };
 
-  const handleToggleFavorite = async () => {
-    try {
-      await updateFlashcard({
-        variables: {
-          id: selectedCard._id,
-          input: {
-            term: selectedCard.term,
-            definition: selectedCard.definition,
-            example: selectedCard.example || "",
-            isFavorite: !selectedCard.isFavorite,
-          },
-        },
-      });
-    } catch (err) {
-      console.error("Error toggling favorite:", err);
-      alert("Failed to update favorite status.");
-    }
-  };
+ 
 
   // Don't render if no selected card
   if (!selectedCard) {
@@ -191,14 +174,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
       <Modal.Actions>
         {!isEditing ? (
           <>
-            <Button 
-              color="yellow" 
-              basic 
-              onClick={handleToggleFavorite}
-              disabled={updateLoading}
-            >
-              {selectedCard.isFavorite ? "★ Favorite" : "☆ Add to Favorites"}
-            </Button>
+
             <Button 
               color="blue" 
               basic 

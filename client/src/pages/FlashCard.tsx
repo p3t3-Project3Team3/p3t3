@@ -519,7 +519,7 @@ const FlashCard = () => {
         </button>
 
         <button onClick={() => navigate(`/deck/${id}`)} className="nav-button nav-button-light-gray">
-          Exit Study
+          Back to Deck
         </button>
 
         <button
