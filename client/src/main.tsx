@@ -20,7 +20,7 @@ import CreateDeck from "./pages/createDeck";
 import ViewDeck from "./pages/ViewADeck.js";
 import Stats from "./pages/Stats";
 import'./styles/Global.css'
-import './styles/Components.css';
+
 
 
 // Suppress findDOMNode warning from Semantic UI React
