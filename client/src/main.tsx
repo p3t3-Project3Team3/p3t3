@@ -1,18 +1,8 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css'
 
-// Suppress findDOMNode warning from Semantic UI React
-const originalError = console.error;
-console.error = (...args) => {
-  if (
-    typeof args[0] === 'string' &&
-    args[0].includes('findDOMNode is deprecated')
-  ) {
-    return;
-  }
-  originalError.call(console, ...args);
-};
 
 import App from "./App.jsx";
 import Home from "./pages/Home";
@@ -32,8 +22,18 @@ import LandingPage from "./pages/LandingPage";
 import CreateDeck from "./pages/createDeck";
 import ViewDeck from "./pages/ViewADeck.js";
 import Stats from "./pages/Stats"; 
-import "./styles/Globals.css";
-import "./styles/Components.css";
+// Suppress findDOMNode warning from Semantic UI React
+const originalError = console.error;
+console.error = (...args) => {
+  if (
+    typeof args[0] === 'string' &&
+    args[0].includes('findDOMNode is deprecated')
+  ) {
+    return;
+  }
+  originalError.call(console, ...args);
+};
+
 
 const handleAddCard = (newFlashcard: { term: string; definition: string }) => {
   console.log('Card added:', newFlashcard);

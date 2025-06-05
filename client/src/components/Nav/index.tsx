@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useAuth } from '../../utils/authContext';
-import '../../styles/NavigationBar.css';
+import '../../styles/Nav.css';
 const NavigationBar = () => {
 const { isAuthenticated, username, logout } = useAuth();
 if (!isAuthenticated) {
