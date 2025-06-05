@@ -1,19 +1,8 @@
-:root{
-  --primary-color: #2D7DD2;
-  --secondary-color: #611bd0;
-  --light-accent-color: #84E296;
-  --light-color: #D4ADCF;
-  --text-color: #CCDDE2;
-  --light-blue: #A5D8FF;
-  --dark-bg-color: #474647;
-  --dark-text-color: #A5CBC3;}
- *{
-  margin: auto;
-}
+
+
 body {
   overflow: auto;
   font-family: 'Poppins', sans-serif;
-  /* background-image: url('/assets/bgimage.jpg'); */
   background-image: url('https://images.pexels.com/photos/12164179/pexels-photo-12164179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
   background-size: cover;
   background-repeat: no-repeat;

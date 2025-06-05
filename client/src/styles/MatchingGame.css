@@ -1,0 +1,237 @@
+/* =============================================================================
+   MEMORY MATCHING GAME STYLES
+   ============================================================================= */
+
+.memory-game-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  font-family: Arial, sans-serif;
+}
+
+.memory-game-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.memory-game-title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.memory-game-subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  margin-bottom: var(--space-lg);
+}
+
+/* Difficulty Selector */
+.difficulty-selector {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-2xl);
+}
+
+.difficulty-button {
+  padding: var(--space-sm) var(--space-lg);
+  border: 2px solid var(--color-bg-tertiary);
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+}
+
+.difficulty-button.active {
+  border-color: #3b82f6;
+  background-color: #3b82f6;
+  color: var(--color-text-inverse);
+}
+
+.difficulty-button:hover:not(.active) {
+  border-color: #3b82f6;
+  color: #3b82f6;
+}
+
+.difficulty-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Game Board */
+.memory-game-board {
+  display: grid;
+  gap: var(--space-lg);
+  justify-content: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.board-easy {
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.board-medium {
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.board-hard {
+  grid-template-columns: repeat(6, 1fr);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Memory Cards */
+.memory-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  perspective: 1000px;
+  min-height: 150px;
+}
+
+.memory-card.matched {
+  cursor: default;
+}
+
+.memory-card.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Card Inner Container */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+/* Default state - show back face (card face down) */
+.memory-card .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Flipped state - show front face (card face up) */
+.memory-card.flipped .card-inner {
+  transform: rotateY(0deg);
+}
+
+/* Memory Card Faces */
+.memory-card .card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-lg);
+  box-sizing: border-box;
+}
+
+/* Card Back (shown by default) */
+.memory-card .card-back {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: solid 2px var(--color-bg-tertiary);
+  color: var(--color-text-inverse);
+  transform: rotateY(0deg);
+}
+
+/* Card Front (shown when flipped) */
+.memory-card .card-front {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-bg-tertiary);
+  transform: rotateY(180deg); 
+}
+
+.memory-card .card-front.term {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: var(--color-text-inverse);
+}
+
+.memory-card .card-front.definition {
+  background: linear-gradient(145deg, var(--color-green-success) 0%, #059669 100%);
+  color: var(--color-text-inverse);
+}
+
+.memory-card .card-content {
+  text-align: center;
+  width: 100%;
+}
+
+.memory-card .card-type {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+  margin-bottom: var(--space-sm);
+}
+
+.memory-card .card-text {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Loading and Error States */
+.loading-state,
+.error-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+}
+
+.error-state {
+  color: var(--color-red-error);
+}
+
+.error-text {
+  color: var(--color-red-error);
+}
+
+.loading-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+}
+
+/* No Cards Message */
+.no-cards-message {
+  text-align: center;
+  padding: var(--space-2xl);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+}
+
+.no-cards-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-sm);
+  color: var(--color-text-medium);
+}
+
+.no-cards-text {
+  margin-bottom: var(--space-lg);
+}

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-// import "../../styles/legacy/Header.css"
+import { useState, useEffect } from 'react';
+import "../../styles/Header.css"
 import 'semantic-ui-css/semantic.min.css';
 
 const Header = () => {
@@ -11,12 +11,17 @@ const Header = () => {
     return localStorage.getItem('darkMode') === 'true';
   });
 
+ useEffect(() => {
+    // Set class on initial load
+    document.body.classList.toggle('dark', darkMode);
+  }, [darkMode]);
+
   const toggleDarkMode = () => {
     const newDarkMode = !darkMode;
     setDarkMode(newDarkMode);
-    document.body.classList.toggle('dark', newDarkMode);
     localStorage.setItem('darkMode', newDarkMode.toString());
   };
+
 
 
   return (
@@ -24,7 +29,7 @@ const Header = () => {
       <button onClick={toggleDarkMode}>
           <i className={`${darkMode ? 'moon icon' : 'sun icon'}`}></i>
         </button>
-      <h1>StudyQuest</h1>
+      <h1>Study Quest</h1>
     
     </header>
   );

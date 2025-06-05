@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { useAuth } from '../../utils/authContext';
+import '../../styles/Navbar.css';
 const NavigationBar = () => {
 const { isAuthenticated, username, logout } = useAuth();
 if (!isAuthenticated) {
@@ -19,25 +20,25 @@ if (!isAuthenticated) {
         {/* Collapsible Navbar */}
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="navbar-nav">
-            <Nav.Link as={NavLink} to="/Home" className="nav-link">
+            <Nav.Link as={NavLink} to="/Home" className="navbar-link">
               Home
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/decks/createNewDeck" className="nav-link">
+            <Nav.Link as={NavLink} to="/decks/createNewDeck" className="navbar-link">
               Create Deck
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/game/flashCards/Decks" className="nav-link">
+            <Nav.Link as={NavLink} to="/game/flashCards/Decks" className="navbar-link">
               View Decks
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/game" className="nav-link">
+            <Nav.Link as={NavLink} to="/game" className="navbar-link">
               Games
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/AboutUs" className="nav-link">
+            <Nav.Link as={NavLink} to="/AboutUs" className="navbar-link">
               About Us
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/stats" className="nav-link">
+            <Nav.Link as={NavLink} to="/stats" className="navbar-link">
               Stats
             </Nav.Link>
-            <Nav.Link onClick={logout}>
+            <Nav.Link onClick={logout} className="navbar-link">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"

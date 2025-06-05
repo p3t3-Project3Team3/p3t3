@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { QUERY_SINGLE_DECK } from '../utils/queries';
 import { StatsManager } from '../utils/StatsManager';
 import { Flashcard } from '../interfaces/Flashcard';
-// import '../styles/FlashcardGame.css';
+import '../styles/FlashcardGame.css';
 
 
 interface StudyStats {
@@ -519,7 +519,7 @@ const FlashCard = () => {
         </button>
 
         <button onClick={() => navigate(`/deck/${id}`)} className="nav-button nav-button-light-gray">
-          Exit Study
+          Back to Deck
         </button>
 
         <button

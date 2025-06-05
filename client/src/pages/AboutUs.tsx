@@ -1,4 +1,4 @@
-// import "../styles/AboutUS.css";
+import "../styles/AboutUS.css"; 
 
 const About =() => {
   return(
@@ -15,7 +15,9 @@ const About =() => {
             <a href="https://github.com/Zawadiflag12?tab=repositories"><i className="github icon"></i></a>
           </div>
           <div className="bio">
-      <p></p>
+      <p>As an aspiring full-stack developer with a background in Allied Health, I bring a unique perspective to problem-solving, attention to detail, and user-centered design. My experience in healthcare has honed my ability to assess complex systems, identify inefficiencies, and implement solutions—skills that directly translate into developing intuitive and functional web applications.
+
+</p> <br />
           </div>
         </div>
         <div className="profile">
@@ -25,8 +27,8 @@ const About =() => {
             <a href="https://github.com/SethEggz"><i className="github icon"></i></a>
           </div>
           <div className="bio">
-          <p>Seth  Likes solving problems and building things. Is currently in a full stack coding class. He knows TS, JS, HTML, SQL, and CSS. he will be learning  python as well. Seth spends his free time playing games like Magic: The Gathering, Baltro, Fallout 76 and more.</p></div>
-        </div>
+          <p>Seth  Likes solving problems and building things. Is currently in a full stack coding class. He knows TS, JS, HTML, SQL, and CSS. he will be learning  python as well. Seth spends his free time playing games like Magic: The Gathering, Baltro, Fallout 76 and more. hates render</p></div>
+        </div> <br />
         <div className="profile">
           <div className="image-and-network">
             <h3>Christopher Lin</h3>
@@ -34,9 +36,9 @@ const About =() => {
             <a href="https://github.com/christophermlin"><i className="github icon"></i></a>
           </div>
           <div className="bio">
-  <p></p>
-      </div>
-        </div>
+            <p>Christopher is a creative first and foremost, with training in jazz piano, voice, and guitar, and worked in fine dining before pivoting towards a software development career.</p>
+          </div>
+        </div> <br />
         <div className="profile">
           <div className="image-and-network">
             <h3>Kirstin Lisnoff</h3>
@@ -44,7 +46,7 @@ const About =() => {
             <a href="https://github.com/kirstinlisnoff"><i className="github icon"></i></a>
           </div>
           <div className="bio">
-          <p></p></div>
+          <p>Kirstin is a highly motivated aspiring software developer with a foundation in full-stack web development and strong problem-solving skills. With several years of service experience and a Bachelor's degree in Mathematical Sciences, she brings sharp attention to detail, a collaborative mindset, and a passion for continuous learning. </p></div>
         </div>
        </section>
       </div>

@@ -11,7 +11,7 @@ import Header from './components/Header';
 import NavigationBar from './components/Nav/index';
 import Footer from './components/Footer';
 import { AuthProvider } from './utils/authContext';
-
+import './styles/index.css';
 
 
 

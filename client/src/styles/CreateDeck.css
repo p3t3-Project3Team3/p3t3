@@ -1,3 +1,11 @@
+.ui.inverted.pink.segment {
+  background-color: rgb(0, 0, 0) !important;
+}
+
+.ui.form .field .ui.input input:focus {
+    background-color: #d4adcfc4;
+  }
+
 .title {
 text-align: center;
   font-size: 60px;
@@ -79,21 +87,6 @@ text-align: center;
   justify-content: center;
   margin-top: 20px;
   padding-bottom: 10px;
-}
-
-.dark{
-  .title {
-    color: black;
-  }
-  
-  .form-title {
-    color:black;
-  }
-  
-  .bigform-container{
-    background-color: rgb(72, 72, 71);
-  }
-
 }
 
 @media (max-width: 768px) {

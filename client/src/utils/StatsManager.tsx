@@ -26,6 +26,20 @@ export interface GameStats {
     lastPlayedDate: string;
   };
   
+  // LinkUp game stats
+  linkup: {
+    gamesPlayed: number;
+    gamesCompleted: number;
+    bestTime: number | null;
+    averageTime: number;
+    perfectGames: number; // completed with minimum attempts (equal to number of cards)
+    totalAttempts: number;
+    averageAccuracy: number;
+    bestAccuracy: number;
+    averageAttemptsPerGame: number;
+    lastPlayedDate: string;
+  };
+  
   // Crossword stats
   crossword: {
     puzzlesSolved: number;
@@ -64,6 +78,18 @@ const defaultStats: GameStats = {
     perfectGames: 0,
     lastPlayedDate: '',
   },
+  linkup: {
+    gamesPlayed: 0,
+    gamesCompleted: 0,
+    bestTime: null,
+    averageTime: 0,
+    perfectGames: 0,
+    totalAttempts: 0,
+    averageAccuracy: 0,
+    bestAccuracy: 0,
+    averageAttemptsPerGame: 0,
+    lastPlayedDate: '',
+  },
   crossword: {
     puzzlesSolved: 0,
     puzzlesAttempted: 0,
@@ -93,6 +119,7 @@ export class StatsManager {
         return {
           flashcards: { ...defaultStats.flashcards, ...parsed.flashcards },
           matching: { ...defaultStats.matching, ...parsed.matching },
+          linkup: { ...defaultStats.linkup, ...parsed.linkup },
           crossword: { ...defaultStats.crossword, ...parsed.crossword },
         };
       }
@@ -175,6 +202,56 @@ export class StatsManager {
         stats.matching.perfectGames++;
       }
     }
+    
+    this.saveStats(stats);
+  }
+
+  // LinkUp game stats methods
+  static updateLinkUpStats(gameData: {
+    completed: boolean;
+    timeElapsed: number;
+    attempts: number;
+    correct: number;
+    totalCards: number;
+    perfect: boolean; // completed with minimum attempts (equal to number of cards)
+  }): void {
+    const stats = this.getStats();
+    
+    stats.linkup.gamesPlayed++;
+    stats.linkup.totalAttempts += gameData.attempts;
+    stats.linkup.lastPlayedDate = new Date().toISOString();
+    
+    const accuracy = gameData.attempts > 0 ? (gameData.correct / gameData.attempts) * 100 : 0;
+    
+    if (gameData.completed) {
+      stats.linkup.gamesCompleted++;
+      
+      // Update best time
+      if (stats.linkup.bestTime === null || gameData.timeElapsed < stats.linkup.bestTime) {
+        stats.linkup.bestTime = gameData.timeElapsed;
+      }
+      
+      // Calculate average time for completed games
+      const completedGames = stats.linkup.gamesCompleted;
+      stats.linkup.averageTime = 
+        ((stats.linkup.averageTime * (completedGames - 1)) + gameData.timeElapsed) / completedGames;
+      
+      // Perfect game tracking
+      if (gameData.perfect) {
+        stats.linkup.perfectGames++;
+      }
+    }
+    
+    // Update accuracy stats
+    stats.linkup.bestAccuracy = Math.max(stats.linkup.bestAccuracy, accuracy);
+    
+    // Calculate average accuracy across all games
+    const totalGames = stats.linkup.gamesPlayed;
+    stats.linkup.averageAccuracy = 
+      ((stats.linkup.averageAccuracy * (totalGames - 1)) + accuracy) / totalGames;
+    
+    // Calculate average attempts per game
+    stats.linkup.averageAttemptsPerGame = stats.linkup.totalAttempts / stats.linkup.gamesPlayed;
     
     this.saveStats(stats);
   }

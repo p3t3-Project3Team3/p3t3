@@ -1,0 +1,245 @@
+/* =============================================================================
+   FLASHCARD GAME STYLES
+   ============================================================================= */
+
+/* Study Info */
+.study-info {
+  background-color: #eff6ff;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+}
+
+.card-counter {
+  color: var(--color-text-secondary);
+}
+
+.stat-correct { color: var(--color-green-success); }
+.stat-incorrect { color: var(--color-red-error); }
+.stat-streak { color: #9333ea; }
+
+/* Mode Selector */
+.mode-selector {
+  margin-bottom: var(--space-xl);
+}
+
+.mode-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.mode-button {
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.mode-button-active {
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.mode-button-inactive {
+  background-color: #eff6ff;
+  color: #374151;
+}
+
+.mode-button-inactive:hover {
+  background-color: #d1d5db;
+}
+
+.mode-button-disabled {
+  background-color: #eff6ff;
+  color: var(--color-text-light);
+  cursor: not-allowed;
+}
+
+/* Flashcard Styles */
+.card-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--space-2xl);
+  perspective: 1000px;
+  perspective-origin: center center;
+}
+
+.card-wrapper {
+  position: relative;
+  width: 18rem;     
+  height: 25rem;    
+  transform-style: preserve-3d;
+}
+
+.flashcard {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+.card-wrapper .card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+.card-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);    
+  box-sizing: border-box;
+}
+
+.card-front {
+  background: linear-gradient(145deg, #3b82f6, #A5D8FF);
+  transform: rotateY(0deg) !important;
+  z-index: 2;
+}
+
+.card-back {
+  background: linear-gradient(90deg, #0b7c56, #84E296);
+  transform: rotateY(180deg) !important;
+  z-index: 1;
+}
+
+.card-content {
+  background-color: var(--color-primary);
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-text-inverse);  
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);  
+}
+
+.card-label {
+  color: var(--color-text-inverse);
+  font-size: 0.8rem;         
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+  opacity: 0.9;
+  font-weight: var(--font-weight-semibold);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card-text {
+  color: var(--color-text-inverse);
+  padding: var(--space-sm);  
+  font-size: 1.3rem;         
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+  margin: var(--space-lg) 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+.card-instruction {
+  color: var(--color-text-inverse);
+  font-size: 0.9rem;        
+  opacity: 0.8;
+  font-weight: var(--font-weight-normal);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-top: var(--space-md);
+}
+
+/* Answer Buttons */
+.answer-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.answer-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  border-radius: var(--radius-sm);
+  border: none;
+  color: var(--color-text-inverse);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+  transition: background-color var(--transition-fast);
+}
+
+.answer-incorrect {
+  background-color: var(--color-red-error);
+}
+
+.answer-incorrect:hover {
+  background-color: #9333ea;
+}
+
+.answer-correct {
+  background-color: #15803d;
+}
+
+.answer-correct:hover {
+  background-color: var(--color-green-success);
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-button {
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  border: none;
+  color: var(--color-text-inverse);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.nav-button:disabled {
+  background-color: var(--color-text-light);
+  cursor: not-allowed;
+}
+
+.nav-button-gray {
+  background-color: var(--color-text-medium);
+}
+
+.nav-button-gray:hover:not(:disabled) {
+  background-color: #374151;
+}
+
+.nav-button-light-gray {
+  background-color: var(--color-text-secondary);
+}
+
+.nav-button-light-gray:hover {
+  background-color: var(--color-text-medium);
+}

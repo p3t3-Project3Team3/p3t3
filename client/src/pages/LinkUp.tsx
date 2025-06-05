@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams, useNavigate } from 'react-router-dom';
 import { QUERY_SINGLE_DECK } from '../utils/queries';
+import { StatsManager } from '../utils/StatsManager';
 import { Flashcard } from '../interfaces/Flashcard';
-// import '../styles/LinkUp.css';
+import '../styles/LinkUp.css';
+
 interface Connection {
   termId: string;
   definitionId: string;
@@ -61,6 +63,8 @@ const LinkUp: React.FC = () => {
     startTime: 0
   });
 
+  const [statsUpdated, setStatsUpdated] = useState(false);
+
   const svgRef = useRef<SVGSVGElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -93,12 +97,32 @@ const LinkUp: React.FC = () => {
     };
   }, [gameStats.gameStarted, gameStats.gameCompleted]);
 
-  // Check if game is completed
+  // Check if game is completed and update stats
   useEffect(() => {
     if (flashcards.length > 0 && connections.length === flashcards.length && connections.every(conn => conn.isCorrect)) {
-      setGameStats(prev => ({ ...prev, gameCompleted: true }));
+      setGameStats(prev => {
+        const newStats = { ...prev, gameCompleted: true };
+        
+        // Update global stats only once when game is completed
+        if (!statsUpdated && prev.gameStarted) {
+          const isPerfect = newStats.attempts === flashcards.length; // Perfect = minimum attempts
+          
+          StatsManager.updateLinkUpStats({
+            completed: true,
+            timeElapsed: newStats.timeElapsed,
+            attempts: newStats.attempts,
+            correct: newStats.correct,
+            totalCards: flashcards.length,
+            perfect: isPerfect
+          });
+          
+          setStatsUpdated(true);
+        }
+        
+        return newStats;
+      });
     }
-  }, [connections, flashcards.length]);
+  }, [connections, flashcards.length, statsUpdated]);
 
   const getElementCenter = (elementId: string): Position | null => {
     const element = document.getElementById(elementId);
@@ -229,6 +253,18 @@ const LinkUp: React.FC = () => {
   };
 
   const resetGame = () => {
+    // If a game was started but not completed, record it in stats
+    if (gameStats.gameStarted && !gameStats.gameCompleted && !statsUpdated) {
+      StatsManager.updateLinkUpStats({
+        completed: false,
+        timeElapsed: gameStats.timeElapsed,
+        attempts: gameStats.attempts,
+        correct: gameStats.correct,
+        totalCards: flashcards.length,
+        perfect: false
+      });
+    }
+
     setConnections([]);
     if (flashcards.length > 0) {
       const shuffled = [...flashcards].sort(() => Math.random() - 0.5);
@@ -242,6 +278,7 @@ const LinkUp: React.FC = () => {
       gameCompleted: false,
       startTime: 0
     });
+    setStatsUpdated(false);
   };
 
   const formatTime = (seconds: number): string => {
@@ -360,13 +397,24 @@ const LinkUp: React.FC = () => {
         >
           Back to Deck
         </button>
+        <button
+          onClick={() => navigate('/stats')}
+          className="control-button btn-stats"
+        >
+          View Stats
+        </button>
       </div>
 
       {/* Game Completed Message */}
       {gameStats.gameCompleted && (
         <div className="game-completed">
           <h3 className="completed-title">🎉 Congratulations!</h3>
-          <p>You've matched all terms correctly in {formatTime(gameStats.timeElapsed)} with {gameStats.attempts} attempts!</p>
+          <p>
+            You've matched all terms correctly in {formatTime(gameStats.timeElapsed)} with {gameStats.attempts} attempts!
+            {gameStats.attempts === flashcards.length && (
+              <span style={{ color: '#f59e0b', fontWeight: 'bold' }}> Perfect game! ⭐</span>
+            )}
+          </p>
         </div>
       )}
 

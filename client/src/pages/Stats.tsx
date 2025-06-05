@@ -1,17 +1,19 @@
+
 import React, { useState, useEffect } from 'react';
 import { StatsManager } from '../utils/StatsManager';
 import type { GameStats } from '../utils/StatsManager';
-// import '../styles/Stats.css';
+import '../styles/Stats.css';
+import { useAuth } from '../utils/authContext';
 
 const Stats: React.FC = () => {
   const [stats, setStats] = useState<GameStats | null>(null);
-  const [activeTab, setActiveTab] = useState<'overview' | 'flashcards' | 'matching' | 'crossword'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'flashcards' | 'matching' | 'linkup' | 'crossword'>('overview');
 
   useEffect(() => {
     const gameStats = StatsManager.getStats();
     setStats(gameStats);
   }, []);
-
+  const { username } = useAuth();
   const Profile = JSON.parse(localStorage.getItem('profile') || '{}');
   
   
@@ -47,9 +49,10 @@ const Stats: React.FC = () => {
   };
 
   const renderOverview = () => {
-    const totalGamesPlayed = stats.flashcards.totalSessions + stats.matching.gamesPlayed + stats.crossword.puzzlesAttempted;
+    const totalGamesPlayed = stats.flashcards.totalSessions + stats.matching.gamesPlayed + stats.linkup.gamesPlayed + stats.crossword.puzzlesAttempted;
     const totalTimeSpent = stats.flashcards.totalTimeStudied + 
-      (stats.crossword.averageTime * stats.crossword.puzzlesSolved);
+      (stats.crossword.averageTime * stats.crossword.puzzlesSolved) +
+      (stats.linkup.averageTime * stats.linkup.gamesCompleted);
 
     return (
       <div className="stats-grid md-2-cols lg-3-cols">
@@ -129,6 +132,31 @@ const Stats: React.FC = () => {
           </div>
         </div>
 
+        {/* LinkUp Quick Stats */}
+        <div className="stat-card gradient-indigo">
+          <h3 className="stat-card-title">🔗 LinkUp</h3>
+          <div className="stat-card-content">
+            <div className="stat-row">
+              <span className="stat-label">Games Played:</span>
+              <span className="stat-value">{stats.linkup.gamesPlayed}</span>
+            </div>
+            <div className="stat-row">
+              <span className="stat-label">Completed:</span>
+              <span className="stat-value">{stats.linkup.gamesCompleted}</span>
+            </div>
+            <div className="stat-row">
+              <span className="stat-label">Perfect Games:</span>
+              <span className="stat-value">{stats.linkup.perfectGames}</span>
+            </div>
+            <div className="stat-row">
+              <span className="stat-label">Best Time:</span>
+              <span className="stat-value">
+                {stats.linkup.bestTime ? StatsManager.formatTime(stats.linkup.bestTime) : 'No records'}
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Crossword Quick Stats */}
         <div className="stat-card gradient-orange">
           <h3 className="stat-card-title">🔤 Crossword</h3>
@@ -160,7 +188,7 @@ const Stats: React.FC = () => {
         </div>
 
         {/* Recent Activity */}
-        <div className="stat-card gradient-indigo">
+        <div className="stat-card gradient-yellow">
           <h3 className="stat-card-title">⏰ Recent Activity</h3>
           <div className="stat-card-content">
             <div className="stat-row">
@@ -172,6 +200,10 @@ const Stats: React.FC = () => {
               <span className="stat-value">{StatsManager.getRelativeTime(stats.matching.lastPlayedDate)}</span>
             </div>
             <div className="stat-row">
+              <span className="stat-label">LinkUp:</span>
+              <span className="stat-value">{StatsManager.getRelativeTime(stats.linkup.lastPlayedDate)}</span>
+            </div>
+            <div className="stat-row">
               <span className="stat-label">Crossword:</span>
               <span className="stat-value">{StatsManager.getRelativeTime(stats.crossword.lastPlayedDate)}</span>
             </div>
@@ -179,7 +211,7 @@ const Stats: React.FC = () => {
         </div>
 
         {/* Achievements */}
-        <div className="stat-card gradient-yellow">
+        <div className="stat-card gradient-purple">
           <h3 className="stat-card-title">🏆 Achievements</h3>
           <div className="stat-card-content">
             {stats.flashcards.bestStreak >= 10 && (
@@ -192,6 +224,12 @@ const Stats: React.FC = () => {
               <div className="achievement-item">
                 <span className="achievement-icon">🎯</span>
                 <span>Memory Expert (5+ perfect games)</span>
+              </div>
+            )}
+            {stats.linkup.perfectGames >= 3 && (
+              <div className="achievement-item">
+                <span className="achievement-icon">🔗</span>
+                <span>Connection Master (3+ perfect LinkUps)</span>
               </div>
             )}
             {stats.crossword.perfectSolves >= 3 && (
@@ -375,6 +413,93 @@ const Stats: React.FC = () => {
     </div>
   );
 
+  const renderLinkUpStats = () => (
+    <div className="stats-grid md-2-cols">
+      <div className="stat-card white">
+        <h3 className="stat-card-title" style={{ color: '#4f46e5' }}>🔗 Game Statistics</h3>
+        <div className="stat-card-content">
+          <div className="stat-row">
+            <span className="stat-label">Games Played:</span>
+            <span className="stat-value blue">{stats.linkup.gamesPlayed}</span>
+          </div>
+          <div className="stat-row">
+            <span className="stat-label">Games Completed:</span>
+            <span className="stat-value">{stats.linkup.gamesCompleted}</span>
+          </div>
+          <div className="stat-row">
+            <span className="stat-label">Completion Rate:</span>
+            <span className="stat-value">
+              {stats.linkup.gamesPlayed > 0 
+                ? ((stats.linkup.gamesCompleted / stats.linkup.gamesPlayed) * 100).toFixed(1)
+                : '0'
+              }%
+            </span>
+          </div>
+          <div className="stat-row">
+            <span className="stat-label">Perfect Games:</span>
+            <span className="stat-value yellow">{stats.linkup.perfectGames}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="stat-card white">
+        <h3 className="stat-card-title" style={{ color: '#16a34a' }}>⏱️ Time & Performance</h3>
+        <div className="stat-card-content">
+          <div className="stat-row">
+            <span className="stat-label">Best Time:</span>
+            <span className="stat-value green">
+              {stats.linkup.bestTime ? StatsManager.formatTime(stats.linkup.bestTime) : 'No records'}
+            </span>
+          </div>
+          <div className="stat-row">
+            <span className="stat-label">Average Time:</span>
+            <span className="stat-value">
+              {stats.linkup.averageTime > 0 ? StatsManager.formatTime(Math.floor(stats.linkup.averageTime)) : 'No records'}
+            </span>
+          </div>
+          <div className="stat-row">
+            <span className="stat-label">Best Accuracy:</span>
+            <span className="stat-value orange">{stats.linkup.bestAccuracy.toFixed(1)}%</span>
+          </div>
+          <div className="stat-row">
+            <span className="stat-label">Average Accuracy:</span>
+            <span className="stat-value">{stats.linkup.averageAccuracy.toFixed(1)}%</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="stat-card white md-full-span">
+        <h3 className="stat-card-title" style={{ color: '#dc2626' }}>🎯 Connection Mastery</h3>
+        <div className="mastery-grid">
+          <div className="mastery-item blue-bg">
+            <div className="mastery-value blue">{stats.linkup.totalAttempts}</div>
+            <div className="mastery-label">Total Attempts</div>
+            <div className="mastery-sublabel">All games combined</div>
+          </div>
+          <div className="mastery-item green-bg">
+            <div className="mastery-value green">
+              {stats.linkup.gamesPlayed > 0 
+                ? stats.linkup.averageAttemptsPerGame.toFixed(1)
+                : '0'
+              }
+            </div>
+            <div className="mastery-label">Avg Attempts per Game</div>
+          </div>
+          <div className="mastery-item red-bg">
+            <div className="mastery-value red">
+              {stats.linkup.gamesCompleted > 0 
+                ? ((stats.linkup.perfectGames / stats.linkup.gamesCompleted) * 100).toFixed(1)
+                : '0'
+              }%
+            </div>
+            <div className="mastery-label">Perfect Game Rate</div>
+            <div className="mastery-sublabel">Minimum attempts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   const renderCrosswordStats = () => (
     <div className="stats-grid md-2-cols">
       <div className="stat-card white">
@@ -467,7 +592,7 @@ const Stats: React.FC = () => {
         {/* Header */}
         <div className="stats-header">
           <h1 className="stats-main-title">
-            {Profile.username}'s Game Statistics
+            {username}'s Game Statistics
           </h1>
           <p className="stats-subtitle">
             Track your progress across all games
@@ -480,6 +605,7 @@ const Stats: React.FC = () => {
             { key: 'overview', label: '🏠 Overview', color: 'blue' },
             { key: 'flashcards', label: '📚 Flashcards', color: 'green' },
             { key: 'matching', label: '🧩 Matching', color: 'purple' },
+            { key: 'linkup', label: '🔗 LinkUp', color: 'indigo' },
             { key: 'crossword', label: '🔤 Crossword', color: 'orange' }
           ].map(tab => (
             <button
@@ -499,6 +625,7 @@ const Stats: React.FC = () => {
           {activeTab === 'overview' && renderOverview()}
           {activeTab === 'flashcards' && renderFlashcardStats()}
           {activeTab === 'matching' && renderMatchingStats()}
+          {activeTab === 'linkup' && renderLinkUpStats()}
           {activeTab === 'crossword' && renderCrosswordStats()}
         </div>
 

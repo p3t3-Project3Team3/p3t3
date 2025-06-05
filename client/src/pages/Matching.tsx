@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { QUERY_SINGLE_DECK } from '../utils/queries';
 import { StatsManager } from '../utils/StatsManager';
 import { Flashcard } from '../interfaces/Flashcard';
-// import '../styles/MatchingGame.css';
+import '../styles/MatchingGame.css';
 
 
 interface MemoryCard {
@@ -430,6 +430,9 @@ const Matching: React.FC = () => {
         >
           Show Hint
         </button>
+        <button onClick={() => navigate(`/deck/${id}`)} className="btn-primary">
+          Back to Deck
+        </button>
       </div>
 
       {/* Game Board */}
@@ -447,7 +450,7 @@ const Matching: React.FC = () => {
       <div className="card-inner">
         {/* Card Back - should show when NOT flipped */}
         <div className="card-face card-back">
-          <div className="card-back-content">?</div>
+          <div className="card-back-content"></div>
         </div>
         
         {/* Card Front - should show when flipped */}
