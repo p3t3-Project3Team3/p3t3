@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StatsManager } from '../utils/StatsManager';
 import type { GameStats } from '../utils/StatsManager';
-// import '../styles/Stats.css';
+import '../styles/Stats.css';
 
 const Stats: React.FC = () => {
   const [stats, setStats] = useState<GameStats | null>(null);

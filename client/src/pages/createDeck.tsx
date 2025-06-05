@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { CREATE_DECK } from '../utils/mutations';
-// import '../styles/CreateDeck.css'; // Assuming you have a CSS file for styles
+import '../styles/CreateDeck.css';
 
 const CreateDeck = () => {
   const navigate = useNavigate();

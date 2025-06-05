@@ -1,5 +1,5 @@
 import { useState } from 'react'
-// import "../styles/games.css"; 
+import "../styles/games.css"; 
 import SelectDeck from '../components/SelectDeck/index'; 
 
 

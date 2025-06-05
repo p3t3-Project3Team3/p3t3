@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { CardFront } from "../CardFront";
 import { CardBack } from "../CardBack";
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_SINGLE_DECK } from '../../utils/queries';  // Fixed import
+import { QUERY_SINGLE_DECK } from '../../utils/queries';  
 import { CREATE_FLASHCARD } from '../../utils/mutations';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Flashcard } from '../../interfaces/Flashcard';
 import { Deck } from '../../interfaces/Deck';
-// import '../../styles/AddFlashcard.css';  // Assuming you have a CSS file for styles
+import '../../styles/AddFlashcard.css';  
 
 
 
@@ -26,7 +26,7 @@ const NewCard: React.FC<NewCardProps> = ({ onAdd }) => {
   const [previewFlipped, setPreviewFlipped] = useState(false);
   const navigate = useNavigate();
 
-  const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {  // Fixed query name
+  const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {
     variables: { id: id },
     skip: !id,
   });
@@ -96,17 +96,17 @@ const handleCreate = async () => {
   };
 
  const handleDone = () => {
-    navigate(`/deck/${id}`);  // Navigate back to the deck details page
+    navigate(`/deck/${id}`); 
   };
 
   if (loading) return <div className="flex justify-center p-8"><p>Loading deck...</p></div>;
   if (error) return <div className="flex justify-center p-8 text-red-600"><p>Error loading deck: {error.message}</p></div>;
   if (!data?.getSingleDeck) return <div className="flex justify-center p-8"><p>Deck not found</p></div>;
 
-  const deck: Deck = data.getSingleDeck;  // Fixed data access
+  const deck: Deck = data.getSingleDeck;
 
   return (
-    <div className="bigform-container">
+    <div className=" justify-center container-lg">
       {/* Header */}
       <div className="form-header">
         <h1 className="form-title">Add Flashcards to "{deck.title}"</h1>
@@ -117,15 +117,15 @@ const handleCreate = async () => {
 
       {/* New Card Form */}
       <form className="form">
-        <div className="form-fields">
+        <div className="form-group">
           <h3 className="form-create">Create New Flashcard:</h3>
           
           <div className="form-field">
             {/* Term Input */}
             <div className="field">
-              <label className="label">Term or Question: </label>
+              <label className="form-label">Term or Question: </label>
               <textarea
-                className="form-textarea"
+                className="form-textarea form-success"
                 name="term"
                 value={term}
                 onChange={(e) => setTerm(e.target.value)}
@@ -137,11 +137,11 @@ const handleCreate = async () => {
             
             {/* Definition Input */}
             <div className="field">
-              <label className='label'>
+              <label className='form-label'>
                 Definition or Answer: 
               </label>
               <textarea
-                className="form-textarea"
+                className="form-textarea form-success "
                 name="definition"
                 value={definition}
                 onChange={(e) => setDefinition(e.target.value)}
@@ -153,11 +153,11 @@ const handleCreate = async () => {
   
             {/* Example Input */}
             <div className="field">
-              <label className='label'>
+              <label className='form-label'>
                 Example: 
               </label>
               <textarea
-                className="form-textarea"
+                className="form-textarea form-success"
                 name="example"
                 value={example}
                 onChange={(e) => setExample(e.target.value)}
@@ -169,11 +169,11 @@ const handleCreate = async () => {
   
           </div>
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-3 mt-6">
+          <div className="">
             <button
               onClick={handleCreate}
               disabled={isCreating || !term.trim() || !definition.trim()}
-              className="ui blue button"
+              className="btn-primary btn-lg"
             >
               {isCreating ? 'Creating...' : 'Add Flashcard'}
             </button>
@@ -181,18 +181,19 @@ const handleCreate = async () => {
             <button
               onClick={handlePreview}
               disabled={!term.trim() || !definition.trim()}
-              className="ui pink button"
+              className="btn-secondary btn-lg"
             >
               Preview Card
             </button>
             
             <button
               onClick={handleClearForm}
-              className="ui grey button"
+              className="btn-danger btn-lg"
             >
               Clear Form
             </button>
-            <button onClick={handleDone} className="ui red button">Done</button>
+              
+            <button onClick={handleDone} className="btn-success btn-lg">Done</button>
   
           </div>
         </div>
@@ -200,20 +201,20 @@ const handleCreate = async () => {
 
       {/* Preview Modal */}
       {showPreview && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold">Card Preview</h3>
+        <div className="justify-center flashcard">
+          <div className="">
+            <div className="">
+              <h3 className="">Card Preview</h3>
               <button
                 onClick={() => setShowPreview(false)}
-                className="text-gray-500 hover:text-gray-700 text-xl"
+                className="btn-close"
               >
                 ×
               </button>
             </div>
             
             <div 
-              className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 min-h-32 flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-blue-100"
+              className="flashcard-preview"
               onClick={() => setPreviewFlipped(!previewFlipped)}
             >
               {previewFlipped ? (
@@ -223,7 +224,7 @@ const handleCreate = async () => {
               )}
             </div>
             
-            <p className="text-sm text-gray-600 text-center mt-3">
+            <p className="flashcard-instructions">
               Click card to flip • Currently showing: {previewFlipped ? 'Back' : 'Front'}
             </p>
           </div>
@@ -231,8 +232,8 @@ const handleCreate = async () => {
       )}
 
       {/* Existing Cards List */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h3 className="form-create">
+      <div className="container-sm">
+        <h3 className="flashcard-list-title">
           Cards in "{deck.title}" ({deck.flashcards.length})
         </h3>
         
@@ -241,7 +242,7 @@ const handleCreate = async () => {
             <p>No cards in this deck yet. Add your first card above!</p>
           </div>
         ) : (
-          <div className="space-y-3">
+          <div className="flashcard-list">
             {deck.flashcards.map((card: Flashcard) => (
              <div
               key={card._id}

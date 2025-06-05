@@ -15,8 +15,8 @@
   margin: auto;
 }
 
-.custom-navbar {
-  background-color: var(--secondary-color, #fef7ed);
+.navbar {
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
   margin: 0;
   padding-left: 13px;
   box-shadow: 1px 1px 2px var(--dark--bg-color, #0f172a);
