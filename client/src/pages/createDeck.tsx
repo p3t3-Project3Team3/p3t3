@@ -50,7 +50,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   return (
     <div className="create-deck">
       <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow">
-        <form onSubmit={handleSubmit} className=" form">
+        <form onSubmit={handleSubmit} className="form">
         <h1 className="title">Create a New Deck</h1>
            <div className="form-field">
         <label className="form-label">Deck Title</label>
