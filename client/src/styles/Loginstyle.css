@@ -1,19 +1,4 @@
-:root{
-  --primary-color: #2D7DD2;
-  --secondary-color: #611bd0;
-  --light-accent-color: #84E296;
-  --light-color: #D4ADCF;
-  --text-color: #CCDDE2;
-  --light-blue: #A5D8FF;
-  --dark-bg-color: #474647;
-  --dark-text-color: #A5CBC3;
-  --dark-accent-color:#F76F8E;
-  --dark-color:#CEFF1A;
-  --secondary-color-dark:#003E38;
-}
- *{
-  margin: auto;
-}
+
 
 .grid{
     padding: 5px;

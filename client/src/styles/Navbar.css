@@ -9,8 +9,8 @@
   }
   a:hover {
     color: var(--primary-color);
-    background-color:  var(--light-color);
-    border-radius: 5%;
+    background-color:  #84e29591;
+    border-radius: 10%;
   }
   a:active {
     color: #84E296;
