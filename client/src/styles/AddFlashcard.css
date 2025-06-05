@@ -12,24 +12,29 @@
   margin-bottom: 20px;
 }
 
-.form-title {
-  font-size: 2.2rem;
-  font-weight: bold;
-  color: var(--primary-color);
-}
+
 
 .form-subtitle {
-  font-size: 0.9rem;
-  color: #07124c84;
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;  
+  border: 2px solid var(--secondary-color);
+  width: fit-content;
+  border-radius: 5px;
+  background-color:var(--color-accent);
+  font-size: 1.5rem;
+  color: var(--secondary-color);
 }
 
 .form {
   width: 100%;
+
+
 }
 
 
 .form-create {
-  color: #EEB902;
+  color:var(--color-green-light);
   text-shadow:
     -1px -1px 0 black,
      1px -1px 0 black,
@@ -91,14 +96,19 @@
 
 
 .flashcard-list {
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
 .flashcard-item {
   border-radius: 10px;
+  width: 45vh;
+  height: 60vh;
   border: 1px solid #e2e8f0;
   padding: 1.5rem;
-  background-color: #fff;
+  background: linear-gradient(145deg, #3b82f6, #A5D8FF);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 

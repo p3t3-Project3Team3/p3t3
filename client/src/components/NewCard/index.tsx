@@ -109,7 +109,7 @@ const handleCreate = async () => {
     <div className=" justify-center container-lg">
       {/* Header */}
       <div className="form-header">
-        <h1 className="form-title">Add Flashcards to "{deck.title}"</h1>
+        <h1 className="form-create">Add Flashcards to "{deck.title}"</h1>
         <p className="form-subtitle">
           Current cards in deck: {deck.flashcards.length}
         </p>
@@ -200,48 +200,7 @@ const handleCreate = async () => {
       </form>
 
       {/* Preview Modal */}
-      {showPreview && (
-        <div className="justify-center flashcard">
-          <div className="">
-            <div className="">
-              <h3 className="">Card Preview</h3>
-              <button
-                onClick={() => setShowPreview(false)}
-                className="btn-close"
-              >
-                ×
-              </button>
-            </div>
-            
-            <div 
-              className="flashcard-preview"
-              onClick={() => setPreviewFlipped(!previewFlipped)}
-            >
-              {previewFlipped ? (
-                <CardBack definition={definition} />
-              ) : (
-                <CardFront term={term} />
-              )}
-            </div>
-            
-            <p className="flashcard-instructions">
-              Click card to flip • Currently showing: {previewFlipped ? 'Back' : 'Front'}
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Existing Cards List */}
-      <div className="container-sm">
-        <h3 className="flashcard-list-title">
-          Cards in "{deck.title}" ({deck.flashcards.length})
-        </h3>
-        
-        {deck.flashcards.length === 0 ? (
-          <div className="text-center">
-            <p>No cards in this deck yet. Add your first card above!</p>
-          </div>
-        ) : (
+       
           <div className="flashcard-list">
             {deck.flashcards.map((card: Flashcard) => (
              <div
@@ -261,9 +220,9 @@ const handleCreate = async () => {
             </div>
           ))}
           </div>
-        )}
+        
       </div>
-    </div>
+    
   );
 };
 
