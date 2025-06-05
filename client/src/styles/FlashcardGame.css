@@ -201,30 +201,30 @@
 }
 
 .card-face {
-  position: absolute !important;
+  position: absolute ;
   top: 0;
   left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  backface-visibility: hidden !important;
-  -webkit-backface-visibility: hidden !important;
+  width: 100% ;
+  height: 100% ;
+  backface-visibility: hidden ;
+  -webkit-backface-visibility: hidden ;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  display: flex ;
+  align-items: center ;
+  justify-content: center ;
   padding: var(--space-lg);
   box-sizing: border-box;
 }
 
 .card-front {
-  background: linear-gradient(145deg, #3b82f6, #A5D8FF) !important;
+  background: linear-gradient(145deg, #3b82f6, #A5D8FF);
   transform: rotateY(0deg) !important;
   z-index: 2;
 }
 
 .card-back {
-  background: linear-gradient(90deg, #0b7c56, #84E296) !important;
+  background: linear-gradient(90deg, #0b7c56, #84E296);
   transform: rotateY(180deg) !important;
   z-index: 1;
 }

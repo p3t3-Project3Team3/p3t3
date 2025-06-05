@@ -253,7 +253,7 @@
 }
 
 .card-front.definition {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(145deg, #10b981 0%, #059669 100%);
   color: white;
 }
 
@@ -279,10 +279,8 @@
 }
 
 .card-back-content {
-  font-size: 1.5rem;
-  font-weight: bold;
+  background-image: url();
 }
-
 /* Match Animation */
 @keyframes matchSuccess {
   0% { transform: scale(1) rotateY(180deg); }
