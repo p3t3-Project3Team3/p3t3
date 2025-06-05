@@ -40,13 +40,7 @@
 .ui.form .field .ui.input input:focus {
     background-color: #d4adcfc4;
 }
-.about{
-    img{
-        width: 50px;
-        height: 55px;
-        border-radius: 50%;
-    }
-}
+
 .dark{
 
     .grid{

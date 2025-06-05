@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import { useMutation } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 import { CREATE_DECK } from '../utils/mutations';
-import '../styles/CreateDeck.css';
+import {
+  Container,
+  div,
+  Header,
+  Form,
+  TextArea,
+  Button,
+  Message
+} from 'semantic-ui-react';
 
 const CreateDeck = () => {
   const navigate = useNavigate();
@@ -11,86 +19,90 @@ const CreateDeck = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const [createDeckMutation, { loading }] = useMutation(CREATE_DECK, {
-  onCompleted: (data) => {
-    const newDeck = data.createDeck;  // note: 'createDeck', lowercase 'c'
-    console.log('Deck created:', newDeck);
-    navigate(`/deck/${newDeck._id}/new-card`);
-  },
-  onError: (error) => {
-  console.error('Error creating deck:', error.message, error.graphQLErrors, error.networkError);
-  if (error.graphQLErrors) {
-  error.graphQLErrors.forEach(({ message }) => {
-    console.error('GraphQL error message:', message);
+    onCompleted: (data) => {
+      const newDeck = data.createDeck;
+      console.log('Deck created:', newDeck);
+      navigate(`/deck/${newDeck._id}/new-card`);
+    },
+    onError: (error) => {
+      console.error('Error creating deck:', error.message);
+      setErrorMessage('Failed to create deck. Please try again.');
+    },
   });
-}
-  setErrorMessage('Failed to create deck. Please try again.');
-},
-});
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
 
-  if (!title.trim()) {
-    setErrorMessage('Title is required');
-    return;
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const variables: { title: string; description?: string } = { title: title.trim() };
-  if (description.trim()) {
-    variables.description = description.trim();
-  }
+    if (!title.trim()) {
+      setErrorMessage('Title is required');
+      return;
+    }
 
-  try {
-    await createDeckMutation({ variables });
-  } catch (err) {
-    // Optional additional error handling here
-  }
-};
+    const variables: { title: string; description?: string } = { title: title.trim() };
+    if (description.trim()) {
+      variables.description = description.trim();
+    }
 
+    try {
+      await createDeckMutation({ variables });
+    } catch (err) {
+      // Already handled in onError
+    }
+  };
 
   return (
-    <div className="create-deck">
-      <div className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow">
-        <form onSubmit={handleSubmit} className=" form">
-        <h1 className="title">Create a New Deck</h1>
-           <div className="form-field">
-        <label className="form-label">Deck Title</label>
-        <input
-          className="form-input"
-          name="deckTitle"
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Enter a title"
-          maxLength={100}
-        />
-      </div>
-  
-          <div className="form-field">
-    <label className="form-label">Description</label>
-    <textarea
-      className="form-textarea"
-      name="deckDescription"
-      value={description}
-      onChange={(e) => setDescription(e.target.value)}
-      placeholder="Enter a brief description (optional)"
-      rows={4}
-      maxLength={500}
-    />
-  </div>
-  
-          {errorMessage && <p className="text-red-600 text-sm">{errorMessage}</p>}
-  
-          <div className="buttonfield">
-            <button type="submit" className="ui yellow button" disabled={loading}>
+    <Container className="create-deck">
+      <div className=" ui violet inverted raised segment">
+        <Header as="h1" textAlign="center">Create a New Deck</Header>
+
+        <Form onSubmit={handleSubmit} loading={loading}>
+          <Form.Field required>
+            <label>Deck Title</label>
+            <Form.Input
+              name="deckTitle"
+              placeholder="Enter a title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              maxLength={100}
+            />
+          </Form.Field>
+
+          <Form.Field>
+            <label>Description</label>
+            <TextArea
+              name="deckDescription"
+              placeholder="Enter a brief description (optional)"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={4}
+              maxLength={500}
+            />
+          </Form.Field>
+
+          {errorMessage && (
+            <Message negative>
+              <Message.Header>Error</Message.Header>
+              <p>{errorMessage}</p>
+            </Message>
+          )}
+
+          <Form.Group widths="equal">
+            <Button type="submit" className="ui violet button" fluid disabled={loading}>
               {loading ? 'Creating...' : 'Create Deck'}
-            </button>
-            <button type="button" className='ui red button' onClick={() => navigate('/home')} disabled={loading}>
+            </Button>
+            <Button
+              type="button"
+              color="red"
+              fluid
+              onClick={() => navigate('/home')}
+              disabled={loading}
+            >
               Cancel
-            </button>
-          </div>
-        </form>
+            </Button>
+          </Form.Group>
+        </Form>
       </div>
-    </div>
+    </Container>
   );
 };
 
