@@ -9,8 +9,7 @@
     "start": "npm run build && node dist/server.js",
     "watch": "nodemon dist/server.js",
     "seed": "node dist/seeds/seed.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-     "install": "cd server && npm i && cd ../client && npm i && npm rebuild bcrypt"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
