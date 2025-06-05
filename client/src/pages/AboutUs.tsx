@@ -1,4 +1,4 @@
-import "../styles/AboutUS.css";
+import "../styles/AboutUS.css"; 
 
 const About =() => {
   return(
@@ -17,7 +17,7 @@ const About =() => {
           <div className="bio">
       <p>As an aspiring full-stack developer with a background in Allied Health, I bring a unique perspective to problem-solving, attention to detail, and user-centered design. My experience in healthcare has honed my ability to assess complex systems, identify inefficiencies, and implement solutions—skills that directly translate into developing intuitive and functional web applications.
 
-</p>
+</p> <br />
           </div>
         </div>
         <div className="profile">
@@ -28,7 +28,7 @@ const About =() => {
           </div>
           <div className="bio">
           <p>Seth  Likes solving problems and building things. Is currently in a full stack coding class. He knows TS, JS, HTML, SQL, and CSS. he will be learning  python as well. Seth spends his free time playing games like Magic: The Gathering, Baltro, Fallout 76 and more. hates render</p></div>
-        </div>
+        </div> <br />
         <div className="profile">
           <div className="image-and-network">
             <h3>Christopher Lin</h3>
@@ -38,7 +38,7 @@ const About =() => {
           <div className="bio">
             <p>Christopher is a creative first and foremost, with training in jazz piano, voice, and guitar, and worked in fine dining before pivoting towards a software development career.</p>
           </div>
-        </div>
+        </div> <br />
         <div className="profile">
           <div className="image-and-network">
             <h3>Kirstin Lisnoff</h3>
