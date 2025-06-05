@@ -25,7 +25,7 @@ const About =() => {
             <a href="https://github.com/SethEggz"><i className="github icon"></i></a>
           </div>
           <div className="bio">
-          <p>Seth  Likes solving problems and building things. Is currently in a full stack coding class. He knows TS, JS, HTML, SQL, and CSS. he will be learning  python as well. Seth spends his free time playing games like Magic: The Gathering, Baltro, Fallout 76 and more.</p></div>
+          <p>Seth  Likes solving problems and building things. Is currently in a full stack coding class. He knows TS, JS, HTML, SQL, and CSS. he will be learning  python as well. Seth spends his free time playing games like Magic: The Gathering, Baltro, Fallout 76 and more. hates render</p></div>
         </div>
         <div className="profile">
           <div className="image-and-network">
