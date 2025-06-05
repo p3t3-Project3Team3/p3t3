@@ -122,9 +122,9 @@ const handleDeleteDeck = () => {
               {expandedCardId === card._id && (
                 <div className="extra content">
                   <div className="ui three buttons">
-                    <div className="ui basic green button">
+                    {/* <div className="ui basic green button">
                       {card.isFavorite ? "★ Favorite" : "☆ Add to Favorites"}
-                    </div>
+                    </div> */}
                     <div
                       className="ui basic blue button"
                        onClick={(e) => {

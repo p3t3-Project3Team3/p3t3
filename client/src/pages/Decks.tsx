@@ -177,12 +177,8 @@ const Decks: React.FC = () => {
 
                       {expandedCardId === card._id && (
                         <div className="extra content">
-                          <div className="ui three buttons">
-                            <div className="ui basic green button">
-                              {card.isFavorite
-                                ? "★ Favorite"
-                                : "☆ Add to Favorites"}
-                            </div>
+                          <div className="ui two buttons">
+                           
                             <div
                               className="ui basic blue button"
                                onClick={(e) => {
