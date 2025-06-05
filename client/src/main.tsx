@@ -19,7 +19,7 @@ import LandingPage from "./pages/LandingPage";
 import CreateDeck from "./pages/createDeck";
 import ViewDeck from "./pages/ViewADeck.js";
 import Stats from "./pages/Stats";
-import'./styles/global.css'
+import'./styles/Global.css'
 import './styles/Components.css';
 
 
