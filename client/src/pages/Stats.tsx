@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StatsManager } from '../utils/StatsManager';
 import type { GameStats } from '../utils/StatsManager';
 import '../styles/Stats.css';
+import { useAuth } from '../utils/authContext';
 
 const Stats: React.FC = () => {
   const [stats, setStats] = useState<GameStats | null>(null);
@@ -11,7 +12,7 @@ const Stats: React.FC = () => {
     const gameStats = StatsManager.getStats();
     setStats(gameStats);
   }, []);
-
+  const { username } = useAuth();
   const Profile = JSON.parse(localStorage.getItem('profile') || '{}');
   
   
@@ -467,7 +468,7 @@ const Stats: React.FC = () => {
         {/* Header */}
         <div className="stats-header">
           <h1 className="stats-main-title">
-            {Profile.username}'s Game Statistics
+            {username}'s Game Statistics
           </h1>
           <p className="stats-subtitle">
             Track your progress across all games

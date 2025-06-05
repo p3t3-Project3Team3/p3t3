@@ -125,13 +125,3 @@ html {
   -webkit-text-size-adjust: 100%;
   tab-size: 4;
 }
-
-body {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 
-               "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-normal);
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-primary);
-  transition: background-color var(--transition-normal);
-}
