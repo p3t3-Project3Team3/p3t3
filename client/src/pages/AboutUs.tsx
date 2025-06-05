@@ -44,7 +44,7 @@ const About =() => {
             <a href="https://github.com/kirstinlisnoff"><i className="github icon"></i></a>
           </div>
           <div className="bio">
-          <p></p></div>
+          <p>Christopher is a creative first and foremost, with training in jazz piano, voice, and guitar, and worked in fine dining before pivoting towards a software development career.</p></div>
         </div>
        </section>
       </div>
