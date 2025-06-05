@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import "../../styles/Header.css"
+// import "../../styles/legacy/Header.css"
 import 'semantic-ui-css/semantic.min.css';
 
 const Header = () => {

@@ -1,7 +1,7 @@
 
 import React from 'react';
-import 'semantic-ui-css/semantic.min.css';
-// import '../../styles/Footer.css';
+// import 'semantic-ui-css/semantic.min.css';
+
 
 
 const Footer = (): React.ReactElement => {
