@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { CardFront } from "../CardFront";
-import { CardBack } from "../CardBack";
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_SINGLE_DECK } from '../../utils/queries';  
 import { CREATE_FLASHCARD } from '../../utils/mutations';
@@ -22,8 +20,6 @@ const NewCard: React.FC<NewCardProps> = ({ onAdd }) => {
   const [definition, setDefinition] = useState('');
   const [example, setExample] = useState('');
   const [isCreating, setIsCreating] = useState(false);
-  const [showPreview, setShowPreview] = useState(false);
-  const [previewFlipped, setPreviewFlipped] = useState(false);
   const navigate = useNavigate();
 
   const { data, loading, error } = useQuery(QUERY_SINGLE_DECK, {
@@ -38,7 +34,7 @@ const [createFlashcard] = useMutation(CREATE_FLASHCARD, {
     setDefinition('');
     setExample('');
     setIsCreating(false);
-    setShowPreview(false);
+
   },
   onError: (error) => {
     console.error('Error creating flashcard:', error);
@@ -73,26 +69,19 @@ const handleCreate = async () => {
     setTerm('');
     setDefinition('');
     setIsCreating(false);
-    setShowPreview(false);
+    
   } catch (error) {
     console.error('Failed to create flashcard:', error);
     setIsCreating(false);
   }
 };
 
-  const handlePreview = () => {
-    if (!term.trim() || !definition.trim()) {
-      alert('Please fill in both term and definition to preview');
-      return;
-    }
-    setShowPreview(true);
-    setPreviewFlipped(false);
-  };
+  
 
   const handleClearForm = () => {
     setTerm('');
     setDefinition('');
-    setShowPreview(false);
+
   };
 
  const handleDone = () => {
@@ -173,27 +162,21 @@ const handleCreate = async () => {
             <button
               onClick={handleCreate}
               disabled={isCreating || !term.trim() || !definition.trim()}
-              className="btn-primary btn-lg"
+              className="ui violet button"
             >
               {isCreating ? 'Creating...' : 'Add Flashcard'}
             </button>
             
-            <button
-              onClick={handlePreview}
-              disabled={!term.trim() || !definition.trim()}
-              className="btn-secondary btn-lg"
-            >
-              Preview Card
-            </button>
+            
             
             <button
               onClick={handleClearForm}
-              className="btn-danger btn-lg"
+              className="ui red button"
             >
               Clear Form
             </button>
               
-            <button onClick={handleDone} className="btn-success btn-lg">Done</button>
+            <button onClick={handleDone} className="ui green button">Done</button>
   
           </div>
         </div>
