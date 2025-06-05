@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { DELETE_DECK } from '../utils/mutations';
 import { Flashcard } from '../interfaces/Flashcard';
 import FlashcardEdit from '../components/Deck/editCard';
-import EditDeck from '../components/Deck/editdeck'
-
-
+import EditDeck from '../components/Deck/editdeck';
+import '../styles/ViewADeck.css';
 
 interface Deck {
   _id: string;
@@ -19,31 +18,29 @@ interface Deck {
   };
 }
 
-
-
 const DeckDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [expandedCardId, setExpandedCardId] = React.useState<string | null>(null);
-const handleCardClick = (cardId: string) => {
-  setExpandedCardId(expandedCardId === cardId ? null : cardId);
-};
+  const [viewMode, setViewMode] = React.useState<'grid' | 'carousel'>('grid');
+  const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
+  const [isFlipped, setIsFlipped] = React.useState(false);
 
+  const handleCardClick = (cardId: string) => {
+    setExpandedCardId(expandedCardId === cardId ? null : cardId);
+  };
 
+  const handleDelete = (cardId: string) => {
+    if (window.confirm("Are you sure you want to delete this flashcard?")) {
+      console.log(`Deleting flashcard with ID: ${cardId}`);
+    }
+  };
 
-const handleDelete = (cardId: string) => {
-  if (window.confirm("Are you sure you want to delete this flashcard?")) {
-    // add mutation logic here
-    console.log(`Deleting flashcard with ID: ${cardId}`);
+  const [selectedCard, setSelectedCard] = React.useState<Flashcard | null>(null);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [deckModalOpen, setDeckModalOpen] = React.useState(false);
 
-  }
-};
-
-const [selectedCard, setSelectedCard] = React.useState<Flashcard | null>(null);
-const [modalOpen, setModalOpen] = React.useState(false);
-const [deckModalOpen, setDeckModalOpen] = React.useState(false);
-// const deckId = id; // Assuming id is the deck ID
-const { data: deckData, loading: deckLoading, error: deckError, refetch: refetchDeck } = useQuery(QUERY_SINGLE_DECK, {
+  const { data: deckData, loading: deckLoading, error: deckError, refetch: refetchDeck } = useQuery(QUERY_SINGLE_DECK, {
     variables: { id },
   });
 
@@ -51,24 +48,65 @@ const { data: deckData, loading: deckLoading, error: deckError, refetch: refetch
     variables: { deckId: id },
   });
 
-const [deleteDeck, { loading: deleting, error: deleteError }] = useMutation(DELETE_DECK, {
-  onCompleted: () => {
-    navigate('/game/flashCards/Decks');
-  },
-  onError: (error) => {
-    console.error("Error deleting deck:", error);
-  }
-});
+  const [deleteDeck, { loading: deleting, error: deleteError }] = useMutation(DELETE_DECK, {
+    onCompleted: () => {
+      navigate('/game/flashCards/Decks');
+    },
+    onError: (error) => {
+      console.error("Error deleting deck:", error);
+    }
+  });
 
   const handleAddNewCardClick = () => {
     navigate(`/deck/${id}/new-card`);
   };
 
-const handleDeleteDeck = () => {
-  if(window.confirm('Are you sure you want to delete this deck?')) {
-    deleteDeck({ variables: { id } });
-  }
-};
+  const handleDeleteDeck = () => {
+    if(window.confirm('Are you sure you want to delete this deck?')) {
+      deleteDeck({ variables: { id } });
+    }
+  };
+
+  // Carousel navigation functions
+  const nextCard = () => {
+    const flashcards = cardsData?.getFlashcardsByDeck || [];
+    setCurrentCardIndex((prev) => (prev + 1) % flashcards.length);
+    setIsFlipped(false);
+  };
+
+  const prevCard = () => {
+    const flashcards = cardsData?.getFlashcardsByDeck || [];
+    setCurrentCardIndex((prev) => (prev - 1 + flashcards.length) % flashcards.length);
+    setIsFlipped(false);
+  };
+
+  const goToCard = (index: number) => {
+    setCurrentCardIndex(index);
+    setIsFlipped(false);
+  };
+
+  const flipCard = () => {
+    setIsFlipped(!isFlipped);
+  };
+
+  // Keyboard navigation
+  React.useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (viewMode === 'carousel') {
+        if (e.key === 'ArrowLeft') {
+          prevCard();
+        } else if (e.key === 'ArrowRight') {
+          nextCard();
+        } else if (e.key === ' ') {
+          e.preventDefault();
+          flipCard();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [viewMode]);
 
   if (deckLoading || cardsLoading) return <p>Loading...</p>;
   if (deckError) return <p>Error loading deck!</p>;
@@ -78,77 +116,223 @@ const handleDeleteDeck = () => {
 
   const flashcards: Flashcard[] = cardsData?.getFlashcardsByDeck || [];
 
-  return (
-    <div>
-      <h2>{deck.title}</h2>
-      <p>{deck.description}</p>
+  const renderCarousel = () => {
+    if (flashcards.length === 0) {
+      return <p>No flashcards yet.</p>;
+    }
 
-      <h3>Flashcards</h3>
-      {flashcards.length === 0 ? (
-        <p>No flashcards yet.</p>
-      ) : (
-        <div className="ui cards">
-          {flashcards.map((card) => (
-            <div
-              className={`card ${expandedCardId === card._id ? "expanded-card" : ""}`}
-              key={card._id}
-              onClick={() => handleCardClick(card._id)}
-            >
-              <div className="content">
-                <div className="header">
-                  {card.term}
-                  <button
-                    className="mini ui right floated basic grey button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedCard(card);
-                      setModalOpen(true);
-                    }}
-                  >
-                    Expand
-                  </button>
-                </div>
-                <div className="description">
-                  <p><strong>Definition:</strong> {card.definition}</p>
-                  {expandedCardId === card._id && (
-                    <p><strong>Example:</strong> {card.example || "No example provided."}</p>
-                  )}
-                </div>
-                <div className="meta">
-                  Created By: {card.createdByUsername?.username || "Unknown"}
-                </div>
+    const currentCard = flashcards[currentCardIndex];
+
+    return (
+      <div className="carousel-container">
+        {/* Carousel Controls */}
+        <div className="carousel-controls">
+          <button 
+            className="ui circular icon button"
+            onClick={prevCard}
+            disabled={flashcards.length <= 1}
+          >
+            <i className="chevron left icon"></i>
+          </button>
+          
+          <div className="carousel-counter">
+            <span>
+              {currentCardIndex + 1} of {flashcards.length}
+            </span>
+          </div>
+          
+          <button 
+            className="ui circular icon button"
+            onClick={nextCard}
+            disabled={flashcards.length <= 1}
+          >
+            <i className="chevron right icon"></i>
+          </button>
+        </div>
+
+        {/* Card */}
+        <div className="card-container">
+          <div 
+            className={`ui card flip-card ${isFlipped ? 'flipped' : ''}`}
+            onClick={flipCard}
+          >
+            {/* Front of card */}
+            <div className="card-face front">
+              <div className="header card-term">
+                {currentCard.term}
               </div>
+              <div className="card-flip-hint">
+                Click to reveal definition
+              </div>
+            </div>
 
-              {expandedCardId === card._id && (
-                <div className="extra content">
-                  <div className="ui three buttons">
-                   
-                    <div
-                      className="ui basic blue button"
-                       onClick={(e) => {
+            {/* Back of card */}
+            <div className="card-face back">
+              <div className="card-definition">
+                <strong>Definition:</strong> {currentCard.definition}
+              </div>
+              {currentCard.example && (
+                <div className="card-example">
+                  <strong>Example:</strong> {currentCard.example}
+                </div>
+              )}
+              <div className="card-creator">
+                Created by: {currentCard.createdByUsername?.username || "Unknown"}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Card Actions */}
+        <div className="card-actions">
+          <div className="ui three buttons">
+            <button
+              className="ui basic blue button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedCard(currentCard);
+                setModalOpen(true);
+              }}
+            >
+              <i className="pencil alternate icon"></i> Edit
+            </button>
+            <button
+              className="ui basic green button"
+              onClick={flipCard}
+            >
+              <i className="refresh icon"></i> Flip
+            </button>
+            <button
+              className="ui basic red button"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(currentCard._id);
+              }}
+            >
+              <i className="trash alternate icon"></i> Delete
+            </button>
+          </div>
+        </div>
+
+        {/* Dots indicator */}
+        {flashcards.length > 1 && (
+          <div className="dots-container">
+            {flashcards.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToCard(index)}
+                className={`dot ${index === currentCardIndex ? 'active' : 'inactive'}`}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Instructions */}
+        <div className="carousel-instructions">
+          Use arrow keys to navigate • Spacebar to flip • Click card to flip
+        </div>
+      </div>
+    );
+  };
+
+  const renderGrid = () => {
+    return (
+      <>
+        {flashcards.length === 0 ? (
+          <p>No flashcards yet.</p>
+        ) : (
+          <div className="ui cards">
+            {flashcards.map((card) => (
+              <div
+                className={`card ${expandedCardId === card._id ? "expanded-card" : ""}`}
+                key={card._id}
+                onClick={() => handleCardClick(card._id)}
+              >
+                <div className="content">
+                  <div className="header">
+                    {card.term}
+                    <button
+                      className="mini ui right floated basic grey button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedCard(card);
+                        setModalOpen(true);
+                      }}
+                    >
+                      Expand
+                    </button>
+                  </div>
+                  <div className="description">
+                    <p><strong>Definition:</strong> {card.definition}</p>
+                    {expandedCardId === card._id && (
+                      <p><strong>Example:</strong> {card.example || "No example provided."}</p>
+                    )}
+                  </div>
+                  <div className="meta">
+                    Created By: {card.createdByUsername?.username || "Unknown"}
+                  </div>
+                </div>
+
+                {expandedCardId === card._id && (
+                  <div className="extra content">
+                    <div className="ui three buttons">
+                      <div
+                        className="ui basic blue button"
+                        onClick={(e) => {
                           e.stopPropagation();
                           setSelectedCard(card);
                           setModalOpen(true);
                         }}
                       >
-                      <i className="pencil alternate icon"></i> Edit
-                    </div>
-                    <div
-                      className="ui basic red button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDelete(card._id);
-                      }}
-                    >
-                      <i className="trash alternate icon"></i> Delete
+                        <i className="pencil alternate icon"></i> Edit
+                      </div>
+                      <div
+                        className="ui basic red button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(card._id);
+                        }}
+                      >
+                        <i className="trash alternate icon"></i> Delete
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </>
+    );
+  };
+
+  return (
+    <div>
+      <h2>{deck.title}</h2>
+      <p>{deck.description}</p>
+
+      {/* View Mode Toggle */}
+      <div className="view-mode-toggle">
+        <div className="ui buttons">
+          <button 
+            className={`ui button ${viewMode === 'grid' ? 'blue' : ''}`}
+            onClick={() => setViewMode('grid')}
+          >
+            <i className="grid layout icon"></i> Grid View
+          </button>
+          <button 
+            className={`ui button ${viewMode === 'carousel' ? 'blue' : ''}`}
+            onClick={() => setViewMode('carousel')}
+          >
+            <i className="images icon"></i> Carousel View
+          </button>
         </div>
-      )}
+      </div>
+
+      <h3>Flashcards</h3>
+      
+      {viewMode === 'grid' ? renderGrid() : renderCarousel()}
+
       {selectedCard && (
         <FlashcardEdit
           modalOpen={modalOpen}
@@ -157,27 +341,30 @@ const handleDeleteDeck = () => {
           deckId={deck._id}
           refetch={refetchCards}
         />
-      )}  
+      )}
+      
       {deckModalOpen && (
         <EditDeck
-        modalOpen={deckModalOpen}
-        setModalOpen={setDeckModalOpen}
-        selectedDeck={deck || undefined}
-        deckId= {deck._id}
-        refetch={refetchDeck}
-      />
+          modalOpen={deckModalOpen}
+          setModalOpen={setDeckModalOpen}
+          selectedDeck={deck || undefined}
+          deckId={deck._id}
+          refetch={refetchDeck}
+        />
       )}
 
-      <button onClick={handleAddNewCardClick} className="ui blue button">
-        Add New Flashcard
-      </button>
-      <button onClick={handleDeleteDeck} className="ui red button" disabled={deleting}>
-        {deleting ? 'Deleting...' : 'Delete Deck'}
-      </button>
-      {deleteError && <p style={{ color: 'red' }}>Error deleting deck: {deleteError.message}</p>}
+      <div className="action-buttons-container">
+        <button onClick={handleAddNewCardClick} className="ui blue button">
+          Add New Flashcard
+        </button>
+        <button onClick={handleDeleteDeck} className="ui red button" disabled={deleting}>
+          {deleting ? 'Deleting...' : 'Delete Deck'}
+        </button>
         <button onClick={() => setDeckModalOpen(true)} className="ui pink button">
-  Edit Deck
-</button>
+          Edit Deck
+        </button>
+        {deleteError && <p className="error-message">Error deleting deck: {deleteError.message}</p>}
+      </div>
     </div>
   );
 };
