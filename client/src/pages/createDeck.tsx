@@ -10,6 +10,7 @@ import {
   Button,
   Message
 } from 'semantic-ui-react';
+import '../styles/CreateDeck.css'
 
 const CreateDeck = () => {
   const navigate = useNavigate();
