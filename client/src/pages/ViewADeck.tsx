@@ -21,7 +21,7 @@ interface Deck {
 const DeckDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [expandedCardId, setExpandedCardId] = React.useState<string | null>(null);
+  
   const [viewMode, setViewMode] = React.useState<'grid' | 'carousel'>('grid');
   const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
   const [isFlipped, setIsFlipped] = React.useState(false);

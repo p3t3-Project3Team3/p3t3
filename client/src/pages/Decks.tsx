@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery, } from "@apollo/client";
 import { QUERY_ALL_DECKS } from "../utils/queries";
-import { DELETE_FLASHCARD } from "../utils/mutations";
 import { useNavigate } from "react-router-dom";
 import { Modal, } from "semantic-ui-react";
 import FlashcardEdit from "../components/Deck/editCard";
