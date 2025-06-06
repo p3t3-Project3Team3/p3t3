@@ -7,7 +7,7 @@
   /* Core Brand Colors */
   --color-primary: #2D7DD2;
   --color-secondary: #611bd0;
-  --color-accent: #84E296;
+  --color-accent:  rgb(250, 172, 37);
   --color-accent-alt: #D4ADCF;
   --color-warning: #EEB902;
   
@@ -158,9 +158,10 @@
 }
 
 .study-title {
-  font-size: var(--font-size-2xl);
+  font-size: 5vh;
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-accent);
+  text-shadow:  0 2px black;;
   margin-bottom: var(--space-sm);
 }
 
@@ -358,7 +359,7 @@
 .progress-text {
   text-align: center;
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: black;
 }
 
 /* Modal Components */

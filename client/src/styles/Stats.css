@@ -5,6 +5,7 @@
   min-height: 100vh;
   background-color: #f9fafb;
   padding: 2rem 0;
+  padding-bottom: 100px;
 }
 
 .stats-content-wrapper {
@@ -509,9 +510,9 @@
 }
 
 .stat-cards {
-  color: #667eea;
+  color: black;
   margin-left: 8px;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
 
 /* Crossword Enhanced Styles */

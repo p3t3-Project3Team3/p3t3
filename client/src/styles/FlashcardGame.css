@@ -4,22 +4,32 @@
 
 /* Study Info */
 .study-info {
-  background-color: #eff6ff;
+  background-color: var(--color-accent);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: var(--space-lg);
+  border:  1px solid black;
   border-radius: var(--radius-md);
 }
 
 .card-counter {
-  color: var(--color-text-secondary);
+  color: black;
 }
 
-.stat-correct { color: var(--color-green-success); }
-.stat-incorrect { color: var(--color-red-error); }
-.stat-streak { color: #9333ea; }
+.stat-correct {
+  font-size: 1.2rem;
+  color: var(--color-green-success); 
+}
+.stat-incorrect { 
+  font-size: 1.2rem;
+  color: var(--color-red-error); 
+}
+.stat-streak {
+  font-size: 1.2rem; 
+  color: #9333ea; 
+}
 
 /* Mode Selector */
 .mode-selector {
@@ -113,19 +123,17 @@
 }
 
 .card-front {
-  background: linear-gradient(145deg, #3b82f6, #A5D8FF);
   transform: rotateY(0deg) !important;
   z-index: 2;
 }
 
 .card-back {
-  background: linear-gradient(90deg, #0b7c56, #84E296);
   transform: rotateY(180deg) !important;
   z-index: 1;
 }
 
 .card-content {
-  background-color: var(--color-primary);
+  background: linear-gradient(145deg, var(--color-primary), var(--color-blue-light));
   text-align: center;
   height: 100%;
   width: 100%;
@@ -139,7 +147,7 @@
 }
 
 .card-label {
-  color: var(--color-text-inverse);
+  color: black;
   font-size: 0.8rem;         
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -150,7 +158,7 @@
 }
 
 .card-text {
-  color: var(--color-text-inverse);
+  color: black;
   padding: var(--space-sm);  
   font-size: 1.3rem;         
   font-weight: var(--font-weight-medium);
@@ -162,7 +170,7 @@
 }
 
 .card-instruction {
-  color: var(--color-text-inverse);
+  color: black;
   font-size: 0.9rem;        
   opacity: 0.8;
   font-weight: var(--font-weight-normal);

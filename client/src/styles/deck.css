@@ -1,5 +1,6 @@
 .deckContainer{
   display: flex;
+    padding-bottom: 100px;
   justify-content: space-around;
   h2{
     color: black;
@@ -18,6 +19,11 @@
   margin: 5px;
   padding: 5px;
 }
+
+.decks-grid {
+  padding-bottom: 100px;
+}
+
 .card-term{
   font-size: 20px;
   font-weight: bold;
