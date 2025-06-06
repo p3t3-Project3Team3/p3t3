@@ -1,44 +1,46 @@
 .deckContainer{
-    display: flex;
-    justify-content: space-around;
-    h2{
-       color: black;
-       font-size: 35px;
-       text-align: center;
-      }
-      p{
-         color: black;
-         font-size: 20px;
-         text-align: center;
-      }
-   }
+  display: flex;
+  justify-content: space-around;
+  h2{
+    color: black;
+    font-size: 35px;
+    text-align: center;
+  }
+  p{
+    color: black;
+    font-size: 20px;
+    text-align: center;
+  }
+}
 .decks{
-   border: 2px solid black;
-   border-radius: 15px;
-   margin: 5px;
-   padding: 5px;
+  border: 2px solid black;
+  border-radius: 15px;
+  margin: 5px;
+  padding: 5px;
 }
 .card-term{
-    font-size: 20px;
-    font-weight: bold;
-    color: black;
-    background-color: azure;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  background-color: azure;
     width: 100%;
-}
-.decks-header{
+  }
+  .decks-header{
     display: flex;
+    color:  black;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     background-color: var(--light-bg-color);
     border-bottom: 1px solid var(--dark-bg-color);
     text-shadow:1px 1px 2px black;
-}
-.section-title{
+  }
+  .section-title{
     font-size: 24px;
     font-weight: bold;
     text-shadow:1px 1px 2px black;
     text-align: center;
+    color:  black;
 }
 .deck-card{
   padding: 2px;
@@ -55,6 +57,12 @@
     background-color: var(--light-bg-color);
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    .header{
+      color: black
+    }
+    .description p{
+      color: black;
+    }
 }
 .card-count{
     font-size: 15px;
@@ -62,20 +70,23 @@
     text-shadow:1px 1px 2px black;
     text-align: center;
 }
+
+.deck-meta{
+  color: black;
+}
 .deck-description{
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
-    
-    
+    color: black;
 }
 
 .ui.cards>.card{
   background-color: rgba(20, 200, 255, 0.597);
   box-shadow: -5px 8px 8px rgb(0, 67, 87);
 }
-.ui.cards>.card{
-  background-color: rgba(20, 200, 255, 0.597);
-  box-shadow: -5px 8px 8px rgb(0, 67, 87);
+.ui.cards>.card:hover{
+  background-color: #601bd094;
+  box-shadow: -5px 8px 8px #1806366b;
 }
 
 @media (max-width: 575px) {
@@ -100,10 +111,38 @@
   }
   
 }
-  
+
 .dark{
-  .ui.cards>.card{
-      background-color: rgba(141, 20, 255, 0.597);
-      box-shadow: -5px 8px 8px rgb(71, 0, 138);
+  .decks-header{
+    color: white;
+  }
+   .section-title{
+    color: white;
+   }
+   .deck-meta{
+     color: white;
+   }
+   .deck-description{
+       color: white;
+   }
+   .ui.cards>.card{
+     background-color: #003E38;
+      box-shadow: -5px 8px 8px #005a516e;
     }
+   .ui.cards>.card:hover{
+     background-color: #cdff1a8b;
+      box-shadow: -5px 8px 8px #cdff1a46;
+    }
+  .ui.inverted.grey.button{
+    background-color: rgba(206, 206, 206, 0.738);
+    color:black;
+  }
+  .content{
+    header{
+      color: white
+    }
+    .description p{
+      color: white;
+    }
+}
 }

@@ -41,7 +41,7 @@ const Stats: React.FC = () => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${Profile.username}_game_stats.json`;
+    a.download = `${username}_game_stats.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
