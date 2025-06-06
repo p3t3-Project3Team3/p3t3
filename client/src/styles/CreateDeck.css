@@ -3,10 +3,13 @@
 }
 
 .ui.form .field .ui.input input:focus {
-    background-color: #d4adcfc4;
+    background-color: var(--color-accent-alt);
   }
+.ui.form .field textarea:focus {
+   background-color: var(--color-accent-alt);
+}
 
-.create-deck-form {
+div.create-deck-form {
   margin-top: 50px;
 }
 

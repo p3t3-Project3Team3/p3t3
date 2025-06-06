@@ -274,9 +274,9 @@ const DeckDetail: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>{deck.title}</h2>
-      <p>{deck.description}</p>
+    <div className='view-a-deck'>
+      <h2 className='deck-title'>{deck.title}</h2>
+      <p className='deck-description'> {deck.description}</p>
 
       {/* View Mode Toggle */}
       <div className="view-mode-toggle">

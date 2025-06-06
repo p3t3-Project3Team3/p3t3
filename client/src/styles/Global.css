@@ -295,13 +295,15 @@
 .stat-item {
   text-align: center;
   padding: var(--space-lg);
+  border: 2px solid black;
   border-radius: var(--radius-md);
   min-width: 100px;
-  background: var(--color-bg-primary);
+  background: var(--color-accent);
   box-shadow: var(--shadow-sm);
 }
 
 .stat-value {
+  color: black;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-xs);
@@ -309,15 +311,13 @@
 
 .stat-label {
   font-size: var(--font-size-sm);
+  color: black;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 /* Stat Color Variants */
-.stat-item-blue { background-color: #eff6ff; }
-.stat-item-green { background-color: #f0fdf4; }
-.stat-item-purple { background-color: #faf5ff; }
-.stat-item-orange { background-color: #fff7ed; }
+
 
 .stat-value-blue { color: #2563eb; }
 .stat-value-green { color: var(--color-green-success); }
@@ -741,6 +741,7 @@ html {
 
   .game-item {
     padding: var(--space-sm);
+    
   }
 
   .memory-card {
