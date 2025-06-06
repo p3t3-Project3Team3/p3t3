@@ -14,6 +14,8 @@
   transform: rotateY(180deg);
 }
 
+
+
 /* Additional 3D effect enhancements */
 .card-container:hover .card-3d {
   transform: scale(1.02);

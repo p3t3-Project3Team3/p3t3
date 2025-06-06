@@ -64,10 +64,10 @@
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     .header{
-      color: black
+      color: white
     }
     .description p{
-      color: black;
+      color: white;
     }
 }
 .card-count{
@@ -87,7 +87,7 @@
 }
 
 .ui.cards>.card{
-  background-color: rgba(20, 200, 255, 0.597);
+  background-color: rgba(20, 200, 255, 0.747);
   box-shadow: -5px 8px 8px rgb(0, 67, 87);
 }
 .ui.cards>.card:hover{
