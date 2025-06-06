@@ -1,0 +1,92 @@
+/* Modal Container */
+.custom-modal {
+  background-color: #2D7DD2!important; /* override default */
+  border-radius: 16px !important;
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Modal Header */
+.custom-modal .header {
+   background-color: #1559a1 !important; /* override default */
+   font-size: 1.8rem;
+   font-weight: bold ;
+   text-align: center;
+   color: black !important;
+   /* border-bottom: 2px solid #ddd; */
+   padding-bottom: 10px;
+   margin-bottom: 15px;
+}
+
+.custom-modal h3{
+   text-align: center;
+}
+/* Modal Content */
+.custom-modal .content {
+   color: black !important;
+   background-color: #2D7DD2 !important; /* override default */
+   font-size: 1.1rem;
+   color: #333;   line-height: 1.6;
+}
+
+.ui.modal>.actions{
+   background-color: #2D7DD2 !important; /* override default */
+   /* border-top: 2px solid #ddd; */
+   padding: 15px;
+   display: flex;
+   justify-content: flex-end;
+}
+/* Emphasis Styling */
+.custom-modal em {
+   color: #777;
+   font-size: 0.95rem;
+}
+
+/* Strong Tag */
+.custom-modal strong {
+  color: #EEB902 !important;
+}
+
+.dark{
+   .custom-modal {
+     background-color: #474647 !important; /* override default */
+   }
+   
+   /* Modal Header */
+   .custom-modal .header {
+      background-color: #5f5f5f !important; /* override default */
+      color: white !important;
+
+   }
+   
+
+.ui.basic.button{
+   background-color: #474647 !important; 
+}
+.custom-modal h3{
+      text-align: center;
+   }
+   /* Modal Content */
+   .custom-modal .content {
+      color: rgb(214, 214, 214) !important;
+      background-color: #474647 !important; /* override default */
+      font-size: 1.1rem;
+   }
+   
+   .ui.modal>.actions{
+      background-color: #474647 !important; /* override default */
+   }
+   
+   /* Strong Tag */
+   .custom-modal strong {
+      color: #CEFF1A !important;
+   }
+   
+   .ui.yellow.button{
+      background-color: #CEFF1A !important;
+      color: black !important;
+   }
+   .ui.basic.button{
+      background-color: #d6dfdd !important; 
+   }
+}

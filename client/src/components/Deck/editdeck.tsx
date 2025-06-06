@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { QUERY_SINGLE_DECK, QUERY_ALL_DECKS } from "../../utils/queries";
 import { UPDATE_DECK, DELETE_DECK } from "../../utils/mutations";
 import { Modal, Button, Form, Message, Confirm } from "semantic-ui-react";
+import "../../styles/EditModal.css";
 
 interface Deck {
   _id: string;
@@ -254,6 +255,7 @@ const EditDeck: React.FC<EditDeckProps> = ({
   return (
     <>
       <Modal 
+        className="custom-modal"
         open={modalOpen} 
         onClose={handleCloseModal} 
         size="small"
@@ -335,7 +337,7 @@ const EditDeck: React.FC<EditDeckProps> = ({
           {!isEditing ? (
             <>
               <Button 
-                primary 
+               color="yellow"
                 onClick={handleStartEdit}
                 disabled={isLoading}
                 icon="edit"
@@ -343,7 +345,6 @@ const EditDeck: React.FC<EditDeckProps> = ({
               />
               <Button 
                 color="red"
-                  inverted 
                 onClick={() => setShowDeleteConfirm(true)}
                 disabled={isLoading}
                 icon="trash"

@@ -113,6 +113,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
 
   return (
     <Modal 
+      className="custom-modal"
       open={modalOpen} 
       onClose={() => setModalOpen(false)} 
       size="tiny"
@@ -131,7 +132,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
               <p><strong>Example:</strong> {selectedCard.example}</p>
             )}
             {selectedCard.createdByUsername && (
-              <p style={{ fontSize: '0.9em', color: '#666' }}>
+              <p>
                 Created by: {selectedCard.createdByUsername.username}
               </p>
             )}
@@ -176,15 +177,13 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
           <>
 
             <Button 
-              color="blue" 
-              inverted
+              color="yellow" 
               onClick={() => setIsEditing(true)}
             >
               <i className="edit outline icon"></i> Edit
             </Button>
             <Button
               color="red"
-              inverted
               onClick={handleDelete}
               loading={deleteLoading}
               disabled={deleteLoading}
