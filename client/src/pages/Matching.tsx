@@ -447,6 +447,7 @@ const Matching: React.FC = () => {
       } touchable`}
       onClick={() => handleCardClick(card)}
     >
+     
       <div className="card-inner">
         {/* Card Back - should show when NOT flipped */}
         <div className="card-face card-back">
@@ -465,6 +466,7 @@ const Matching: React.FC = () => {
         </div>
       </div>
     </div>
+
   ))}
 </div>
 
