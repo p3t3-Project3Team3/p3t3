@@ -17,9 +17,8 @@ const Decks: React.FC = () => {
   const navigate = useNavigate();
   const { loading, error, data: allDecksData } = useQuery<DecksData>(QUERY_ALL_DECKS);
 
-  const [deleteFlashcard] = useMutation(DELETE_FLASHCARD);
+  // const [deleteFlashcard] = useMutation(DELETE_FLASHCARD);
   const [expandedDeckId, setExpandedDeckId] = useState<string | null>(null);
-  const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [selectedCard, setSelectedCard] = useState<Flashcard | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -28,43 +27,6 @@ const Decks: React.FC = () => {
     navigate(`/deck/${deckId}`);
   };
 
-  const handleCardClick = (cardId: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    setExpandedCardId((prev) => (prev === cardId ? null : cardId));
-  };
-
-
-
-  const handleDelete = async (cardId: string) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this flashcard?"
-    );
-    if (!confirmDelete) return;
-
-    try {
-      await deleteFlashcard({
-  variables: { id: cardId },
-  update(cache, { data: { deleteFlashcard } }) {
-    if (deleteFlashcard) {
-      const existingData = cache.readQuery<{ getAllDecks: Deck[] }>({ query: QUERY_ALL_DECKS });
-      if (!existingData) return;
-
-      const updatedDecks = existingData.getAllDecks.map(deck => ({
-        ...deck,
-        flashcards: deck.flashcards.filter((card: { _id: string; }) => card._id !== cardId),
-      }));
-
-      cache.writeQuery({
-        query: QUERY_ALL_DECKS,
-        data: { getAllDecks: updatedDecks },
-      });
-    }
-  }
-});
-    } catch (err) {
-      console.error("Error deleting flashcard:", err);
-    }
-  };
 
   if (loading)
     return (
@@ -138,18 +100,23 @@ const Decks: React.FC = () => {
               {deck.flashcards.length > 0 && (
                 <div className="ui cards">
                   {flashcardsToShow.map((card: Flashcard) => (
-                    <div
-                      className={`card ${
-                        expandedCardId === card._id ? "expanded-card" : ""
-                      }`}
-                      key={card._id}
-                      onClick={(e) => handleCardClick(card._id, e)}
-                    >
+                    <div className="card" key={card._id}>
                       <div className="content">
                         <div className="header">
                           {card.term}
+                        </div>
+                        <div className="description">
+                          <p>
+                            <strong>Definition:</strong> {card.definition}
+                            <p><strong>Example:</strong> {card.example || "No example provided."}</p>
+                          </p>
+                        </div>
+                        <div className="meta">
+                          Created By: {card.createdByUsername?.username ?? "Unknown"}
+                        </div>
+                      </div>
                           <button
-                            className="mini ui right floated basic grey button "
+                            className="huge ui inverted grey button "
                             onClick={(e) => {
                               e.stopPropagation(); // prevent deck click
                               setSelectedCard(card);
@@ -158,50 +125,6 @@ const Decks: React.FC = () => {
                           >
                             Expand
                           </button>
-                        </div>
-                        <div className="description">
-                          <p>
-                            <strong>Definition:</strong> {card.definition}
-                          </p>
-                          {expandedCardId === card._id && (
-                            <p>
-                              <strong>Example:</strong>{" "}
-                              {card.example || "No example provided."}
-                            </p>
-                          )}
-                        </div>
-                        <div className="meta">
-                          Created By: {card.createdByUsername?.username ?? "Unknown"}
-                        </div>
-                      </div>
-
-                      {expandedCardId === card._id && (
-                        <div className="extra content">
-                          <div className="ui two buttons">
-                           
-                            <div
-                              className="ui basic blue button"
-                               onClick={(e) => {
-                                e.stopPropagation();
-                                setSelectedCard(card);
-                                setModalOpen(true);
-                              }}
-                            >
-                              <i className="pencil alternate icon"></i>Edit
-                            </div>
-                            <div
-                              className="ui basic red button"
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleDelete(card._id);
-                              }}
-                            >
-                              <i className="trash alternate icon"></i>
-                              Delete
-                            </div>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   ))}
                 </div>
@@ -259,13 +182,10 @@ const Decks: React.FC = () => {
           deckId={selectedCard._id}
           refetch={() => {
             setModalOpen(false);
-            setExpandedCardId(null);
           }
           }
         /> 
         )}
-
-    
        </main>  
   );
 }; 

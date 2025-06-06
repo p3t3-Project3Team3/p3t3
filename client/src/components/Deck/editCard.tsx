@@ -177,14 +177,14 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
 
             <Button 
               color="blue" 
-              basic 
+              inverted
               onClick={() => setIsEditing(true)}
             >
               <i className="edit outline icon"></i> Edit
             </Button>
             <Button
               color="red"
-              basic
+              inverted
               onClick={handleDelete}
               loading={deleteLoading}
               disabled={deleteLoading}
