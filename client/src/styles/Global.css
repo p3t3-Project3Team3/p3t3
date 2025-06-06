@@ -158,9 +158,10 @@
 }
 
 .study-title {
-  font-size: var(--font-size-2xl);
+  font-size: 5vh;
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: var(--color-accent);
+  text-shadow:  0 2px black;;
   margin-bottom: var(--space-sm);
 }
 
@@ -358,7 +359,7 @@
 .progress-text {
   text-align: center;
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: black;
 }
 
 /* Modal Components */

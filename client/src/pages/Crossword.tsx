@@ -630,7 +630,7 @@ const Crossword: React.FC = () => {
       </div>
 
       <div className="crossword-main">
-        <div>
+        <div className='crossword-grid-wrapper'>
           {/* Grid */}
           <div className="crossword-grid-container">
             <div 
@@ -667,21 +667,21 @@ const Crossword: React.FC = () => {
 
           {/* Controls */}
           <div className="crossword-controls">
-            <button onClick={checkSolution} className="control-button btn-primary">
+            <button onClick={checkSolution} className="control-button ui violet button" disabled={gameStats.completed}>
               Check Solution
             </button>
-            <button onClick={showWordHint} className="control-button btn-secondary" disabled={!selectedWord}>
+            <button onClick={showWordHint} className="control-button ui yellow button" disabled={!selectedWord}>
               Show Hint
             </button>
-            <button onClick={clearGrid} className="control-button btn-danger">
+            <button onClick={clearGrid} className="control-button ui red button">
               Clear Grid
             </button>
-            <button onClick={resetGame} className="control-button btn-success">
+            <button onClick={resetGame} className="control-button ui green button">
               Reset Game
             </button>
             <button 
               onClick={() => navigate(`/deck/${id}`)} 
-              className="control-button btn-secondary"
+              className="control-button ui red button"
             >
               Back to Deck
             </button>
@@ -761,7 +761,7 @@ const Crossword: React.FC = () => {
             <h3 className="hint-title">Hint</h3>
             <p className="hint-text">{currentHint}</p>
             <div className="hint-buttons">
-              <button onClick={() => setShowHint(false)} className="control-button btn-primary">
+              <button onClick={() => setShowHint(false)} className="control-button ui yellow button">
                 Got it!
               </button>
             </div>

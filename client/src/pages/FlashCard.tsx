@@ -253,7 +253,7 @@ const FlashCard = () => {
           <div className="header">Deck Not Found</div>
           <p>The requested deck could not be found.</p>
           <button 
-            className="ui button" 
+            className="ui red button" 
             onClick={() => navigate('/game/flashCards/Decks')}
           >
             Back to Decks
@@ -281,7 +281,7 @@ const FlashCard = () => {
               Add Flashcards
             </button>
             <button 
-              className="ui button"
+              className="ui red button"
               onClick={() => navigate('/game/flashCards/Decks')}
             >
               Back to Decks
@@ -409,7 +409,7 @@ const FlashCard = () => {
         <div className="mode-buttons">
           <button
             onClick={() => switchStudyMode('sequential')}
-            className={`mode-button ${
+            className={`ui blue button mode-button ${
               studyMode === 'sequential' ? 'mode-button-active' : 'mode-button-inactive'
             }`}
           >
@@ -417,7 +417,7 @@ const FlashCard = () => {
           </button>
           <button
             onClick={() => switchStudyMode('random')}
-            className={`mode-button ${
+            className={` ui violet button mode-button ${
               studyMode === 'random' ? 'mode-button-active' : 'mode-button-inactive'
             }`}
           >
@@ -426,7 +426,7 @@ const FlashCard = () => {
           <button
             onClick={() => switchStudyMode('incorrect')}
             disabled={incorrectCards.length === 0}
-            className={`mode-button ${
+            className={` ui green button mode-button ${
               studyMode === 'incorrect' 
                 ? 'mode-button-active' 
                 : incorrectCards.length === 0
@@ -513,19 +513,19 @@ const FlashCard = () => {
         <button
           onClick={previousCard}
           disabled={currentCardIndex === 0}
-          className="nav-button nav-button-gray"
+          className="ui yellow button"
         >
           Previous
         </button>
 
-        <button onClick={() => navigate(`/deck/${id}`)} className="nav-button nav-button-light-gray">
+        <button onClick={() => navigate(`/deck/${id}`)} className="ui red button">
           Back to Deck
         </button>
 
         <button
           onClick={nextCard}
           disabled={currentCardIndex === studyCards.length - 1}
-          className="nav-button nav-button-gray"
+          className="ui violet button"
         >
           Skip
         </button>
