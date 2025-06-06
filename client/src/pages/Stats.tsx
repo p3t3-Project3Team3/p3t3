@@ -214,34 +214,34 @@ const Stats: React.FC = () => {
         <div className="stat-card gradient-purple">
           <h3 className="stat-card-title">🏆 Achievements</h3>
           <div className="stat-card-content">
-            {stats.flashcards.bestStreak >= 10 && (
+            {stats.flashcards.bestStreak >= 8 && (
               <div className="achievement-item">
                 <span className="achievement-icon">🔥</span>
-                <span>Flashcard Master (10+ streak)</span>
+                <span>Flashcard Master (8+ streak)</span>
               </div>
             )}
-            {stats.matching.perfectGames >= 5 && (
+            {stats.matching.perfectGames >= 1 && (
               <div className="achievement-item">
                 <span className="achievement-icon">🎯</span>
-                <span>Memory Expert (5+ perfect games)</span>
+                <span>Memory Expert (1+ perfect games)</span>
               </div>
             )}
-            {stats.linkup.perfectGames >= 3 && (
+            {stats.linkup.perfectGames >= 1 && (
               <div className="achievement-item">
                 <span className="achievement-icon">🔗</span>
-                <span>Connection Master (3+ perfect LinkUps)</span>
+                <span>Connection Master (1+ perfect LinkUps)</span>
               </div>
             )}
-            {stats.crossword.perfectSolves >= 3 && (
+            {stats.crossword.perfectSolves >= 1 && (
               <div className="achievement-item">
                 <span className="achievement-icon">🧠</span>
-                <span>Puzzle Genius (3+ no-hint solves)</span>
+                <span>Puzzle Genius (1+ no-hint solves)</span>
               </div>
             )}
-            {totalGamesPlayed >= 50 && (
+            {totalGamesPlayed >= 10 && (
               <div className="achievement-item">
                 <span className="achievement-icon">🎮</span>
-                <span>Gaming Enthusiast (50+ games)</span>
+                <span>Gaming Enthusiast (10+ games)</span>
               </div>
             )}
             {totalGamesPlayed < 1 && (
