@@ -6,6 +6,15 @@
   font-family: 'Segoe UI', sans-serif;
 }
 
+.custom-modal.ui.modal {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+  z-index: 1000;
+}
+
 /* Modal Header */
 .custom-modal .header {
    background-color: #1559a1 !important; /* override default */
