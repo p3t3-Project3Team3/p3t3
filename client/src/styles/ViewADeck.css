@@ -3,15 +3,22 @@ h2 {
   font-family: 'Concert One', cursive;
   font-size: 3rem;
   color: white;
-    text-shadow: 0 0 5px var(--primary-color), 0 0 10px #EEB902, 0 0 20px var(--primary-color);
+  text-shadow: 4px 2px 2px #16311b;
 }
 
 .deck-description {
   color: white;
+  font-size: 20px;
+  color: white;
+  text-shadow: 1px 1px 1px var(--secondary-color);
 }
 
 .view-a-deck {
   padding: 20px;
+}
+
+p {
+  color: white;
 }
 /* =============================================================================
    View A Deck- Carousel and Flip Card Styles
