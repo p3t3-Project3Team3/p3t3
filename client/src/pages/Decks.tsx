@@ -43,7 +43,7 @@ const Decks: React.FC = () => {
         <p>Error: {error.message}</p>
         <button
           onClick={() => window.location.reload()}
-          className="retry-button"
+          className="retry-button touchable ui inverted red button"
         >
           Try Again
         </button>
@@ -56,7 +56,7 @@ const Decks: React.FC = () => {
         <h1>Welcome to your deck of FlashCards</h1>
         <button
           onClick={() => navigate("/decks/createNewDeck")}
-          className="large ui inverted green button"
+          className="large ui inverted green button touchable"
         >
           Create New Deck
         </button>
@@ -80,7 +80,7 @@ const Decks: React.FC = () => {
               onClick={() => deck._id && handleDeckClick(deck._id as string)}
             >
               <div className="deck-header">
-                <button className=" fluid massive inverted ui yellow button ">{deck.title}</button>
+                <button className=" fluid massive inverted ui yellow button touchable">{deck.title}</button>
                 <div className="deck-meta">
                   <span className="card-count">
                     {deck.flashcards.length}{" "}
@@ -115,7 +115,7 @@ const Decks: React.FC = () => {
                         </div>
                       </div>
                           <button
-                            className="huge ui inverted grey button "
+                            className="huge ui inverted grey button touchable"
                             onClick={(e) => {
                               e.stopPropagation(); // prevent deck click
                               setSelectedCard(card);
@@ -132,7 +132,7 @@ const Decks: React.FC = () => {
               {deck.flashcards.length > 3 && (
                 <div style={{ marginTop: "1em" }}>
                   <button
-                    className="ui violet button"
+                    className="ui violet button touchable"
                     onClick={(e) => {
                       e.stopPropagation();
                       setExpandedDeckId((prevId) =>

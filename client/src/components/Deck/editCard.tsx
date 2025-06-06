@@ -143,6 +143,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
               <label>Term *</label>
               <input
                 type="text"
+                className="touchable input-field"
                 value={editTerm}
                 onChange={(e) => setEditTerm(e.target.value)}
                 placeholder="Enter term"
@@ -152,6 +153,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
             <div className="field">
               <label>Definition *</label>
               <textarea
+                className="touchable input-field"
                 value={editDefinition}
                 onChange={(e) => setEditDefinition(e.target.value)}
                 placeholder="Enter definition"
@@ -162,6 +164,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
             <div className="field">
               <label>Example (Optional)</label>
               <textarea
+                className="touchable input-field"
                 value={editExample}
                 onChange={(e) => setEditExample(e.target.value)}
                 placeholder="Enter example (optional)"
@@ -177,12 +180,14 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
           <>
 
             <Button 
+              className="touchable"
               color="yellow" 
               onClick={() => setIsEditing(true)}
             >
               <i className="edit outline icon"></i> Edit
             </Button>
             <Button
+              className="touchable"
               color="red"
               onClick={handleDelete}
               loading={deleteLoading}
@@ -194,6 +199,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
         ) : (
           <>
             <Button
+              className="touchable"
               color="green"
               onClick={handleEditSubmit}
               loading={updateLoading}
@@ -202,6 +208,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
               <i className="save icon"></i> Save Changes
             </Button>
             <Button 
+              className="touchable"
               basic 
               onClick={handleCancel}
               disabled={updateLoading}
@@ -210,7 +217,7 @@ const FlashcardEdit: React.FC<FlashcardEditProps> = ({
             </Button>
           </>
         )}
-        <Button onClick={() => setModalOpen(false)}>Close</Button>
+        <Button onClick={() => setModalOpen(false)} className="touchable">Close</Button>
       </Modal.Actions>
     </Modal>
   );

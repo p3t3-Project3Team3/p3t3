@@ -36,7 +36,7 @@ const SelectDeck: React.FC<Props> = ({ gamePath }) => {
         <div>
             <h1>Select a Deck!</h1>
             {data.getAllDecks.map((deck: any) => (
-                <button className='ui violet button'key={deck._id} onClick={() => handleSelect(deck._id)}>
+                <button className='ui violet button touchable'key={deck._id} onClick={() => handleSelect(deck._id)}>
                     <h2>{deck.title}</h2>
                     <p>{deck.description}</p>
                 </button>

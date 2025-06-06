@@ -51,6 +51,7 @@ const Signup = () => {
                      <label>Name</label>
                     <div className="ui left icon input">
                     <input
+                     className='touchable input-field'
                       placeholder="name"
                       name="name"
                       type="text"
@@ -64,6 +65,7 @@ const Signup = () => {
                      <label>Username</label>
                     <div className="ui left icon input">
                     <input
+                      className='touchable input-field'
                       placeholder="username"
                       name="username"
                       type="text"
@@ -77,6 +79,7 @@ const Signup = () => {
               <label>Email</label>
               <div className="ui left icon input">
                     <input
+                      className='touchable input-field'
                       placeholder="Your email"
                       name="email"
                       type="email"
@@ -90,6 +93,7 @@ const Signup = () => {
               <label>Password</label>
               <div className="ui left icon input">
                     <input
+                      className='touchable input-field'
                       placeholder="******"
                       name="password"
                       type="password"
@@ -110,7 +114,7 @@ const Signup = () => {
   <button
     style={{ cursor: 'pointer' }}
     type="submit"
-    className="ui violet submit button"
+    className="ui violet submit button touchable"
   >
     Submit
   </button>

@@ -1,0 +1,370 @@
+/* Mobile Breakpoints and Responsive Design */
+
+/* Base mobile-first approach */
+/* Default styles apply to mobile (320px and up) */
+
+/* Small phones (320px - 480px) */
+@media only screen and (max-width: 480px) {
+  .container {
+    padding: 10px;
+    margin: 0 5px;
+  }
+  
+  .card {
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 8px;
+  }
+  
+  .button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .text-primary {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+  
+  .text-header {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .stats-container {
+    padding: 15px;
+    margin: 10px 0;
+  }
+ 
+  .gameoptions button {
+        margin: 0;
+    }
+  .game-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  
+  .stat-item {
+    padding: 10px;
+    border-radius: 6px;
+    background: #f5f5f5;
+  }
+  
+  .flashcard {
+    width: 100%;
+    min-height: 200px;
+    padding: 20px;
+    margin: 10px 0;
+  }
+  
+  .navigation {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .nav-item {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    margin: 2px 0;
+  }
+    .content {
+        padding: 5px;
+        margin: 0 auto;
+        max-width: 100%;
+        max-height: 175px;  
+    }
+}
+
+/* Large phones (481px - 767px) */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  .container {
+    padding: 15px;
+    margin: 0 10px;
+  }
+  
+  .card {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .button {
+    width: auto;
+    min-width: 120px;
+    padding: 12px 20px;
+    margin: 5px;
+  }
+  
+  .text-primary {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  
+  .text-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  
+  .stats-container {
+    padding: 20px;
+    margin: 15px 0;
+  }
+  
+  .game-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  
+  .stat-item {
+    padding: 12px;
+    border-radius: 8px;
+  }
+  
+  .flashcard {
+    width: 100%;
+    min-height: 220px;
+    padding: 25px;
+    margin: 15px 0;
+  }
+  
+  .navigation {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  .nav-item {
+    flex: 1;
+    margin: 0 5px;
+    padding: 12px;
+  }
+  .content {
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 600px;
+    max-height: 300px;  
+  }
+}
+
+/* Tablets (768px - 1023px) */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    padding: 20px;
+    margin: 0 20px;
+    max-width: 700px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .game-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .flashcard {
+    width: 100%;
+    min-height: 250px;
+    padding: 30px;
+  }
+}
+
+/* Desktop (1024px and up) */
+@media only screen and (min-width: 1024px) {
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+  
+  .game-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+  
+  .flashcard {
+    max-width: 400px;
+    min-height: 300px;
+    padding: 35px;
+  }
+}
+
+/* Utility classes for responsive visibility */
+.hide-mobile {
+  display: none;
+}
+
+.show-mobile {
+  display: block;
+}
+
+@media only screen and (min-width: 768px) {
+  .hide-mobile {
+    display: block;
+  }
+  
+  .show-mobile {
+    display: none;
+  }
+}
+
+/* Touch-friendly interactive elements for mobile */
+@media only screen and (max-width: 767px) {
+  .touchable {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px;
+  }
+  
+  .input-field {
+    padding: 15px;
+    font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .modal {
+    width: 95%;
+    max-width: none;
+    margin: 20px auto;
+    border-radius: 12px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .stats-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .game-button {
+    padding: 20px;
+    font-size: 18px;
+    margin: 10px 0;
+    border-radius: 10px;
+  }
+  
+  /* Specific classes for your game stats */
+  .flashcard-stats,
+  .matching-stats,
+  .linkup-stats,
+  .crossword-stats {
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .stat-value {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .stat-label {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  .time-display {
+    font-family: monospace;
+    font-size: 16px;
+  }
+  
+  .accuracy-display {
+    color: #28a745;
+    font-weight: bold;
+  }
+}
+
+/* Landscape orientation adjustments for phones */
+@media only screen and (max-width: 767px) and (orientation: landscape) {
+  .container {
+    padding: 10px 20px;
+  }
+  
+  .flashcard {
+    min-height: 150px;
+    padding: 15px;
+  }
+  
+  .navigation {
+    flex-direction: row;
+  }
+  
+  .modal {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .game-area {
+    height: calc(100vh - 120px);
+  }
+}
+
+/* High DPI/Retina display optimizations */
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+       only screen and (min-resolution: 192dpi) {
+  .icon {
+    image-rendering: -webkit-optimize-contrast;
+  }
+  
+  .game-board {
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animated {
+    animation: none;
+    transition: none;
+  }
+  
+  .card-flip {
+    transform: none;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .stat-item {
+    background: #2d2d2d;
+    color: #fff;
+  }
+  
+  .card {
+    background: #1e1e1e;
+    color: #fff;
+    border: 1px solid #444;
+  }
+  
+  
+}

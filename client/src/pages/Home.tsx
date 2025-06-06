@@ -179,7 +179,7 @@ const Home: React.FC = () => {
       <div className="quick-actions">
         <div className="action-buttons">
           <button 
-            className="ui large violet button shadow"
+            className="ui large violet button shadow touchable"
             onClick={() => handleNavigation('/game/flashCards/Decks')} 
           >
             <i className="clone outline icon"></i>
@@ -204,7 +204,7 @@ const Home: React.FC = () => {
               </span>
             </div>
             <button 
-              className="ui violet button"
+              className="ui violet button touchable"
               onClick={() => handleGameSelection('flashcard')}
               disabled={availableDecks.length === 0}
               aria-label={availableDecks.length === 0 ? 'No decks available for flashcard study' : 'Start flashcard study'}
@@ -224,7 +224,7 @@ const Home: React.FC = () => {
               </span>
             </div>
             <button 
-              className="ui violet button"
+              className="ui violet button touchable"
               onClick={() => handleGameSelection('memory')}
               disabled={memoryGameDecks.length === 0}
               aria-label={memoryGameDecks.length === 0 ? 'Need at least 2 cards per deck for memory game' : 'Start memory matching game'}
@@ -244,7 +244,7 @@ const Home: React.FC = () => {
               </span>
             </div>
             <button 
-              className="ui violet button"
+              className="ui violet button touchable"
               onClick={() => handleGameSelection('crossword')}
               disabled={crosswordGameDecks.length === 0}
               aria-label={crosswordGameDecks.length === 0 ? 'Need at least 6 cards per deck for crossword puzzles' : 'Start crossword puzzle'}
@@ -262,7 +262,7 @@ const Home: React.FC = () => {
           <h3>Get Started!</h3>
           <p>Create your first flashcard deck to begin your learning journey.</p>
           <button 
-            className="ui large primary button"
+            className="ui large primary button touchable"
             onClick={() => handleNavigation('/decks/createNewDeck')}
             aria-label="Create your first flashcard deck"
           >

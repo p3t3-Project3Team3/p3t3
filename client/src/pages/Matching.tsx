@@ -375,7 +375,7 @@ const Matching: React.FC = () => {
         {(Object.keys(difficultySettings) as Difficulty[]).map(level => (
           <button
             key={level}
-            className={`difficulty-button ${difficulty === level ? 'active' : ''}`}
+            className={`difficulty-button ${difficulty === level ? 'active' : ''} touchable`}
             onClick={() => changeDifficulty(level)}
             disabled={gameStats.gameStarted && !gameStats.gameCompleted}
           >
@@ -420,17 +420,17 @@ const Matching: React.FC = () => {
 
       {/* Game Controls */}
       <div className="game-controls">
-        <button onClick={resetGame} className="control-button ui violet button">
+        <button onClick={resetGame} className="control-button ui violet button touchable">
           New Game
         </button>
         <button 
           onClick={showHint} 
-          className="control-button  ui yellow button"
+          className="control-button  ui yellow button touchable"
           disabled={gameStats.gameCompleted || isProcessing}
         >
           Show Hint
         </button>
-        <button onClick={() => navigate(`/deck/${id}`)} className="ui red button">
+        <button onClick={() => navigate(`/deck/${id}`)} className="ui red button touchable">
           Back to Deck
         </button>
       </div>
@@ -444,7 +444,7 @@ const Matching: React.FC = () => {
         card.isMatched ? 'matched' : ''
       } ${card.isMismatch ? 'mismatch' : ''} ${
         isProcessing && flippedCards.some(fc => fc.id === card.id) ? 'disabled' : ''
-      }`}
+      } touchable`}
       onClick={() => handleCardClick(card)}
     >
       <div className="card-inner">
@@ -524,19 +524,19 @@ const Matching: React.FC = () => {
                   setShowComplete(false);
                   resetGame();
                 }} 
-                className="modal-button btn-primary"
+                className="modal-button btn-primary touchable"
               >
                 Play Again
               </button>
               <button 
                 onClick={() => navigate('/stats')} 
-                className="modal-button btn-secondary"
+                className="modal-button btn-secondary touchable"
               >
                 View Stats
               </button>
               <button 
                 onClick={() => setShowComplete(false)} 
-                className="modal-button btn-tertiary"
+                className="modal-button btn-tertiary touchable"
               >
                 Close
               </button>

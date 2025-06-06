@@ -20,10 +20,11 @@ import CreateDeck from "./pages/createDeck";
 import ViewDeck from "./pages/ViewADeck.js";
 import Stats from "./pages/Stats";
 import'./styles/Global.css'
+import './styles/mobileBreakpoints.css';
+import './styles/TouchFriendly.css';
 
 
 
-// Suppress findDOMNode warning from Semantic UI React
 const originalError = console.error;
 console.error = (...args) => {
   if (

@@ -124,7 +124,7 @@ const DeckDetail: React.FC = () => {
         {/* Carousel Controls */}
         <div className="carousel-controls">
           <button 
-            className="ui circular icon button"
+            className="ui circular icon button touchable"
             onClick={prevCard}
             disabled={flashcards.length <= 1}
           >
@@ -138,7 +138,7 @@ const DeckDetail: React.FC = () => {
           </div>
           
           <button 
-            className="ui circular icon button"
+            className="ui circular icon button touchable"
             onClick={nextCard}
             disabled={flashcards.length <= 1}
           >
@@ -183,7 +183,7 @@ const DeckDetail: React.FC = () => {
         <div className="card-actions">
           <div className="ui three buttons">
             <button
-              className="ui inverted yellow button"
+              className="ui inverted yellow button touchable"
               onClick={(e) => {
                 e.stopPropagation();
                 setSelectedCard(currentCard);
@@ -193,13 +193,13 @@ const DeckDetail: React.FC = () => {
               <i className="pencil alternate icon"></i> Edit
             </button>
             <button
-              className="ui inverted green button"
+              className="ui inverted green button touchable"
               onClick={flipCard}
             >
               <i className="refresh icon"></i> Flip
             </button>
             <button
-              className="ui inverted red button"
+              className="ui inverted red button touchable"
               onClick={(e) => {
                 e.stopPropagation();
                 handleDelete(currentCard._id);
@@ -256,7 +256,7 @@ const DeckDetail: React.FC = () => {
                   </div>
                 </div>
                     <button
-                      className="huge ui inverted grey button"
+                      className="huge ui inverted grey button touchable"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedCard(card);

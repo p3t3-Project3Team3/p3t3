@@ -543,7 +543,7 @@ const Crossword: React.FC = () => {
           <div className="header">Error Loading Crossword</div>
           <p>{error.message}</p>
           <button 
-            className="ui button" 
+            className="ui button touchable" 
             onClick={() => navigate('/game/flashCards/Decks')}
           >
             Back to Decks
@@ -560,7 +560,7 @@ const Crossword: React.FC = () => {
           <div className="header">Deck Not Found</div>
           <p>The requested deck could not be found.</p>
           <button 
-            className="ui button" 
+            className="ui button touchable" 
             onClick={() => navigate('/game/flashCards/Decks')}
           >
             Back to Decks
@@ -581,13 +581,13 @@ const Crossword: React.FC = () => {
           <p>This deck needs at least 3 flashcards to generate a crossword puzzle.</p>
           <div className="inline">
             <button 
-              className="ui primary button"
+              className="ui primary button touchable"
               onClick={() => navigate(`/deck/${id}/new-card`)}
             >
               Add More Cards
             </button>
             <button 
-              className="ui button"
+              className="ui button touchable"
               onClick={() => navigate('/game/flashCards/Decks')}
             >
               Back to Decks
@@ -605,7 +605,7 @@ const Crossword: React.FC = () => {
           <div className="header">Cannot Generate Crossword</div>
           <p>Unable to create a crossword from the available flashcards. Please ensure your flashcard terms contain only letters and are 3-12 characters long.</p>
           <button 
-            className="ui button" 
+            className="ui button touchable" 
             onClick={() => navigate('/game/flashCards/Decks')}
           >
             Back to Decks
@@ -667,21 +667,21 @@ const Crossword: React.FC = () => {
 
           {/* Controls */}
           <div className="crossword-controls">
-            <button onClick={checkSolution} className="control-button ui violet button" disabled={gameStats.completed}>
+            <button onClick={checkSolution} className="control-button ui violet button touchable" disabled={gameStats.completed}>
               Check Solution
             </button>
-            <button onClick={showWordHint} className="control-button ui yellow button" disabled={!selectedWord}>
+            <button onClick={showWordHint} className="control-button ui yellow button touchable" disabled={!selectedWord}>
               Show Hint
             </button>
-            <button onClick={clearGrid} className="control-button ui red button">
+            <button onClick={clearGrid} className="control-button ui red button touchable">
               Clear Grid
             </button>
-            <button onClick={resetGame} className="control-button ui green button">
+            <button onClick={resetGame} className="control-button ui green button touchable">
               Reset Game
             </button>
             <button 
               onClick={() => navigate(`/deck/${id}`)} 
-              className="control-button ui red button"
+              className="control-button ui red button touchable"
             >
               Back to Deck
             </button>
@@ -761,7 +761,7 @@ const Crossword: React.FC = () => {
             <h3 className="hint-title">Hint</h3>
             <p className="hint-text">{currentHint}</p>
             <div className="hint-buttons">
-              <button onClick={() => setShowHint(false)} className="control-button ui yellow button">
+              <button onClick={() => setShowHint(false)} className="control-button ui yellow button touchable">
                 Got it!
               </button>
             </div>

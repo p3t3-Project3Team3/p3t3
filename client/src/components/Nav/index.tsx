@@ -15,30 +15,30 @@ if (!isAuthenticated) {
       <Navbar expand="lg" className="navbar">
       <Container>
         {/* Hamburger Toggle Button */}
-        <Navbar.Toggle aria-controls="basic-navbar-nav" className="white-toggle"/>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="white-toggle touchable"/>
 
         {/* Collapsible Navbar */}
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="navbar-nav">
-            <Nav.Link as={NavLink} to="/Home" className="navbar-link">
+            <Nav.Link as={NavLink} to="/Home" className="navbar-link touchable">
               Home
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/decks/createNewDeck" className="navbar-link">
+            <Nav.Link as={NavLink} to="/decks/createNewDeck" className="navbar-link touchable">
               Create Deck
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/game/flashCards/Decks" className="navbar-link">
+            <Nav.Link as={NavLink} to="/game/flashCards/Decks" className="navbar-link touchable">
               View Decks
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/game" className="navbar-link">
+            <Nav.Link as={NavLink} to="/game" className="navbar-link touchable">
               Games
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/AboutUs" className="navbar-link">
+            <Nav.Link as={NavLink} to="/AboutUs" className="navbar-link touchable">
               About Us
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/stats" className="navbar-link">
+            <Nav.Link as={NavLink} to="/stats" className="navbar-link touchable">
               Stats
             </Nav.Link>
-            <Nav.Link onClick={logout} className="navbar-link">
+            <Nav.Link onClick={logout} className="navbar-link touchable">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="30"

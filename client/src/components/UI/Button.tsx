@@ -26,7 +26,7 @@ export default function Button({
     <button
       type={type}
       onClick={onClick}
-      className={`${baseStyle} ${variantStyles[variant]} ${className}`}
+      className={`${baseStyle} ${variantStyles[variant]} ${className} touchable`}
     >
       {children}
     </button>

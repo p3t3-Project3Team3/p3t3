@@ -61,6 +61,7 @@ const CreateDeck = () => {
           <Form.Field required>
             <label>Deck Title</label>
             <Form.Input
+              className="touchable input-field"
               name="deckTitle"
               placeholder="Enter a title"
               value={title}
@@ -72,6 +73,7 @@ const CreateDeck = () => {
           <Form.Field>
             <label>Description</label>
             <TextArea
+            className="touchable input-field"
               name="deckDescription"
               placeholder="Enter a brief description (optional)"
               value={description}
@@ -89,7 +91,7 @@ const CreateDeck = () => {
           )}
 
           <Form.Group widths="equal">
-            <Button type="submit" className="ui violet button" fluid disabled={loading}>
+            <Button type="submit" className="ui violet button touchable" fluid disabled={loading}>
               {loading ? 'Creating...' : 'Create Deck'}
             </Button>
             <Button

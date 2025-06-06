@@ -163,7 +163,7 @@ const handleCreate = async () => {
             <button
               onClick={handleCreate}
               disabled={isCreating || !term.trim() || !definition.trim()}
-              className="ui violet button"
+              className="ui violet button touchable"
             >
               {isCreating ? 'Creating...' : 'Add Flashcard'}
             </button>
@@ -172,12 +172,12 @@ const handleCreate = async () => {
             
             <button
               onClick={handleClearForm}
-              className="ui red button"
+              className="ui red button touchable"
             >
               Clear Form
             </button>
               
-            <button onClick={handleDone} className="ui green button">Done</button>
+            <button onClick={handleDone} className="ui green button touchable">Done</button>
   
           </div>
         </div>

@@ -58,7 +58,7 @@ const Deck: React.FC = () => {
         <div className="header">Deck not found</div>
         <p>The requested deck could not be found.</p>
         <button 
-          className="ui button" 
+          className="ui button primary touchable" 
           onClick={() => navigate('/game/flashCards/Decks')}
         >
           Back to Decks
@@ -97,7 +97,7 @@ const Deck: React.FC = () => {
       <div className="deck-actions">
         <div className="ui buttons">
           <button 
-            className="ui violet button"
+            className="ui violet button touchable"
             onClick={() => navigate(`/flashcard/${deck._id}/flashCards`)}
             disabled={deck.flashcards.length === 0}
           >
@@ -105,7 +105,7 @@ const Deck: React.FC = () => {
             Study Flashcards
           </button>
           <button 
-            className="ui teal button"
+            className="ui teal button touchable"
             onClick={() => navigate(`/matching/${deck._id}`)}
             disabled={deck.flashcards.length < 2}
           >
@@ -113,7 +113,7 @@ const Deck: React.FC = () => {
             Memory Game
           </button>
           <button 
-            className="ui orange button"
+            className="ui orange button touchable"
             onClick={() => navigate(`/crossword/${deck._id}`)}
             disabled={deck.flashcards.length < 6}
           >
@@ -122,16 +122,16 @@ const Deck: React.FC = () => {
           </button>
         </div>
         
-        <div className="ui buttons">
+        <div className="ui buttons ">
           <button 
-            className="ui blue button"
+            className="ui blue button touchable"
             onClick={() => navigate(`/deck/${deck._id}/new-card`)}
           >
             <i className="plus icon"></i>
             Add Cards
           </button>
           <button 
-            className="ui basic button"
+            className="ui basic button touchable"
             onClick={() => navigate('/game/flashCards/Decks')}
           >
             <i className="arrow left icon"></i>
@@ -154,7 +154,7 @@ const Deck: React.FC = () => {
               No flashcards in this deck yet
             </div>
             <button 
-              className="ui primary button"
+              className="ui primary button  touchable"
               onClick={() => navigate(`/deck/${deck._id}/new-card`)}
             >
               Add Your First Card

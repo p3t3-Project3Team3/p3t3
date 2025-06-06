@@ -2,8 +2,8 @@
 h2 {
   font-family: 'Concert One', cursive;
   font-size: 3rem;
-  color: white;
-  text-shadow: 4px 2px 2px #16311b;
+   color: white;
+  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
 }
 
 .deck-description {
@@ -20,6 +20,7 @@ h2 {
 p {
   color: white;
 }
+
 /* =============================================================================
    View A Deck- Carousel and Flip Card Styles
    ============================================================================= */
@@ -44,7 +45,7 @@ p {
 
 .carousel-counter span {
   font-size: 14px;
-  color: #666;
+  color: white;
 }
 
 /* Card Container */

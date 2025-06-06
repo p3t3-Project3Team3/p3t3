@@ -315,7 +315,7 @@ const LinkUp: React.FC = () => {
           <br />
           <button 
             onClick={() => navigate('/game/flashCards/Decks')}
-            className="control-button btn-reset"
+            className="control-button ui red button touchable"
             style={{ marginTop: '1rem' }}
           >
             Back to Decks
@@ -333,7 +333,7 @@ const LinkUp: React.FC = () => {
           <br />
           <button 
             onClick={() => navigate('/game/flashCards/Decks')}
-            className="control-button btn-reset"
+            className="control-button ui red button touchable"
             style={{ marginTop: '1rem' }}
           >
             Back to Decks
@@ -381,20 +381,20 @@ const LinkUp: React.FC = () => {
       <div className="game-controls">
         <button
           onClick={clearConnections}
-          className="control-button ui red button"
+          className="control-button ui red button touchable"
         >
           Clear Lines
         </button>
         <button
           onClick={resetGame}
-          className="control-button ui yellow button"
+          className="control-button ui yellow button touchable"
         >
           New Game
         </button>
         
         <button
           onClick={() => navigate(`/deck/${id}`)}
-          className="control-button ui red button"
+          className="control-button ui red button touchable"
         >
           Back to Deck
         </button>

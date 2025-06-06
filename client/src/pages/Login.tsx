@@ -82,7 +82,7 @@ const Login = () => {
     <p>Thank you for coming back!</p>
   </div>
 )}
-                <button type="submit" className="ui violet submit button">
+                <button type="submit" className="ui violet submit button touchable">
                   Login
                 </button>
               </form>

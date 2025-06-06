@@ -27,10 +27,9 @@ const Header = () => {
   return (
     <header>
       <button onClick={toggleDarkMode}>
-          <i className={`${darkMode ? 'moon icon' : 'sun icon'}`}></i>
-        </button>
+        <i className={`${darkMode ? 'moon icon' : 'sun icon'} touchable`}></i>
+      </button>
       <h1>Study Quest</h1>
-    
     </header>
   );
 };

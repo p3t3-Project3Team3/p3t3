@@ -337,13 +337,15 @@ const EditDeck: React.FC<EditDeckProps> = ({
           {!isEditing ? (
             <>
               <Button 
+                className="touchable"
                color="yellow"
                 onClick={handleStartEdit}
                 disabled={isLoading}
                 icon="edit"
                 content="Edit"
               />
-              <Button 
+              <Button
+                className="touchable"
                 color="red"
                 onClick={() => setShowDeleteConfirm(true)}
                 disabled={isLoading}
@@ -353,7 +355,8 @@ const EditDeck: React.FC<EditDeckProps> = ({
             </>
           ) : (
             <>
-              <Button 
+              <Button
+                className="touchable" 
                 positive 
                 onClick={handleSubmitDeckEdit}
                 loading={isLoading}
@@ -362,6 +365,7 @@ const EditDeck: React.FC<EditDeckProps> = ({
                 content="Save Changes"
               />
               <Button 
+                className="touchable"
                 onClick={handleCancelEdit}
                 disabled={isLoading}
                 icon="cancel"
@@ -370,7 +374,8 @@ const EditDeck: React.FC<EditDeckProps> = ({
             </>
           )}
           
-          <Button 
+          <Button
+            className="touchable"
             onClick={handleCloseModal}
             disabled={isLoading}
             icon="close"

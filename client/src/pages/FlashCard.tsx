@@ -236,7 +236,7 @@ const FlashCard = () => {
           <div className="header">Error Loading Deck</div>
           <p>{error.message}</p>
           <button 
-            className="ui button" 
+            className="ui button touchable red" 
             onClick={() => navigate('/game/flashCards/Decks')}
           >
             Back to Decks
@@ -253,7 +253,7 @@ const FlashCard = () => {
           <div className="header">Deck Not Found</div>
           <p>The requested deck could not be found.</p>
           <button 
-            className="ui red button" 
+            className="ui red button touchable" 
             onClick={() => navigate('/game/flashCards/Decks')}
           >
             Back to Decks
@@ -275,13 +275,13 @@ const FlashCard = () => {
           </div>
           <div className="inline">
             <button 
-              className="ui primary button"
+              className="ui primary button touchable"
               onClick={() => navigate(`/deck/${id}/new-card`)}
             >
               Add Flashcards
             </button>
             <button 
-              className="ui red button"
+              className="ui red button touchable"
               onClick={() => navigate('/game/flashCards/Decks')}
             >
               Back to Decks
@@ -360,21 +360,21 @@ const FlashCard = () => {
         </div>
 
         <div className="button-group">
-          <button onClick={restartStudy} className="btn-primary">
+          <button onClick={restartStudy} className="ui primary button touchable">
             Study Again
           </button>
           
           {incorrectCards.length > 0 && (
-            <button onClick={() => switchStudyMode('incorrect')} className="btn-secondary">
+            <button onClick={() => switchStudyMode('incorrect')} className="ui yellow button touchable">
               Review Incorrect Cards ({incorrectCards.length})
             </button>
           )}
           
-          <button onClick={() => navigate(`/deck/${id}`)} className="btn-tertiary">
+          <button onClick={() => navigate(`/deck/${id}`)} className="ui red button touchable">
             Back to Deck
           </button>
           
-          <button onClick={() => navigate('/stats')} className="btn-stats">
+          <button onClick={() => navigate('/stats')} className="ui green button touchable">
             View All Stats
           </button>
         </div>
@@ -411,7 +411,7 @@ const FlashCard = () => {
             onClick={() => switchStudyMode('sequential')}
             className={`ui blue button mode-button ${
               studyMode === 'sequential' ? 'mode-button-active' : 'mode-button-inactive'
-            }`}
+            } touchable`}
           >
             Sequential
           </button>
@@ -419,7 +419,7 @@ const FlashCard = () => {
             onClick={() => switchStudyMode('random')}
             className={` ui violet button mode-button ${
               studyMode === 'random' ? 'mode-button-active' : 'mode-button-inactive'
-            }`}
+            } touchable`}
           >
             Random
           </button>
@@ -432,7 +432,7 @@ const FlashCard = () => {
                 : incorrectCards.length === 0
                 ? 'mode-button-disabled'
                 : 'mode-button-inactive'
-            }`}
+            } touchable`}
           >
             Review Incorrect ({incorrectCards.length})
           </button>
@@ -453,7 +453,7 @@ const FlashCard = () => {
       <div className="card-container">
         <div className="card-wrapper">
           <motion.div
-            className="card"
+            className="card touchable"
             initial="front"
             animate={isFlipped ? "back" : "front"}
             variants={cardVariants}
@@ -499,10 +499,10 @@ const FlashCard = () => {
       {/* Answer Buttons */}
       {showAnswer && (
         <div className="answer-buttons">
-          <button onClick={() => handleAnswer(false)} className="answer-button answer-incorrect">
+          <button onClick={() => handleAnswer(false)} className="answer-button answer-incorrect touchable">
             ✗ Incorrect
           </button>
-          <button onClick={() => handleAnswer(true)} className="answer-button answer-correct">
+          <button onClick={() => handleAnswer(true)} className="answer-button answer-correct  touchable">
             ✓ Correct
           </button>
         </div>
@@ -513,19 +513,19 @@ const FlashCard = () => {
         <button
           onClick={previousCard}
           disabled={currentCardIndex === 0}
-          className="ui yellow button"
+          className="ui yellow button touchable"
         >
           Previous
         </button>
 
-        <button onClick={() => navigate(`/deck/${id}`)} className="ui red button">
+        <button onClick={() => navigate(`/deck/${id}`)} className="ui red button touchable">
           Back to Deck
         </button>
 
         <button
           onClick={nextCard}
           disabled={currentCardIndex === studyCards.length - 1}
-          className="ui violet button"
+          className="ui violet button touchable"
         >
           Skip
         </button>

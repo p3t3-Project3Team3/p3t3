@@ -613,7 +613,7 @@ const Stats: React.FC = () => {
               onClick={() => setActiveTab(tab.key as any)}
               className={`stats-tab-button ${
                 activeTab === tab.key ? `active ${tab.color}` : ''
-              }`}
+              } touchable`}
             >
               {tab.label}
             </button>
@@ -633,13 +633,13 @@ const Stats: React.FC = () => {
         <div className="stats-actions">
           <button
             onClick={handleExportStats}
-            className="action-button blue"
+            className="action-button blue touchable"
           >
             📊 Export Stats
           </button>
           <button
             onClick={handleResetStats}
-            className="action-button red"
+            className="action-button red touchable"
           >
             🔄 Reset Stats
           </button>
