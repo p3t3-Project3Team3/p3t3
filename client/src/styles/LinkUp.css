@@ -17,13 +17,14 @@
 .linkup-title {
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
+  color: white;
+  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
   margin-bottom: var(--space-sm);
 }
 
 .linkup-subtitle {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-base);
+  color: black;
+  font-size: 1.25rem; 
 }
 
 /* Game Completed Message */
@@ -46,7 +47,7 @@
 /* Game Area */
 .game-area {
   position: relative;
-  background-color: var(--color-bg-secondary);
+  
   border-radius: var(--radius-md);
   padding: var(--space-xl);
   min-height: 400px;
@@ -82,7 +83,8 @@
 .column-title {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
-  color: #374151;
+  color: var(--color-accent);
+  text-shadow: 0 2px black;
   text-align: center;
   margin-bottom: var(--space-lg);
 }
@@ -122,11 +124,13 @@
 }
 
 .term-text {
+  color: black;
   font-weight: var(--font-weight-semibold);
   text-align: center;
 }
 
 .definition-text {
+  color:black;
   font-size: var(--font-size-sm);
   text-align: center;
   line-height: var(--line-height-normal);

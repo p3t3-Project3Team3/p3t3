@@ -381,27 +381,22 @@ const LinkUp: React.FC = () => {
       <div className="game-controls">
         <button
           onClick={clearConnections}
-          className="control-button btn-clear"
+          className="control-button ui red button"
         >
           Clear Lines
         </button>
         <button
           onClick={resetGame}
-          className="control-button btn-reset"
+          className="control-button ui yellow button"
         >
           New Game
         </button>
+        
         <button
           onClick={() => navigate(`/deck/${id}`)}
-          className="control-button btn-reset"
+          className="control-button ui red button"
         >
           Back to Deck
-        </button>
-        <button
-          onClick={() => navigate('/stats')}
-          className="control-button btn-stats"
-        >
-          View Stats
         </button>
       </div>
 
