@@ -358,7 +358,7 @@
 .progress-text {
   text-align: center;
   font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  color: black;
 }
 
 /* Modal Components */
