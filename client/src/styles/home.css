@@ -2,7 +2,8 @@
 .main-title{
   text-align: center;
   font-size: 60px;
-  color: black;
+  color: white;
+  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
   margin-top: 30px;
   padding-top: 5px;
   margin-bottom: 0px;
@@ -17,9 +18,7 @@
   padding: 5px;
 }
 
-.main-title {
- color: white;
-}
+
 
 .hero-subtitle{
   text-align: center;
@@ -58,12 +57,12 @@
   border-radius: 10px;
   align-items: center;
   padding: 20px;
-  background-color: rgba(227, 49, 150, 0.642);
+  background-color: #faac257f;
   color: var(--dark-text-color);
 }
 
 .stats-container .stat-item {
-  background-color: #84e295c0;
+  background-color: var(--light-accent-color);
   color: black;
   text-align: center;
   flex: 1;
@@ -71,14 +70,19 @@
 }
 
 .stat-item:hover {
-  background-color: #d4adcfbd;
+  background-color: #601bd0ca;
   transform: scale(1.05);
-  color: var(--secondary-color);
+  color: white;
   transition: transform 0.3s ease;
 }
 
+#1f5997
 .stat-item .stat-label {
-  color:rgb(230, 230, 230);
+  color:rgb(255, 244, 244);
+}
+
+.ui.button.shadow {
+   box-shadow: 0 0 10px rgba(241, 222, 241, 0.6) !important;
 }
 
 /*View decks button*/
@@ -94,7 +98,7 @@
 .games-section .section-title {
   text-align: center;
   font-size: 40px;
-  color: black;
+  color: white;
   margin-top: 20px;
   padding-bottom: 10px;
 }
@@ -106,11 +110,7 @@
   display: flex;
   justify-content: space-around;
   
-  h2{
-    color: black;
-    font-size: 35px;
-    text-align: center;
-  }
+  
   p{
     color: black;
     font-size: 20px;
@@ -123,7 +123,7 @@
 }
 
 .game-card:hover {
-  background-color:var(--light-color);
+  background-color: #faac25c5;
 } 
 
 .game-card h3 {
@@ -266,16 +266,16 @@
   }
 
   .stats-container {
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
   }
 
   .stat-item {
     flex: 1 1 200px;
-    margin: 10px;
     padding: 10px;
     text-align: center;
+    margin: 0 !important;
   }
 }
 @media (min-width: 576px) and (max-width: 767px) {
