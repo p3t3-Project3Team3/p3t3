@@ -136,6 +136,7 @@
 /* Action Buttons Container */
 .action-buttons-container {
   margin-top: 30px;
+  padding-bottom: 100px;
 }
 
 .action-buttons-container .ui.button {

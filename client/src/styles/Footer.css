@@ -1,11 +1,13 @@
 .footer { 
+  position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: 0 !important;
   width: 100%;
   text-align: center;
   background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
   display: flex;
   flex-direction: row;
+  /* z-index: 1000; */
   justify-content: space-between;
 }
 

@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { CREATE_DECK } from '../utils/mutations';
 import {
   Container,
-  div,
   Header,
   Form,
   TextArea,
@@ -51,10 +50,12 @@ const CreateDeck = () => {
   };
 
   return (
+  
+  <div className="create-deck-form">
     <Container className="create-deck">
       <div className=" ui violet inverted raised segment">
         <Header as="h1" textAlign="center">Create a New Deck</Header>
-
+      
         <Form onSubmit={handleSubmit} loading={loading}>
           <Form.Field required>
             <label>Deck Title</label>
@@ -102,7 +103,9 @@ const CreateDeck = () => {
           </Form.Group>
         </Form>
       </div>
+  
     </Container>
+  </div>
   );
 };
 

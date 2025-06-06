@@ -15,7 +15,7 @@ if (!isAuthenticated) {
       <Navbar expand="lg" className="navbar">
       <Container>
         {/* Hamburger Toggle Button */}
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="white-toggle"/>
 
         {/* Collapsible Navbar */}
         <Navbar.Collapse id="basic-navbar-nav">

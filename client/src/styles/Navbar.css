@@ -4,21 +4,51 @@
   margin: 0;
   padding-left: 13px;
   box-shadow: 1px 1px 2px var(--dark--bg-color, #0f172a);
+
   a {
+    position: relative;
     color: white;
-  }
-  a:hover {
-    color: var(--primary-color);
-    background-color:  #84e29591;
-    border-radius: 10%;
-  }
-  a:active {
-    color: #84E296;
-  }
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0px; /* Adjust to fine-tune distance from text */
+      width: 0%;
+      height: 2px;
+      color: var(--light-accent-color);
+      background-color: var(--light-accent-color); /* or var(--primary-color) if you prefer */
+      transition: width 0.3s ease;
+    }
+
+      &:hover {
+        color: var(--light-accent-color);
+
+        &::after {
+          width: 100%;
+        }
+      }
+     &.active::after {
+        width: 100%;
+        color: var(--light-accent-color);
+      }
+    
+    }
+
+    
+
+    button.navbar-toggler {
+      color: var(--light-accent-color);
+
+      /* background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='25' height='19' viewBox='0 0 25 19'><path fill='white' d='M0 0h25v19H0z'/></svg>"); */
+    }
 
   .navbar-nav .nav-link.active {
     color: var(--light-accent-color);
-    text-decoration: underline;
+    
+    /* text-decoration: underline; */
   }
 
 .navbar-nav {
@@ -41,10 +71,6 @@
   padding: 10px 10px;
 }
 
-.nav-link.active {
-  color: var(--primary-color);
-  text-decoration: underline;
-}
  
 
 

@@ -6,6 +6,11 @@
     background-color: #d4adcfc4;
   }
 
+.create-deck-form {
+  margin-top: 50px;
+}
+
+
 .title {
 text-align: center;
   font-size: 60px;
