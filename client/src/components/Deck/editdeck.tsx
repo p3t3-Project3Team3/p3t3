@@ -342,7 +342,8 @@ const EditDeck: React.FC<EditDeckProps> = ({
                 content="Edit"
               />
               <Button 
-                color="red" 
+                color="red"
+                  inverted 
                 onClick={() => setShowDeleteConfirm(true)}
                 disabled={isLoading}
                 icon="trash"

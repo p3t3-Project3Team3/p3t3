@@ -95,6 +95,7 @@ const handleCreate = async () => {
   const deck: Deck = data.getSingleDeck;
 
   return (
+    <div className='newcard-page'>
     <div className=" justify-center container-lg">
       {/* Header */}
       <div className="form-header">
@@ -205,7 +206,7 @@ const handleCreate = async () => {
           </div>
         
       </div>
-    
+    </div>
   );
 };
 

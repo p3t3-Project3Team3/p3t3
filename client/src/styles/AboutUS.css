@@ -1,4 +1,5 @@
 .about{
+   padding-bottom: 100px;
    color: black;
    h1{
       font-size: 40px;
@@ -18,6 +19,7 @@
       font-size: 22px;
       color:var(--color-dark-primary);
    }
+   
 }
 
 .dark{

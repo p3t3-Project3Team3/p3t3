@@ -1,3 +1,8 @@
+
+.newcard-page {
+  padding-bottom: 100px;
+}
+
 .bigform-container {
   max-width: 700px;
   margin: 40px auto;
@@ -10,6 +15,7 @@
 .form-header {
   text-align: center;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 
@@ -18,12 +24,12 @@
   position: relative;
   display: inline-block;
   padding: 10px 20px;  
-  border: 2px solid black;
   width: fit-content;
   border-radius: 5px;
-  background-color:var(--color-accent);
+  background-color:var(--secondary-color);
+  box-shadow: 0 4px 20px rgba(6, 5, 5, 0.565);;
   font-size: 1.5rem;
-  color: black;
+  color: white;
 }
 
 .form {
@@ -36,10 +42,10 @@
 .form-create {
   color:var(--color-accent);
   text-shadow:
-    -1px -1px 0 black,
-     1px -1px 0 black,
-    -1px  1px 0 black,
-     1px  1px 0 black; 
+    -1px -1px 0 rgba(0, 0, 0, 0.266),
+     1px -1px 0 rgba(0, 0, 0, 0.266),
+    -1px  1px 0 rgba(0, 0, 0, 0.266),
+     1px  1px 0 rgba(0, 0, 0, 0.266); 
 }
 
 .form-field {
@@ -49,8 +55,13 @@
 .form-label {
   font-size: 1.1rem;
   font-weight: 600;
-  color: black;
+  color: white !important;
   margin-bottom: 8px;
+  text-shadow:
+      -1px -1px 0 rgba(0, 0, 0, 0.266),
+      1px -1px 0 rgba(0, 0, 0, 0.266),
+      -1px  1px 0 rgba(0, 0, 0, 0.266),
+      1px  1px 0 rgba(0, 0, 0, 0.266); 
 }
 
 .form-textarea {

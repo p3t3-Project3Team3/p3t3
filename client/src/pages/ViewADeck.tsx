@@ -26,10 +26,6 @@ const DeckDetail: React.FC = () => {
   const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
   const [isFlipped, setIsFlipped] = React.useState(false);
 
-  const handleCardClick = (cardId: string) => {
-    setExpandedCardId(expandedCardId === cardId ? null : cardId);
-  };
-
   const handleDelete = (cardId: string) => {
     if (window.confirm("Are you sure you want to delete this flashcard?")) {
       console.log(`Deleting flashcard with ID: ${cardId}`);
@@ -187,7 +183,7 @@ const DeckDetail: React.FC = () => {
         <div className="card-actions">
           <div className="ui three buttons">
             <button
-              className="ui basic blue button"
+              className="ui inverted yellow button"
               onClick={(e) => {
                 e.stopPropagation();
                 setSelectedCard(currentCard);
@@ -197,13 +193,13 @@ const DeckDetail: React.FC = () => {
               <i className="pencil alternate icon"></i> Edit
             </button>
             <button
-              className="ui basic green button"
+              className="ui inverted green button"
               onClick={flipCard}
             >
               <i className="refresh icon"></i> Flip
             </button>
             <button
-              className="ui basic red button"
+              className="ui inverted red button"
               onClick={(e) => {
                 e.stopPropagation();
                 handleDelete(currentCard._id);
@@ -244,15 +240,23 @@ const DeckDetail: React.FC = () => {
           <div className="ui cards">
             {flashcards.map((card) => (
               <div
-                className={`card ${expandedCardId === card._id ? "expanded-card" : ""}`}
+                className= 'card'
                 key={card._id}
-                onClick={() => handleCardClick(card._id)}
               >
                 <div className="content">
                   <div className="header">
                     {card.term}
+                  </div>
+                  <div className="description">
+                    <p><strong>Definition:</strong> {card.definition}</p>
+                      <p><strong>Example:</strong> {card.example || "No example provided."}</p>
+                  </div>
+                  <div className="meta">
+                    Created By: {card.createdByUsername?.username || "Unknown"}
+                  </div>
+                </div>
                     <button
-                      className="mini ui right floated basic grey button"
+                      className="huge ui inverted grey button"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedCard(card);
@@ -261,43 +265,6 @@ const DeckDetail: React.FC = () => {
                     >
                       Expand
                     </button>
-                  </div>
-                  <div className="description">
-                    <p><strong>Definition:</strong> {card.definition}</p>
-                    {expandedCardId === card._id && (
-                      <p><strong>Example:</strong> {card.example || "No example provided."}</p>
-                    )}
-                  </div>
-                  <div className="meta">
-                    Created By: {card.createdByUsername?.username || "Unknown"}
-                  </div>
-                </div>
-
-                {expandedCardId === card._id && (
-                  <div className="extra content">
-                    <div className="ui three buttons">
-                      <div
-                        className="ui basic blue button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedCard(card);
-                          setModalOpen(true);
-                        }}
-                      >
-                        <i className="pencil alternate icon"></i> Edit
-                      </div>
-                      <div
-                        className="ui basic red button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDelete(card._id);
-                        }}
-                      >
-                        <i className="trash alternate icon"></i> Delete
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             ))}
           </div>
@@ -307,21 +274,21 @@ const DeckDetail: React.FC = () => {
   };
 
   return (
-    <div>
-      <h2>{deck.title}</h2>
-      <p>{deck.description}</p>
+    <div className='view-a-deck'>
+      <h2 className='deck-title'>{deck.title}</h2>
+      <p className='deck-description'> {deck.description}</p>
 
       {/* View Mode Toggle */}
       <div className="view-mode-toggle">
         <div className="ui buttons">
           <button 
-            className={`ui button ${viewMode === 'grid' ? 'blue' : ''}`}
+            className={`ui button ${viewMode === 'grid' ? 'black ' : ''}`}
             onClick={() => setViewMode('grid')}
           >
             <i className="grid layout icon"></i> Grid View
           </button>
           <button 
-            className={`ui button ${viewMode === 'carousel' ? 'blue' : ''}`}
+            className={`ui button ${viewMode === 'carousel' ? 'black' : ''}`}
             onClick={() => setViewMode('carousel')}
           >
             <i className="images icon"></i> Carousel View
