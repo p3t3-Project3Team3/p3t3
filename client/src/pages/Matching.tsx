@@ -420,17 +420,17 @@ const Matching: React.FC = () => {
 
       {/* Game Controls */}
       <div className="game-controls">
-        <button onClick={resetGame} className="control-button btn-primary">
+        <button onClick={resetGame} className="control-button ui violet button">
           New Game
         </button>
         <button 
           onClick={showHint} 
-          className="control-button btn-secondary"
+          className="control-button  ui yellow button"
           disabled={gameStats.gameCompleted || isProcessing}
         >
           Show Hint
         </button>
-        <button onClick={() => navigate(`/deck/${id}`)} className="btn-primary">
+        <button onClick={() => navigate(`/deck/${id}`)} className="ui red button">
           Back to Deck
         </button>
       </div>
@@ -450,7 +450,10 @@ const Matching: React.FC = () => {
       <div className="card-inner">
         {/* Card Back - should show when NOT flipped */}
         <div className="card-face card-back">
-          <div className="card-back-content"></div>
+          <div className="card-back-style">
+          <div>📖</div>
+          <div className="card-back-content">Study Quest</div>
+          </div>
         </div>
         
         {/* Card Front - should show when flipped */}

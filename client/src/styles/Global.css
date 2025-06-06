@@ -297,11 +297,12 @@
   padding: var(--space-lg);
   border-radius: var(--radius-md);
   min-width: 100px;
-  background: var(--color-bg-primary);
+  background: var(--color-accent);
   box-shadow: var(--shadow-sm);
 }
 
 .stat-value {
+  color: black;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-xs);
@@ -309,6 +310,7 @@
 
 .stat-label {
   font-size: var(--font-size-sm);
+  color: black;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
