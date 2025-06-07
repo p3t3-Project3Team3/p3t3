@@ -7,7 +7,7 @@
   background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
   display: flex;
   flex-direction: row;
-  /* z-index: 1000; */
+ 
   justify-content: space-between;
 }
 

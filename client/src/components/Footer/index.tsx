@@ -1,15 +1,15 @@
 
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import 'semantic-ui-css/semantic.min.css';
 import "../../styles/Footer.css";
 
 
-
 const Footer = (): React.ReactElement => {
-  // const location = useLocation();
+  const navigate = useNavigate();
 
-
+  
   
   
   return (
@@ -24,7 +24,7 @@ const Footer = (): React.ReactElement => {
           <p><i className="youtube icon"></i></p>
           
         </div>
-        <h4>&copy; {new Date().getFullYear()} - StudyQuest</h4>
+        <h4 onClick={() => navigate('/')}>&copy; {new Date().getFullYear()} - StudyQuest</h4>
       </div>
     </footer>
   );
