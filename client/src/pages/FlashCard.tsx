@@ -498,15 +498,15 @@ const FlashCard = () => {
 
       {/* Answer Buttons */}
       {showAnswer && (
-        <div className="answer-buttons">
-          <button onClick={() => handleAnswer(false)} className="answer-button answer-incorrect touchable">
-            ✗ Incorrect
-          </button>
-          <button onClick={() => handleAnswer(true)} className="answer-button answer-correct  touchable">
-            ✓ Correct
-          </button>
-        </div>
-      )}
+    <div className="answer-buttons">
+      <button onClick={() => handleAnswer(false)} className="answer-button answer-incorrect touchable">
+      ✗ Incorrect
+      </button>
+      <button onClick={() => handleAnswer(true)} className="answer-button answer-correct touchable">
+      ✓ Correct
+      </button>
+    </div>
+    )}
 
       {/* Navigation */}
       <div className="navigation">

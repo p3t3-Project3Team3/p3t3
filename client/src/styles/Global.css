@@ -632,10 +632,6 @@ html {
     gap: var(--space-lg);
   }
   
-  .nav-button {
-    width: 100%;
-    padding: var(--space-md);
-  }
   
   .mode-buttons {
     flex-direction: column;
