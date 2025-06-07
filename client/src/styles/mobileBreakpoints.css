@@ -49,15 +49,16 @@
     }
   .game-stats {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 12px;
   }
   
   
   .stat-item {
+    max-width: 30%;
+    max-height: 70px;
     padding: 10px;
     border-radius: 6px;
-    background: #f5f5f5;
   }
   
   .flashcard {
@@ -189,27 +190,6 @@
   }
 }
 
-/* Desktop (1024px and up) */
-@media only screen and (min-width: 1024px) {
-  
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-  }
-  
-  .game-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
-  }
-  
-  .flashcard {
-    max-width: 400px;
-    min-height: 300px;
-    padding: 35px;
-  }
-}
 
 /* Utility classes for responsive visibility */
 .hide-mobile {
@@ -287,7 +267,7 @@
   
   .stat-label {
     font-size: 14px;
-    color: #666;
+    
     margin-top: 5px;
   }
   
@@ -354,7 +334,6 @@
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .stat-item {
-    background: #2d2d2d;
     color: #fff;
   }
   

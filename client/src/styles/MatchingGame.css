@@ -258,3 +258,39 @@
 .no-cards-text {
   margin-bottom: var(--space-lg);
 }
+
+@media only screen and (max-width: 480px) {
+  .memory-game-title {
+    font-size: var(--font-size-3xl);
+  }
+
+  .memory-game-subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .difficulty-selector {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .difficulty-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .memory-game-board {
+    
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+  }
+
+  .memory-card {
+    justify-self: center;
+    height: 150px;
+    width: 100px;
+    
+  }
+  .card-back-style {
+   border: 0;
+  }
+}

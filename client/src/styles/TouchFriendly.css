@@ -1,8 +1,8 @@
 @media (max-width: 767px) {
   /* Increase touch target sizes */
-  button, .btn, .control-button, .answer-button {
+  button, .btn, .control-button{
     min-height: 44px;
-    min-width: 44px;
+    min-width: 24px;
   }
   
   /* Improve spacing for touch */
