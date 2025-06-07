@@ -19,6 +19,14 @@
   border-radius: var(--radius-md);
 }
 
+.study-title {
+  font-size: 5vh;
+  font-weight: var(--font-weight-bold);
+ color: white;
+  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
+  margin-bottom: var(--space-sm);
+}
+
 .card-counter {
   color: black;
 }
@@ -257,4 +265,52 @@
 
 .nav-button-light-gray:hover {
   background-color: var(--color-text-medium);
+}
+
+@media only screen and (max-width: 767px) {
+  /* Mobile Styles */
+  .study-title {
+    font-size: 4vh;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .study-container {
+    padding: 10px;
+  }
+
+  .study-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .mode-selector {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .mode-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-container {
+    margin-bottom: 20px;
+  }
+  .card.touchable {
+    justify-self: center;
+    height: 60%; 
+    width: 60%;
+    padding: 5px;
+  }
+
+  .card-wrapper {
+    width: 100%;
+    height: 50px; 
+  }
+
+  .card-content {
+    padding: var(--space-sm);
+  }
 }

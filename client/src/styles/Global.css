@@ -157,13 +157,7 @@
   margin-bottom: var(--space-sm);
 }
 
-.study-title {
-  font-size: 5vh;
-  font-weight: var(--font-weight-bold);
-  color: var(--color-accent);
-  text-shadow:  0 2px black;;
-  margin-bottom: var(--space-sm);
-}
+
 
 .game-subtitle {
   color: var(--color-text-secondary);
