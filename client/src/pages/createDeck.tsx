@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { CREATE_DECK } from '../utils/mutations';
 import {
   Container,
-  Header,
   Form,
   TextArea,
   Button,
