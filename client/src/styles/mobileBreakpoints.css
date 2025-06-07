@@ -233,9 +233,7 @@
 /* Touch-friendly interactive elements for mobile */
 @media only screen and (max-width: 767px) {
   .touchable {
-    min-height: 44px;
-    min-width: 44px;
-    padding: 12px;
+    touch-action: manipulation
   }
   
   .input-field {
