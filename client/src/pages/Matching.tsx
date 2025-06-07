@@ -526,19 +526,19 @@ const Matching: React.FC = () => {
                   setShowComplete(false);
                   resetGame();
                 }} 
-                className="modal-button btn-primary touchable"
+                className="modal-button ui blue button touchable"
               >
                 Play Again
               </button>
               <button 
                 onClick={() => navigate('/stats')} 
-                className="modal-button btn-secondary touchable"
+                className="modal-button ui violet button touchable"
               >
                 View Stats
               </button>
               <button 
                 onClick={() => setShowComplete(false)} 
-                className="modal-button btn-tertiary touchable"
+                className="modal-button ui red button touchable"
               >
                 Close
               </button>
