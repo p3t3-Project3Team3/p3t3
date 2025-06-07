@@ -49,8 +49,8 @@
   background: #e0e0e0;
 }
 .gamebutton{
-  color:var(--dark-color);
-  box-shadow: 1px 1px 2px var(--dark-color);
+  color:var(--color-dark-primar);
+  box-shadow: 1px 1px 2px var(--color-dark-primar);
 }
 @media (max-width: 575px) {
   .gameContainer, .deckContainer {
@@ -100,7 +100,7 @@
 }
 
 .game-container button {
-  background-color: var(--secondary-color, #EEB902); /* purple to blue */
+  background-color: var(--color-secondary);
   color: white;
   border: none;
   padding: 1rem 2rem;

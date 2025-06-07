@@ -26,7 +26,7 @@
   padding: 10px 20px;  
   width: fit-content;
   border-radius: 5px;
-  background-color:var(--secondary-color);
+  background-color:var(--color-secondary);
   box-shadow: 0 4px 20px rgba(6, 5, 5, 0.565);;
   font-size: 1.5rem;
   color: white;
@@ -42,7 +42,7 @@
 .form-create {
   font-size: 30px;
    color: white;
-  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
+  text-shadow:var(--shadow-title);
 }
 
 .form-field {
@@ -54,7 +54,7 @@
   font-weight: 600;
   color: white !important;
   margin-bottom: 8px;
-  text-shadow: 1px 1px 1px var(--secondary-color);
+  text-shadow: 1px 1px 1px var(--color-secondary);
 }
 
 .form-textarea {
@@ -71,7 +71,7 @@
 
 .form-textarea:focus {
   outline: none;
-  border-color: var(--secondary-color);
+  border-color: var(--color-secondary);
   box-shadow: 0 0 8px rgba(238, 185, 2, 0.3);
 }
 
@@ -82,7 +82,7 @@
 }
 
 .create-button {
-  background-color: var(--secondary-color);
+  background-color: var(--color-secondary);
   color: white;
   padding: 12px 20px;
   font-size: 1.2rem;

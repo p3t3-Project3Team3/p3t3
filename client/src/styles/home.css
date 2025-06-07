@@ -3,7 +3,7 @@
   text-align: center;
   font-size: 60px;
   color: white;
-  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
+  text-shadow: var(--shadow-title);
   margin-top: 30px;
   padding-top: 5px;
   margin-bottom: 0px;
@@ -58,11 +58,11 @@
   align-items: center;
   padding: 20px;
   background-color: #faac257f;
-  color: var(--dark-text-color);
+  color: var(--color-dark-text);
 }
 
 .stats-container .stat-item {
-  background-color: var(--light-accent-color);
+  background-color: var(--color-accent);
   color: black;
   text-align: center;
   flex: 1;
@@ -164,12 +164,12 @@
     }
     
     .stat-item{
-          background-color: var(--dark-color);
+          background-color: var(--color-dark-primar);
           color:black;
     }
     
     .stat-item:hover{
-          background-color: var(--dark-accent-color);
+          background-color: var(--color-dark-accent);
           color:black;
     }
 
@@ -184,7 +184,7 @@
     }
 
   .game-card .ui.violet.button{
-      background-color: var(--secondary-color-dark);
+      background-color: var(--color-dark-secondary);
       color: white;
     }
     /* GAME */
@@ -203,11 +203,11 @@
     }
     
     .game-card{
-      background-color: var(--dark-color);
+      background-color: var(--color-dark-primar);
     }
     
     .game-card:hover {
-      background-color:var(--dark-accent-color);
+      background-color:var(--color-dark-accent);
     } 
     
     .game-card h3 {
@@ -221,7 +221,7 @@
       }
       
       .games-section p {
-        color: var(--secondary-color-dark);
+        color: var(--color-dark-secondary);
       }
       
       .homeFlashcard, .homeMatching, .homeCrossword{

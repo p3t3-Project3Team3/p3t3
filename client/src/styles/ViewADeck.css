@@ -2,15 +2,15 @@
 .deck-title {
   font-family: 'Concert One', cursive;
   font-size: 3rem;
-   color: white;
-  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
+  color: white;
+  text-shadow: var(--shadow-title);
 }
 
 .deck-description {
   color: white;
   font-size: 20px;
   color: white;
-  text-shadow: 1px 1px 1px var(--secondary-color);
+  text-shadow: 1px 1px 1px var(--color-secondary);
 }
 
 .view-a-deck {

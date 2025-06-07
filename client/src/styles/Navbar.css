@@ -17,13 +17,13 @@
       bottom: 0px; 
       width: 0%;
       height: 2px;
-      color: var(--light-accent-color);
-      background-color: var(--light-accent-color); 
+      color: var(--color-accent);
+      background-color: var(--color-accent); 
       transition: width 0.3s ease;
     }
 
       &:hover {
-        color: var(--light-accent-color);
+        color: var(--color-accent);
 
         &::after {
           width: 100%;
@@ -31,7 +31,7 @@
       }
      &.active::after {
         width: 100%;
-        color: var(--light-accent-color);
+        color: var(--color-accent);
       }
     
     }
@@ -39,12 +39,12 @@
     
 
     button.navbar-toggler {
-      color: var(--light-accent-color);
+      color: var(--color-accent);
     }
 
   .navbar-nav .nav-link.active {
-    color: var(--light-accent-color);
-    /* text-decoration: underline; */
+    color: var(--color-accent);
+    
   }
 
 .navbar-nav {
@@ -73,7 +73,7 @@
 
 .dark {
   .navbar {
-    background-color: var(--secondary-color-dark);
+    background-color: var(--color-dark-secondary);
     a {
       color: white;
     };
@@ -85,9 +85,9 @@
   
 
  .navbar-nav .nav-link.active {
-    color: var(--dark-color);
-    text-decoration: underline;
+    color: var(--color-dark-primar);
   }
+ 
   
 
   

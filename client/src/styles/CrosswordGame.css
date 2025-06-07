@@ -19,7 +19,7 @@
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-bold);
   color: white;
-  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
+  text-shadow: var(--shadow-title);
   margin-bottom: var(--space-sm);
 }
 

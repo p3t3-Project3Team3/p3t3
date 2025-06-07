@@ -9,7 +9,7 @@
 }
 
 .ui.inverted.violet.segment {
-    background-color: var(--light-accent-color) !important;
+    background-color: var(--color-accent) !important;
 }
 
 .ui.form .field>label{
@@ -37,16 +37,16 @@
         background-color: rgb(72, 72, 71) !important;
     }
 .ui.violet.button {
-   background-color: var(--dark-color);
+   background-color: var(--color-dark-primar);
    color:black;
 }
 .ui.inverted.violet.segment {
-    background-color: var(--dark-bg-color) !important;
+    background-color: var( --color-dark-bg) !important;
 }
 
 
 .ui.form .field .ui.input input:focus {
-    background-color: var(--dark-accent-color);
+    background-color: var(--color-dark-accent);
 
 }
 }

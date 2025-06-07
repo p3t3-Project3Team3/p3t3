@@ -1,5 +1,5 @@
 h1{ color: white;
-  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
+  var(--shadow-title);
 }
 .deckContainer{
   display: flex;
@@ -40,8 +40,8 @@ h1{ color: white;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: var(--light-bg-color);
-    border-bottom: 1px solid var(--dark-bg-color);
+    background-color: var( --color-blue-light);
+    border-bottom: 1px solid var(--color-dark-bg);
     text-shadow:1px 1px 2px black;
   }
   .section-title{
@@ -63,7 +63,7 @@ h1{ color: white;
 .content{
     padding: 10px;
     aspect-ratio: 3/4;
-    background-color: var(--light-bg-color);
+    background-color: var(--color-blue-light);
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     .header{
