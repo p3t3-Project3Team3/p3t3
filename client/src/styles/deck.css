@@ -1,3 +1,6 @@
+h1{ color: white;
+  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
+}
 .deckContainer{
   display: flex;
     padding-bottom: 100px;

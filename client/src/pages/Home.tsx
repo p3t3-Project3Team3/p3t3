@@ -170,7 +170,7 @@ const Home: React.FC = () => {
           </div>
           <div className="stat-item">
             <div className="stat-number">{profiles.length}</div>
-            <div className="stat-label">Active Users</div>
+            <div className="stat-label">Users</div>
           </div>
         </div>
       </div>

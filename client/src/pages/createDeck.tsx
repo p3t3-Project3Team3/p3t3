@@ -46,16 +46,16 @@ const CreateDeck = () => {
     try {
       await createDeckMutation({ variables });
     } catch (err) {
-      // Already handled in onError
+      
     }
   };
 
   return (
   
   <div className="create-deck-form">
+    <h1 className="create-deck-title">Create a New Deck</h1>
     <Container className="create-deck">
       <div className=" ui violet inverted raised segment">
-        <Header as="h1" textAlign="center">Create a New Deck</Header>
       
         <Form onSubmit={handleSubmit} loading={loading}>
           <Form.Field required>

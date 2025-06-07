@@ -1,3 +1,9 @@
+.create-deck-title{
+  font-size: 35px;
+  justify-self: center; 
+  color: white;
+  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
+}
 .ui.inverted.pink.segment {
   background-color: rgb(0, 0, 0) !important;
 }
