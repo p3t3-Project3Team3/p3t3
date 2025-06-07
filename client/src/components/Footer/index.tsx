@@ -21,7 +21,9 @@ const Footer = (): React.ReactElement => {
           <p><i className="facebook icon"></i></p>
           <p><i className="twitter icon"></i></p>
           <p><i className="linkedin icon"></i></p>
-          <p><i className="youtube icon"></i></p>
+          <p onClick={() => window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank')}>
+  <i className="youtube icon"></i>
+</p>
           
         </div>
         <h4 onClick={() => navigate('/')}>&copy; {new Date().getFullYear()} - StudyQuest</h4>
