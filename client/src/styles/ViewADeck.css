@@ -2,7 +2,7 @@
 .deck-title {
   font-family: 'Concert One', cursive;
   font-size: 3rem;
-  color: white;
+   color: white;
   text-shadow: var(--shadow-title);
 }
 
