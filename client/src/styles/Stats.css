@@ -34,13 +34,14 @@
 .stats-main-title {
   font-size: 2.25rem;
   font-weight: 700;
-  color: #111827;
+  color: white;
+  text-shadow: 0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
   margin-bottom: 0.5rem;
 }
 
 .stats-subtitle {
   font-size: 1.125rem;
-  color: #6b7280;
+  color: black;
 }
 
 /* ===== NAVIGATION TABS ===== */

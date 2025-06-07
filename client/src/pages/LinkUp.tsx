@@ -137,7 +137,19 @@ const LinkUp: React.FC = () => {
     };
   };
 
-  const handleMouseDown = (e: React.MouseEvent, elementId: string, elementType: 'term' | 'definition') => {
+  // Get coordinates from either mouse or touch event
+  const getEventCoordinates = (e: MouseEvent | TouchEvent) => {
+    if ('touches' in e) {
+      // Touch event
+      const touch = e.touches[0] || e.changedTouches[0];
+      return { clientX: touch.clientX, clientY: touch.clientY };
+    } else {
+      // Mouse event
+      return { clientX: e.clientX, clientY: e.clientY };
+    }
+  };
+
+  const handleStart = (e: React.MouseEvent | React.TouchEvent, elementId: string, elementType: 'term' | 'definition') => {
     e.preventDefault();
     
     // Start game on first interaction
@@ -161,13 +173,15 @@ const LinkUp: React.FC = () => {
     });
   };
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
+  const handleMove = useCallback((e: MouseEvent | TouchEvent) => {
     if (!drawingState.isDrawing || !containerRef.current) return;
 
+    e.preventDefault();
+    const coordinates = getEventCoordinates(e);
     const containerRect = containerRef.current.getBoundingClientRect();
     const currentPoint = {
-      x: e.clientX - containerRect.left,
-      y: e.clientY - containerRect.top
+      x: coordinates.clientX - containerRect.left,
+      y: coordinates.clientY - containerRect.top
     };
 
     setDrawingState(prev => ({
@@ -176,11 +190,15 @@ const LinkUp: React.FC = () => {
     }));
   }, [drawingState.isDrawing]);
 
-  const handleMouseUp = useCallback((e: MouseEvent) => {
+  const handleEnd = useCallback((e: MouseEvent | TouchEvent) => {
     if (!drawingState.isDrawing) return;
 
-    const target = e.target as HTMLElement;
-    const endElementId = target.id || target.closest('[id]')?.id;
+    e.preventDefault();
+    const coordinates = getEventCoordinates(e);
+    
+    // Find the element at the end position
+    const elementAtPoint = document.elementFromPoint(coordinates.clientX, coordinates.clientY);
+    const endElementId = elementAtPoint?.id || elementAtPoint?.closest('[id]')?.id;
     
     if (endElementId && drawingState.startElementId && endElementId !== drawingState.startElementId) {
       const endElementType = endElementId.startsWith('term-') ? 'term' : 'definition';
@@ -200,18 +218,28 @@ const LinkUp: React.FC = () => {
     });
   }, [drawingState]);
 
-  // Add event listeners
+  // Add event listeners for both mouse and touch
   useEffect(() => {
     if (drawingState.isDrawing) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      // Mouse events
+      document.addEventListener('mousemove', handleMove);
+      document.addEventListener('mouseup', handleEnd);
+      
+      // Touch events
+      document.addEventListener('touchmove', handleMove, { passive: false });
+      document.addEventListener('touchend', handleEnd, { passive: false });
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      // Mouse events
+      document.removeEventListener('mousemove', handleMove);
+      document.removeEventListener('mouseup', handleEnd);
+      
+      // Touch events
+      document.removeEventListener('touchmove', handleMove);
+      document.removeEventListener('touchend', handleEnd);
     };
-  }, [drawingState.isDrawing, handleMouseMove, handleMouseUp]);
+  }, [drawingState.isDrawing, handleMove, handleEnd]);
 
   const createConnection = (startId: string, endId: string, startType: 'term' | 'definition') => {
     // Remove any existing connections for these elements
@@ -353,6 +381,9 @@ const LinkUp: React.FC = () => {
         <p className="linkup-subtitle">
           Draw lines to connect terms with their correct definitions from: <strong>{deck.title}</strong>
         </p>
+        <p className="mobile-instructions">
+          On mobile: Touch and drag from a term to its matching definition
+        </p>
       </div>
 
       {/* Game Stats */}
@@ -413,6 +444,26 @@ const LinkUp: React.FC = () => {
         </div>
       )}
 
+      {/* Connection Status */}
+      {connections.length > 0 && (
+        <div className="connection-status">
+          <div className="status-header">
+            <span className="status-title">Connections Made:</span>
+            <span className="status-count">{connections.length} / {flashcards.length}</span>
+          </div>
+          <div className="status-indicators">
+            <div className="status-item">
+              <div className="status-dot correct"></div>
+              <span>Correct: {connections.filter(c => c.isCorrect).length}</span>
+            </div>
+            <div className="status-item">
+              <div className="status-dot incorrect"></div>
+              <span>Incorrect: {connections.filter(c => !c.isCorrect).length}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Game Area */}
       <div ref={containerRef} className="game-area">
         {/* SVG for drawing lines */}
@@ -427,31 +478,89 @@ const LinkUp: React.FC = () => {
             
             if (!startPoint || !endPoint) return null;
 
+            const color = getConnectionColor(connection);
+            const connectionNumber = index + 1;
+
             return (
-              <line
-                key={index}
-                x1={startPoint.x}
-                y1={startPoint.y}
-                x2={endPoint.x}
-                y2={endPoint.y}
-                stroke={getConnectionColor(connection)}
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
+              <g key={index}>
+                {/* Shadow/outline for better visibility */}
+                <line
+                  x1={startPoint.x}
+                  y1={startPoint.y}
+                  x2={endPoint.x}
+                  y2={endPoint.y}
+                  stroke="rgba(0,0,0,0.3)"
+                  strokeWidth="7"
+                  strokeLinecap="round"
+                />
+                {/* Main connection line */}
+                <line
+                  x1={startPoint.x}
+                  y1={startPoint.y}
+                  x2={endPoint.x}
+                  y2={endPoint.y}
+                  stroke={color}
+                  strokeWidth="5"
+                  strokeLinecap="round"
+                  className="connection-line"
+                />
+                {/* Connection number in the middle */}
+                <circle
+                  cx={(startPoint.x + endPoint.x) / 2}
+                  cy={(startPoint.y + endPoint.y) / 2}
+                  r="12"
+                  fill="white"
+                  stroke={color}
+                  strokeWidth="2"
+                />
+                <text
+                  x={(startPoint.x + endPoint.x) / 2}
+                  y={(startPoint.y + endPoint.y) / 2}
+                  textAnchor="middle"
+                  dominantBaseline="central"
+                  fontSize="12"
+                  fontWeight="bold"
+                  fill={color}
+                >
+                  {connectionNumber}
+                </text>
+              </g>
             );
           })}
 
           {/* Draw current line being drawn */}
           {drawingState.isDrawing && drawingState.startPoint && drawingState.currentPoint && (
-            <line
-              x1={drawingState.startPoint.x}
-              y1={drawingState.startPoint.y}
-              x2={drawingState.currentPoint.x}
-              y2={drawingState.currentPoint.y}
-              stroke="#6b7280"
-              strokeWidth="2"
-              strokeDasharray="5,5"
-            />
+            <g>
+              {/* Shadow for better visibility */}
+              <line
+                x1={drawingState.startPoint.x}
+                y1={drawingState.startPoint.y}
+                x2={drawingState.currentPoint.x}
+                y2={drawingState.currentPoint.y}
+                stroke="rgba(0,0,0,0.2)"
+                strokeWidth="6"
+                strokeDasharray="8,4"
+              />
+              {/* Main drawing line */}
+              <line
+                x1={drawingState.startPoint.x}
+                y1={drawingState.startPoint.y}
+                x2={drawingState.currentPoint.x}
+                y2={drawingState.currentPoint.y}
+                stroke="#3b82f6"
+                strokeWidth="4"
+                strokeDasharray="8,4"
+                className="drawing-line"
+              />
+              {/* Start point indicator */}
+              <circle
+                cx={drawingState.startPoint.x}
+                cy={drawingState.startPoint.y}
+                r="6"
+                fill="#3b82f6"
+                opacity="0.8"
+              />
+            </g>
           )}
         </svg>
 
@@ -475,7 +584,8 @@ const LinkUp: React.FC = () => {
                       'game-item-default'
                     }
                   `}
-                  onMouseDown={(e) => handleMouseDown(e, elementId, 'term')}
+                  onMouseDown={(e) => handleStart(e, elementId, 'term')}
+                  onTouchStart={(e) => handleStart(e, elementId, 'term')}
                 >
                   <div className="term-text">{card.term}</div>
                 </div>
@@ -501,7 +611,8 @@ const LinkUp: React.FC = () => {
                       'game-item-default'
                     }
                   `}
-                  onMouseDown={(e) => handleMouseDown(e, elementId, 'definition')}
+                  onMouseDown={(e) => handleStart(e, elementId, 'definition')}
+                  onTouchStart={(e) => handleStart(e, elementId, 'definition')}
                 >
                   <div className="definition-text">{card.definition}</div>
                 </div>
@@ -516,7 +627,10 @@ const LinkUp: React.FC = () => {
         <p className="instructions-text">
           Click and drag from a term to its matching definition to draw a connection line.
           <br />
-          Green lines indicate correct matches, red lines indicate incorrect matches.
+          <span className="instruction-highlight">Green lines with ✓ = correct matches</span> • 
+          <span className="instruction-highlight"> Red lines with ✗ = incorrect matches</span>
+          <br />
+          Connection numbers help you track which items are linked together.
         </p>
       </div>
     </div>

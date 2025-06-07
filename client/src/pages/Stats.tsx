@@ -600,7 +600,7 @@ const Stats: React.FC = () => {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="stats-nav-tabs">
+        <div className="stats-nav-tabs navbar-toggler colappsed">
           {[
             { key: 'overview', label: '🏠 Overview', color: 'blue' },
             { key: 'flashcards', label: '📚 Flashcards', color: 'green' },

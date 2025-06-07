@@ -593,9 +593,7 @@ html {
     font-size: 7px;
   }
   
-  .clues-panel {
-    max-height: 400px;
-  }
+ 
   
    .card-wrapper {
     width: 80vw;
@@ -712,10 +710,7 @@ html {
     left: 1px;
   }
   
-  .clues-panel {
-    max-height: 250px;
-    padding: var(--space-lg);
-  }
+  
   
   .clues-title {
     font-size: var(--font-size-base);
