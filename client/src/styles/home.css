@@ -140,7 +140,7 @@
     font-size: 20px;
   }
   
-  .homeFlashcard, .homeMatching, .homeCrossword{
+  .homeFlashcard, .homeMatching, .homeCrossword, .homeLinkUp {
     border: 2px solid black;
     border-radius: 15px;
     margin: 5px;
@@ -203,7 +203,7 @@
     }
     
     .game-card{
-      background-color: var(--color-dark-primar);
+      background-color: var(--color-dark-primary);
     }
     
     .game-card:hover {
@@ -224,7 +224,8 @@
         color: var(--color-dark-secondary);
       }
       
-      .homeFlashcard, .homeMatching, .homeCrossword{
+      .homeFlashcard, .homeMatching, .homeCrossword, .homeLinkUp{
+       
         border: 2px solid black;
         border-radius: 15px;
         margin: 5px;
@@ -253,7 +254,7 @@
     font-size: 16px;
   }
   
-  .homeFlashcard, .homeMatching, .homeCrossword, .decks {
+  .homeFlashcard, .homeMatching, .homeCrossword, .decks, .homeLinkUp {
     margin: 10px 0;
     padding: 15px;
   }
@@ -289,7 +290,7 @@
     gap: 1rem;
   }
   
-  .homeFlashcard, .homeMatching, .homeCrossword, .decks {
+  .homeFlashcard, .homeMatching, .homeCrossword, .decks, .homeLinkUp {
     flex: 1 1 300px;
     max-width: 400px;
   }

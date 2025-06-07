@@ -1,125 +1,115 @@
-.deck-select-modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(135deg, #6a11cb, #2575fc); /* purple to blue */
-  color: white;
+/* ===== GAME SELECTION PAGE ===== */
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
   padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  width: 90%;
-  max-width: 400px;
-  z-index: 1000;
-  text-align: center;
-  padding-bottom: 200px;
 }
-
-.deck-select-modal h1 {
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-}
-
-.deck-select-modal div {
-  background: rgba(255, 255, 255, 0.1);
-  margin: 0.5rem 0;
-  padding: 0.75rem;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.deck-select-modal div:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.deck-select-modal button {
-  margin-top: 1rem;
-  padding: 0.5rem 1.25rem;
-  border: none;
-  background: white;
-  color: #2575fc;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.deck-select-modal button:hover {
-  background: #e0e0e0;
-}
-.gamebutton{
-  color:var(--color-dark-primar);
-  box-shadow: 1px 1px 2px var(--color-dark-primar);
-}
-@media (max-width: 575px) {
-  .gameContainer, .deckContainer {
-    flex-direction: column;
-    padding: 0 10px;
-  }
-  
-  .gameContainer , .deckContainer h2 {
-    font-size: 24px;
-  }
-  
-  .gameContainer p, .deckContainer p {
-    font-size: 16px;
-  }
-  
-  .homeFlashcard, .homeMatching, .homeCrossword, .decks {
-    margin: 10px 0;
-    padding: 15px;
-  }
-  
-  .card-term {
-    font-size: 16px;
-  }
-}
-@media (min-width: 576px) and (max-width: 767px) {
-  .gameContainer, .deckContainer {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-  
-  .homeFlashcard, .homeMatching, .homeCrossword, .decks {
-    flex: 1 1 300px;
-    max-width: 400px;
-  }
-}
-
-
-/* GAME PAGE SELECT A GAME */
 
 .game-container h1 {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   text-align: center;
-  padding: 5px;
-  color: white;; 
-}
-
-.game-container button {
-  background-color: var(--color-secondary);
   color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-size: 3rem;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  box-shadow: 3 3 3 3px rgba(0, 0, 0, 0.2);
 }
 
 .gameoptions {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding-bottom: 100px;
-  
+  gap: 1.5rem;
+  padding-bottom: 6rem;
+  width: 100%;
+  max-width: 500px;
 }
 
+.gamebutton {
+  background-color: var(--color-secondary);
+  color: var(--color-dark-primary);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  min-height: 4rem;
+}
+
+.gamebutton:hover {
+  animation: pulse 0.5s infinite;
+  background-color: var(--color-accent, #eebb0278);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.touchable {
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== DECK SELECTION MODAL ===== */
+.deck-select-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  width: 90%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 1000;
+  text-align: center;
+}
+
+.deck-select-modal h1 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.deck-select-modal div {
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.75rem 0;
+  padding: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.deck-select-modal div:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.deck-select-modal button {
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background: white;
+  color: #2575fc;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.deck-select-modal button:hover {
+  background: #f0f0f0;
+  transform: translateY(-1px);
+}
+
+/* ===== ANIMATIONS ===== */
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -132,7 +122,86 @@
   }
 }
 
-.game-container button:hover {
-  animation: pulse 0.5s infinite;
-  background-color: #eebb0278;
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 575px) {
+  .game-container h1 {
+    font-size: 2rem;
+  }
+  
+  .gamebutton {
+    font-size: 1.25rem;
+    padding: 0.875rem 1.5rem;
+  }
+  
+  .gameoptions {
+    gap: 1rem;
+    padding-bottom: 4rem;
+  }
+  
+  .gameContainer, 
+  .deckContainer {
+    flex-direction: column;
+    padding: 0 1rem;
+  }
+  
+  .gameContainer h2, 
+  .deckContainer h2 {
+    font-size: 1.5rem;
+  }
+  
+  .gameContainer p, 
+  .deckContainer p {
+    font-size: 1rem;
+  }
+  
+  .homeFlashcard, 
+  .homeMatching, 
+  .homeCrossword, 
+  .decks, .homeLinkUp {
+    margin: 0.625rem 0;
+    padding: 0.875rem;
+  }
+  
+  .card-term {
+    font-size: 1rem;
+  }
+  
+  .deck-select-modal {
+    width: 95%;
+    padding: 1.5rem;
+  }
 }
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .gameContainer, 
+  .deckContainer {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .homeFlashcard, 
+  .homeMatching, 
+  .homeCrossword, 
+  .decks, .homeLinkUp {
+    flex: 1 1 300px;
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 768px) {
+  .gameoptions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 800px;
+  }
+  
+  .gamebutton {
+    margin: 1rem;
+    flex: 1 1 300px;
+    max-width: 350px;
+  }
+  
+}
+  

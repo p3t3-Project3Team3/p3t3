@@ -10,6 +10,7 @@ import 'semantic-ui-css/semantic.min.css';
 import '../styles/home.css';
 import SelectDeck from '../components/SelectDeck';  
 
+
 interface Profile {
   _id: string;
   username: string;
@@ -39,6 +40,7 @@ interface GameStats {
   availableDecks: Deck[];
   memoryGameDecks: Deck[];
   crosswordGameDecks: Deck[];
+  linkUpGameDecks: Deck[];
 }
 
 const Home: React.FC = () => {
@@ -60,12 +62,14 @@ const Home: React.FC = () => {
     const availableDecks = decks.filter(deck => deck.flashcards.length > 0);
     const memoryGameDecks = decks.filter(deck => deck.flashcards.length >= 2);
     const crosswordGameDecks = decks.filter(deck => deck.flashcards.length >= 6);
+    const linkUpGameDecks = decks.filter(deck => deck.flashcards.length >= 4);
     
     return {
       totalFlashcards,
       availableDecks,
       memoryGameDecks,
-      crosswordGameDecks
+      crosswordGameDecks,
+      linkUpGameDecks
     };
   }, [decks]);
 
@@ -146,7 +150,7 @@ const Home: React.FC = () => {
     navigate(path);
   };
 
-  const { totalFlashcards, availableDecks, memoryGameDecks, crosswordGameDecks } = gameStats;
+  const { totalFlashcards, availableDecks, memoryGameDecks, crosswordGameDecks, linkUpGameDecks } = gameStats;
 
   return (
     <main className="home-container">
@@ -175,18 +179,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="quick-actions">
-        <div className="action-buttons">
-          <button 
-            className="ui large violet button shadow touchable"
-            onClick={() => handleNavigation('/game/flashCards/Decks')} 
-          >
-            <i className="clone outline icon"></i>
-            View All Decks
-          </button>
-        </div>
-      </div>
+     
 
       {/* Games Section */}
       <div className="games-section">
@@ -250,6 +243,27 @@ const Home: React.FC = () => {
               aria-label={crosswordGameDecks.length === 0 ? 'Need at least 6 cards per deck for crossword puzzles' : 'Start crossword puzzle'}
             >
               {crosswordGameDecks.length === 0 ? 'Need 6+ Cards' : 'Play Crosswords'}
+            </button>
+
+          
+          </div>
+          {/* Link Up Game */}
+          <div className="game-card homeLinkUp">
+            <div className="game-icon" role="img" aria-label="Link">🔗</div>
+            <h3>Link Up Game</h3>
+            <p>Connect related terms and definitions in this engaging linking game!</p>
+            <div className="game-stats">
+              <span className="game-stat">
+                {linkUpGameDecks.length} link-up-ready deck{linkUpGameDecks.length !== 1 ? 's' : ''}
+              </span>
+            </div>
+            <button 
+              className="ui violet button touchable"
+              onClick={() => handleGameSelection('linkup')}
+              disabled={linkUpGameDecks.length === 0}
+              aria-label={linkUpGameDecks.length === 0 ? 'Need at least 4 cards per deck for link up game' : 'Start link up game'}
+            >
+              {linkUpGameDecks.length === 0 ? 'Need 4+ Cards' : 'Play Link Up'}
             </button>
           </div>
         </div>
