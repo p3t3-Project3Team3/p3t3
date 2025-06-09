@@ -20,7 +20,7 @@ if (!isAuthenticated) {
         {/* Collapsible Navbar */}
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="navbar-nav">
-            <Nav.Link as={NavLink} to="/Home" className="navbar-link touchable">
+            <Nav.Link as={NavLink} to="/home" className="navbar-link touchable">
               Home
             </Nav.Link>
             <Nav.Link as={NavLink} to="/decks/createNewDeck" className="navbar-link touchable">

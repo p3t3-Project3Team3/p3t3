@@ -33,7 +33,7 @@ const Login = () => {
 
     Auth.login(data.login.token); // Save token
     setIsSuccess(true); // only if login works
-    navigate("/Home"); 
+    navigate("/home"); 
   } catch (e) {
     console.error("Login failed:", e);
   }
