@@ -35,7 +35,7 @@ const Signup = () => {
       });
 
       Auth.login(data.addProfile.token);
-      navigate('/home');
+      navigate('/Home');
     } catch (e) {
       console.error(e);
     }
