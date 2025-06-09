@@ -1,0 +1,817 @@
+/* =============================================================================
+   GLOBAL DESIGN SYSTEM - Consolidated CSS Variables & Base Styles
+   ============================================================================= */
+
+/* CSS Custom Properties - Consolidated from all files */
+:root {
+  /* Core Brand Colors */
+  --color-primary: #2D7DD2;
+  --color-secondary: #611bd0;
+  --color-accent:  #faac25;
+  --color-accent-alt: #D4ADCF;
+  --color-warning: #EEB902;
+  
+  /* Extended Palette */
+  --color-blue-light: #A5D8FF;
+  --color-green-success: #16a34a;
+  --color-green-light: #84E296;
+  --color-red-error: #dc2626;
+  --color-red-warning: #b91c1c;
+  --color-purple-light: #8b5cf6;
+  --color-orange: #f59e0b;
+  --color-yellow: #eab308;
+  
+  /* Text Colors */
+  --color-text-primary: #CCDDE2;
+  --color-text-secondary: #6b7280;
+  --color-text-light: #9ca3af;
+  --color-text-medium: #4b5563;
+  --color-text-inverse: #ffffff;
+  
+  /* Background Colors */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-tertiary: #e5e7eb;
+  --color-bg-overlay: rgba(0, 0, 0, 0.5);
+  
+  /* Dark Theme Colors */
+  --color-dark-bg: #474647;
+  --color-dark-bg-secondary: #242527;
+  --color-dark-text: #A5CBC3;
+  --color-dark-accent: #F76F8E;
+  --color-dark-primary: #CEFF1A;
+  --color-dark-secondary: #003E38;
+  
+  /* Spacing Scale */
+  --space-xs: 0.25rem;    /* 4px */
+  --space-sm: 0.5rem;     /* 8px */
+  --space-md: 0.75rem;    /* 12px */
+  --space-lg: 1rem;       /* 16px */
+  --space-xl: 1.5rem;     /* 24px */
+  --space-2xl: 2rem;      /* 32px */
+  --space-3xl: 3rem;      /* 48px */
+  --space-4xl: 4rem;      /* 64px */
+  
+  /* Border Radius Scale */
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-title:0 0 5px #EEB902, 0 0 10px #EEB902, 0 0 20px #EEB902;
+  
+  /* Typography Scale */
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px *
+  --font-size-lg: 1.125rem;  /* 18px */
+  --font-size-xl: 1.25rem;   /* 20px */
+  --font-size-2xl: 1.5rem;   /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem;  /* 36px */
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+  
+  /* Z-Index Scale */
+  --z-dropdown: 1000;
+  --z-modal: 1100;
+  --z-popover: 1200;
+  --z-tooltip: 1300;
+}
+
+/* Dark Theme Variables */
+.dark {
+  --color-bg-primary: var(--color-dark-bg);
+  --color-bg-secondary: var(--color-dark-bg-secondary);
+  --color-text-primary: var(--color-dark-text);
+  --color-text-inverse: var(--color-dark-bg);
+  --color-primary: var(--color-dark-primary);
+  --color-secondary: var(--color-dark-secondary);
+  --color-accent: var(--color-dark-accent);
+}
+
+/* =============================================================================
+   SHARED LAYOUT COMPONENTS
+   ============================================================================= */
+
+/* Common Container Styles */
+.game-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  font-family: Arial, sans-serif;
+}
+
+.study-container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-xl);
+}
+
+.study-complete-container {
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  text-align: center;
+}
+
+.centered-container {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-2xl);
+}
+
+/* Common Header Styles */
+.game-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.study-header {
+  margin-bottom: var(--space-xl);
+}
+
+.game-title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+
+
+.game-subtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+}
+
+/* =============================================================================
+   SHARED COMPONENT STYLES
+   ============================================================================= */
+
+/* Buttons */
+.btn {
+  padding: var(--space-md) var(--space-xl);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  font-size: var(--font-size-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Button Variants */
+.btn-primary {
+  background-color: #3b82f6;
+  color: var(--color-text-inverse);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.btn-secondary {
+  background-color: var(--color-text-secondary);
+  color: var(--color-text-inverse);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-text-medium);
+}
+
+.btn-tertiary {
+  background-color: var(--color-bg-tertiary);
+  color: var(--color-text-medium);
+}
+
+.btn-tertiary:hover:not(:disabled) {
+  background-color: #d1d5db;
+}
+
+.btn-success {
+  background-color: var(--color-green-success);
+  color: var(--color-text-inverse);
+}
+
+.btn-success:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.btn-danger {
+  background-color: var(--color-red-error);
+  color: var(--color-text-inverse);
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #b91c1c;
+}
+
+.btn-warning {
+  background-color: var(--color-yellow);
+  color: var(--color-text-inverse);
+}
+
+.btn-warning:hover:not(:disabled) {
+  background-color: #ca8a04;
+}
+
+/* Button Groups */
+.button-group {
+  display: flex;
+  gap: var(--space-lg);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.button-group-vertical {
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Game Controls */
+.game-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+  flex-wrap: wrap;
+}
+
+/* Stats Display */
+.game-stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2xl);
+  margin-bottom: var(--space-2xl);
+  flex-wrap: wrap;
+}
+
+.stats-display {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  font-size: var(--font-size-sm);
+}
+
+.stat-item {
+  text-align: center;
+  padding: var(--space-lg);
+  border: 2px solid black;
+  border-radius: var(--radius-md);
+  min-width: 100px;
+  background: var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-value {
+  color: black;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: black;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Stat Color Variants */
+
+
+.stat-value-blue { color: #2563eb; }
+.stat-value-green { color: var(--color-green-success); }
+.stat-value-purple { color: #9333ea; }
+.stat-value-orange { color: #ea580c; }
+
+.stat-label-blue { color: #1d4ed8; }
+.stat-label-green { color: #15803d; }
+.stat-label-purple { color: #7c3aed; }
+.stat-label-orange { color: #c2410c; }
+
+/* Progress Components */
+.progress-container {
+  margin-bottom: var(--space-xl);
+}
+
+.progress-bar-container {
+  background-color: var(--color-bg-tertiary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  height: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6 0%, var(--color-green-success) 100%);
+  transition: width var(--transition-normal);
+  border-radius: var(--radius-full);
+}
+
+.progress-fill {
+  background-color: #9333ea;
+  height: var(--space-sm);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+.progress-text {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: black;
+}
+
+/* Modal Components */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--color-bg-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+}
+
+.modal {
+  background: var(--color-bg-primary);
+  padding: var(--space-2xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.modal-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-medium);
+  margin-bottom: var(--space-xl);
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--space-lg);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Cards */
+.card {
+  background-color: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-xl);
+}
+
+
+
+/* =============================================================================
+   BASE STYLES & RESETS
+   ============================================================================= */
+
+/* Modern CSS Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  line-height: var(--line-height-normal);
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+}
+
+/* =============================================================================
+   SHARED ANIMATIONS
+   ============================================================================= */
+
+/* Word/Match Complete Animation */
+@keyframes wordComplete {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes matchSuccess {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes connectionSuccess {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.word-completed,
+.game-item-correct {
+  animation: wordComplete 0.5s ease-in-out;
+}
+
+.memory-card.matched .card-inner {
+  animation: matchSuccess 0.5s ease-in-out;
+}
+
+.memory-card.matched .card-front {
+  background: linear-gradient(135deg, var(--color-green-success) 0%, #059669 100%);
+  border-color: var(--color-green-success);
+}
+
+/* Error/Incorrect Animations */
+@keyframes connectionError {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+@keyframes mismatchShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.game-item-incorrect {
+  animation: connectionError 0.3s ease-in-out;
+}
+
+.memory-card.mismatch .card-inner {
+  animation: mismatchShake 0.5s ease-in-out;
+}
+
+/* Pulse Animation for Hints */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.hint-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 12px;
+  height: 12px;
+  background: #fbbf24;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+/* =============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================= */
+
+/* Tablet Styles */
+@media (max-width: 768px) {
+  .game-container,
+  .crossword-container,
+  .linkup-container,
+  .memory-game-container {
+    padding: var(--space-lg);
+  }
+
+  .crossword-main {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .game-content {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .game-stats {
+    gap: var(--space-lg);
+  }
+
+  .stat-item {
+    padding: var(--space-md);
+    min-width: 80px;
+  }
+
+  .stat-value {
+    font-size: var(--font-size-xl);
+  }
+
+  .board-easy {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .board-medium {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .board-hard {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .memory-card {
+    min-height: 120px;
+  }
+  
+  .memory-card .card-text {
+    font-size: 0.8rem;
+  }
+
+  .results-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 575px) {
+  .game-container,
+  .study-container {
+    padding: var(--space-lg) var(--space-sm);
+  }
+
+  .crossword-container,
+  .linkup-container,
+  .memory-game-container {
+    padding: var(--space-md);
+  }
+  
+  .game-title,
+  .crossword-title,
+  .linkup-title,
+  .memory-game-title {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .crossword-cell {
+    width: 25px;
+    height: 25px;
+    font-size: 12px;
+  }
+  
+  .cell-number {
+    font-size: 7px;
+  }
+  
+ 
+  
+   .card-wrapper {
+    width: 80vw;
+    max-width: 320px;      
+    height: calc(80vw * 1.39); 
+    max-height: 445px;     
+  }
+  
+  .card-text {
+    font-size: 1.1rem;       
+  }
+  
+  .card-label {
+    font-size: 0.75rem;      
+  }
+  
+  .answer-buttons {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  
+  .answer-button {
+    padding: var(--space-lg);
+    justify-content: center;
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+  
+  .navigation {
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+  
+  
+  .mode-buttons {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  
+  .mode-button {
+    width: 100%;
+  }
+
+  .game-stats {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .stat-item {
+    width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .difficulty-selector {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .difficulty-button {
+    width: 100%;
+  }
+
+  .board-easy,
+  .board-medium,
+  .board-hard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    max-width: 100%;
+  }
+
+  .memory-card {
+    min-height: 80px;
+  }
+
+  .memory-card .card-text {
+    font-size: 0.7rem;
+  }
+
+  .memory-card .card-type {
+    font-size: 0.65rem;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .modal-button {
+    width: 100%;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 480px) {
+  .crossword-cell {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+  
+  .cell-number {
+    font-size: 6px;
+    top: 0px;
+    left: 1px;
+  }
+  
+  
+  
+  .clues-title {
+    font-size: var(--font-size-base);
+  }
+  
+  .clue-text {
+    font-size: 0.8rem;
+  }
+
+  .game-area {
+    padding: var(--space-lg);
+  }
+
+  .game-item {
+    padding: var(--space-sm);
+    
+  }
+
+  .memory-card {
+    min-height: 100px;
+  }
+
+  .memory-card .card-text {
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* =============================================================================
+   ACCESSIBILITY & HIGH CONTRAST
+   ============================================================================= */
+
+/* Focus Styles */
+.crossword-cell:focus-visible,
+.clue-item:focus-visible,
+.game-item:focus-visible,
+.memory-card:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .crossword-cell {
+    border: 1px solid #000;
+  }
+  
+  .crossword-cell.highlighted {
+    background-color: #ffff00;
+    color: #000;
+  }
+  
+  .crossword-cell.active {
+    background-color: #0000ff;
+    color: #ffffff;
+  }
+
+  .game-item {
+    border-width: 3px;
+  }
+  
+  .game-item-default:hover {
+    background-color: #dbeafe;
+    border-color: #2563eb;
+  }
+  
+  .game-item-correct {
+    background-color: #dcfce7;
+    border-color: var(--color-green-success);
+  }
+  
+  .game-item-incorrect {
+    background-color: #fee2e2;
+    border-color: var(--color-red-error);
+  }
+
+  .memory-card .card-front {
+    border-width: 3px;
+  }
+  
+  .memory-card.matched .card-front {
+    border-color: #000;
+  }
+  
+  .memory-card .card-back {
+    background: #000;
+    color: #fff;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .game-controls,
+  .button-group,
+  .modal-overlay {
+    display: none;
+  }
+  
+  .game-svg {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    
+  }
+}

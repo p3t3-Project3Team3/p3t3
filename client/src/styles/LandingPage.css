@@ -1,0 +1,242 @@
+/* Global Reset */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.concert-one-regular {
+  font-family: "Concert One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+section {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+/* Hero Section */
+
+.hero {
+  background-color: rgba(255, 255, 255, 0.37);
+  padding-bottom: 8px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: var(--color-secondary);
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+/* Features */
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.feature {
+  background-color: #d4adcfc4;
+  color: white;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 280px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.529);
+  background-color: #84e295a7;
+}
+
+.feature .icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.feature h2 {
+  color: var(--color-secondary);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Testimonials & Secure Sections */
+.testimonials h2,
+.secure h2 {
+  font-size: 1.8rem;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.testimonials p,
+.secure p {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+}
+
+.dark{
+
+  .concert-one-regular {
+    font-family: "Concert One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+    
+  section {
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+  
+  /* Hero Section */
+  .hero h1 {
+    font-size: 2.5rem;
+    color: var(--color-dark-primar);
+    margin-bottom: 1rem;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: white;
+  }
+  
+  /* Features */
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+  }
+  
+  .feature {
+    background-color: #f76f8f93;
+    border-radius: 16px;
+    color: white;
+    padding: 2rem;
+    width: 280px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .feature:hover {
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.242);
+    background-color: #cdff1a47;
+  }
+  
+  .feature .icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .feature h2 {
+    color: var(--color-dark-primar);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Testimonials & Secure Sections */
+  .testimonials h2,
+  .secure h2 {
+    font-size: 1.8rem;
+    color: var(--color-dark-primar);
+    margin-bottom: 1rem;
+  }
+  
+  .testimonials p,
+  .secure p {
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+  }
+
+
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-buttons button {
+    margin: 0.5rem 0;
+  }
+}
+
+@media (max-width: 575px) {
+  .LandingPage {
+    padding: 2rem 1rem;
+    margin: 1rem;
+  }
+  
+  .LandingPage h1 {
+    font-size: 2rem;
+  }
+  
+  .LandingPage p {
+    font-size: 1rem;
+  }
+  
+  .LandingPage button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    margin: 0.25rem;
+  }
+  
+  .LandingPage .Block {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .LandingPage .BlockContent {
+    max-width: 100%;
+    padding: 1rem;
+  }
+  
+  .LandingPage .BlockContent h2 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+  .LandingPage {
+    padding: 3rem 1.5rem;
+  }
+  
+  .LandingPage h1 {
+    font-size: 2.5rem;
+  }
+  
+  .LandingPage .Block {
+    flex-direction: column;
+    align-items: center;
+  }
+}

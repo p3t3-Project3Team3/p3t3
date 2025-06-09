@@ -1,0 +1,68 @@
+
+
+ *{
+  margin: auto;
+}
+
+body {
+  overflow: auto;
+  overflow-y: auto;
+  font-family: 'Poppins', sans-serif;
+  background-image: url('../assets/schoolBG.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  padding-bottom: 400px;
+  color: var( --color-text-primary);
+}
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+main{
+  margin-bottom: 400px;
+  padding: 0 10px;
+  
+}
+
+.dark{
+  background-image: url('https://images.pexels.com/photos/18541767/pexels-photo-18541767/free-photo-of-texture-school-chalk-chalkboard.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-blend-mode: overlay;
+  background-color: var(--color-dark-bg);
+  color: var(--color-dark-text);
+}
+
+/* Extra Small Devices (Portrait Phones) */
+@media (max-width: 575px) {
+  body {
+    font-size: 14px;
+    padding: 0 8px;
+  }
+  
+  h1 {
+    font-size: 1.5em;
+    margin: 0.5em 0;
+  }
+  
+  main {
+    margin-bottom: 20px;
+    padding: 0 5px;
+  }
+}
+
+/* Small Devices (Landscape Phones) */
+@media (min-width: 576px) and (max-width: 767px) {
+  body {
+    font-size: 15px;
+    padding: 0 10px;
+  }
+  
+  h1 {
+    font-size: 1.75em;
+  }
+}

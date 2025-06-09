@@ -1,0 +1,157 @@
+h1{ color: white;
+  text-shadow: var(--shadow-title);
+}
+.deckContainer{
+  display: flex;
+    padding-bottom: 100px;
+  justify-content: space-around;
+  h2{
+    color: black;
+    font-size: 35px;
+    text-align: center;
+  }
+  p{
+    color: black;
+    font-size: 20px;
+    text-align: center;
+  }
+}
+.decks{
+  border: 2px solid black;
+  border-radius: 15px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.decks-grid {
+  padding-bottom: 100px;
+}
+
+.card-term{
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  background-color: azure;
+    width: 100%;
+  }
+  .decks-header{
+    display: flex;
+    color:  black;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: var( --color-blue-light);
+    border-bottom: 1px solid var(--color-dark-bg);
+    text-shadow:1px 1px 2px black;
+  }
+  .section-title{
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow:1px 1px 2px black;
+    text-align: center;
+    color:  black;
+}
+.deck-card{
+  padding: 2px;
+}
+.created-by{
+    font-size: 15px;
+    font-weight: bold;
+   text-shadow:1px 1px 2px black;
+    text-align: center;
+}
+.content{
+    padding: 10px;
+    aspect-ratio: 3/4;
+    background-color: var(--color-blue-light);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    .header{
+      color: white
+    }
+    .description p{
+      color: white;
+    }
+}
+.card-count{
+    font-size: 15px;
+    font-weight: bold;
+    text-shadow:1px 1px 2px black;
+    text-align: center;
+}
+
+.deck-meta{
+  color: black;
+}
+.deck-description{
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+}
+
+.ui.cards>.card{
+  background-color: rgba(20, 200, 255, 0.747);
+  box-shadow: -5px 8px 8px rgb(0, 67, 87);
+}
+.ui.cards>.card:hover{
+  background-color: #601bd094;
+  box-shadow: -5px 8px 8px #1806366b;
+}
+
+@media (max-width: 575px) {
+  .deck-select-modal {
+    width: 95%;
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .deck-select-modal h1 {
+    font-size: 1.25rem;
+  }
+  
+  .deck-select-modal div {
+    padding: 1rem;
+    margin: 0.75rem 0;
+  }
+  
+  .deck-select-modal button {
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+  }
+  
+}
+
+.dark{
+  .decks-header{
+    color: white;
+  }
+   .section-title{
+    color: white;
+   }
+   .deck-meta{
+     color: white;
+   }
+   .deck-description{
+       color: white;
+   }
+   .ui.cards>.card{
+     background-color: #003E38;
+      box-shadow: -5px 8px 8px #005a516e;
+    }
+   .ui.cards>.card:hover{
+     background-color: #cdff1a8b;
+      box-shadow: -5px 8px 8px #cdff1a46;
+    }
+  .ui.inverted.grey.button{
+    background-color: rgba(206, 206, 206, 0.738);
+    color:black;
+  }
+  .content{
+    header{
+      color: white
+    }
+    .description p{
+      color: white;
+    }
+}
+}

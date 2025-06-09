@@ -1,0 +1,54 @@
+
+
+.grid{
+    padding: 5px;
+    h4{
+        font-size: 25px;
+        color:black;
+    }
+}
+
+.ui.inverted.violet.segment {
+    background-color: var(--color-accent) !important;
+}
+
+.ui.form .field>label{
+    font-size: 18px;
+}
+.ui.form .field .ui.input input{
+    font-size: 15px;
+}
+/* about page */
+.ui.violet.button:hover {
+    background-color: #611bd0;
+}
+.ui.form .field .ui.input input:focus {
+    background-color: #d4adcfc4;
+}
+
+.dark{
+
+    .grid{
+        h4{
+            color:white;
+        }
+    }
+    .ui.inverted.blue.segment{
+        background-color: rgb(72, 72, 71) !important;
+    }
+.ui.violet.button {
+   background-color: var(--color-dark-primar);
+   color:black;
+}
+.ui.inverted.violet.segment {
+    background-color: var( --color-dark-bg) !important;
+}
+
+
+.ui.form .field .ui.input input:focus {
+    background-color: var(--color-dark-accent);
+
+}
+}
+
+

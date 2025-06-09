@@ -1,0 +1,123 @@
+
+.navbar {
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+  margin: 0;
+  padding-left: 13px;
+  box-shadow: 1px 1px 2px var(--dark--bg-color, #0f172a);
+
+  a {
+    position: relative;
+    color: white;
+    transition: color 0.3s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0px; 
+      width: 0%;
+      height: 2px;
+      color: var(--color-accent);
+      background-color: var(--color-accent); 
+      transition: width 0.3s ease;
+    }
+
+      &:hover {
+        color: var(--color-accent);
+
+        &::after {
+          width: 100%;
+        }
+      }
+     &.active::after {
+        width: 100%;
+        color: var(--color-accent);
+      }
+    
+    }
+
+    
+
+    button.navbar-toggler {
+      color: var(--color-accent);
+    }
+
+  .navbar-nav .nav-link.active {
+    color: var(--color-accent);
+    
+  }
+
+.navbar-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  }
+  .navbar-toggler {
+    border: none;
+  }
+}
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 3%;
+  padding: 10px 10px;
+}
+
+ 
+
+
+
+.dark {
+  .navbar {
+    background-color: var(--color-dark-secondary);
+    a {
+      color: white;
+    };
+    a:hover {
+      background-color: none;
+    }
+  }
+
+  
+
+ .navbar-nav .nav-link.active {
+    color: var(--color-dark-primar);
+  }
+ 
+  
+
+  
+}
+
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  .navbar {
+    padding-left: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .navbar a {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  
+  .navbar button {
+    margin: 5px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}

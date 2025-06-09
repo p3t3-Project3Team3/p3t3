@@ -1,0 +1,229 @@
+
+.deck-title {
+  font-family: 'Concert One', cursive;
+  font-size: 3rem;
+   color: white;
+  text-shadow: var(--shadow-title);
+}
+
+.deck-description {
+  color: white;
+  font-size: 20px;
+  color: white;
+  text-shadow: 1px 1px 1px var(--color-secondary);
+}
+
+.view-a-deck {
+  padding: 20px;
+}
+
+p {
+  color: white;
+}
+
+/* =============================================================================
+   View A Deck- Carousel and Flip Card Styles
+   ============================================================================= */
+
+/* Carousel Container */
+.carousel-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Carousel Controls */
+.carousel-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.carousel-counter {
+  text-align: center;
+}
+
+.carousel-counter span {
+  font-size: 14px;
+  color: white;
+}
+
+/* Card Container */
+.card-container {
+  perspective: 1000px;
+  height: 400px;
+  margin-bottom: 20px;
+}
+
+/* Flip Card */
+.flip-card {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.3s;
+  position: relative;
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Card Faces */
+.card-face {
+  background: linear-gradient(145deg, rgb(250, 172, 37), #EEB902);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.card-face.back {
+  transform: rotateY(180deg);
+}
+
+/* Card Content */
+.card-term {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.card-definition {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.card-example {
+  font-size: 16px;
+  font-style: italic;
+}
+
+.card-creator {
+  font-size: 12px;
+  color: #666;
+  margin-top: 20px;
+}
+
+.card-flip-hint {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Card Actions */
+.card-actions {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Dot Indicators */
+.dots-container {
+  text-align: center;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dot.active {
+  background-color: #2185d0;
+}
+
+.dot.inactive {
+  background-color: #ccc;
+}
+
+/* Instructions */
+.carousel-instructions {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #666;
+}
+
+/* View Mode Toggle */
+.view-mode-toggle {
+  margin-bottom: 20px;
+}
+
+/* Action Buttons Container */
+.action-buttons-container {
+  margin-top: 30px;
+  padding-bottom: 100px;
+}
+
+.action-buttons-container .ui.button {
+  margin-right: 10px;
+}
+
+.action-buttons-container .ui.button:last-child {
+  margin-right: 0;
+}
+
+/* Error Message */
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .carousel-container {
+    max-width: 90%;
+    padding: 0 15px;
+  }
+  
+  .card-container {
+    height: 300px;
+  }
+  
+  .card-term {
+    font-size: 20px;
+  }
+  
+  .card-definition {
+    font-size: 16px;
+  }
+  
+  .card-example {
+    font-size: 14px;
+  }
+  
+  .carousel-controls {
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    height: 250px;
+  }
+  
+  .card-term {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .card-definition {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  
+  .card-example {
+    font-size: 12px;
+  }
+  
+  .card-face {
+    padding: 15px;
+  }
+}
